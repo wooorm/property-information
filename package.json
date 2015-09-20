@@ -38,7 +38,7 @@
   "scripts": {
     "test-api": "node test.js",
     "test-coverage": "istanbul cover test.js",
-    "test-travis": "npm run test-coveralls",
+    "test-travis": "npm run test-coverage",
     "test": "npm run test-api",
     "lint-api": "eslint .",
     "lint-style": "jscs --reporter inline .",
