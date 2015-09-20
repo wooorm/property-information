@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "lint",
+    "github",
+    "yaml-config",
+    "slug",
+    "validate-links"
+  ],
+  "settings": {
+    "bullet": "*"
+  }
+}

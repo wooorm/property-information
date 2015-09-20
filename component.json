@@ -1,0 +1,17 @@
+{
+  "name": "property-information",
+  "version": "0.0.0",
+  "description": "Information for HTML properties",
+  "license": "MIT",
+  "keywords": [
+    "html",
+    "property",
+    "attribute",
+    "information",
+    "info"
+  ],
+  "repository": "wooorm/property-information",
+  "scripts": [
+    "index.js"
+  ]
+}
