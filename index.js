@@ -21,6 +21,8 @@ var BOOLEAN_VALUE = 0x8;
 var NUMERIC_VALUE = 0x10;
 var POSITIVE_NUMERIC_VALUE = 0x20 | 0x10;
 var OVERLOADED_BOOLEAN_VALUE = 0x40;
+var SPACE_SEPARATED = 0x80;
+var COMMA_SEPARATED = 0x100;
 
 /**
  * Check a mask.
@@ -47,44 +49,49 @@ var propertyConfig = {
     /*
      * Standard Properties
      */
-    'accept': null,
-    'acceptCharset': null,
-    'accessKey': null,
+    'abbr': null,
+    'accept': COMMA_SEPARATED,
+    'acceptCharset': SPACE_SEPARATED,
+    'accessKey': SPACE_SEPARATED,
     'action': null,
     'allowFullScreen': USE_ATTRIBUTE | BOOLEAN_VALUE,
     'allowTransparency': USE_ATTRIBUTE,
     'alt': null,
     'async': BOOLEAN_VALUE,
-    'autoComplete': null,
+    'autoComplete': SPACE_SEPARATED,
     'autoFocus': BOOLEAN_VALUE,
     'autoPlay': BOOLEAN_VALUE,
     'capture': USE_ATTRIBUTE | BOOLEAN_VALUE,
     'cellPadding': null,
     'cellSpacing': null,
-    'charSet': USE_ATTRIBUTE,
     'challenge': USE_ATTRIBUTE,
+    'charSet': USE_ATTRIBUTE,
     'checked': USE_PROPERTY | BOOLEAN_VALUE,
-    'classID': USE_ATTRIBUTE,
+    'cite': null,
     /* To set className on SVG elements, it's necessary to
      * use .setAttribute; this works on HTML elements too
      * in all browsers except IE8. */
-    'className': USE_ATTRIBUTE,
+    'className': USE_ATTRIBUTE | SPACE_SEPARATED,
     'cols': USE_ATTRIBUTE | POSITIVE_NUMERIC_VALUE,
     'colSpan': null,
+    'command': null,
     'content': null,
     'contentEditable': null,
     'contextMenu': USE_ATTRIBUTE,
     'controls': USE_PROPERTY | BOOLEAN_VALUE,
-    'coords': null,
+    'coords': NUMERIC_VALUE | COMMA_SEPARATED,
     'crossOrigin': null,
     /* For `<object />` acts as `src`. */
     'data': null,
     'dateTime': USE_ATTRIBUTE,
+    'default': BOOLEAN_VALUE,
     'defer': BOOLEAN_VALUE,
     'dir': null,
+    'dirName': null,
     'disabled': USE_ATTRIBUTE | BOOLEAN_VALUE,
     'download': OVERLOADED_BOOLEAN_VALUE,
     'draggable': null,
+    'dropzone': SPACE_SEPARATED,
     'encType': null,
     'form': USE_ATTRIBUTE,
     'formAction': USE_ATTRIBUTE,
@@ -93,53 +100,59 @@ var propertyConfig = {
     'formNoValidate': BOOLEAN_VALUE,
     'formTarget': USE_ATTRIBUTE,
     'frameBorder': USE_ATTRIBUTE,
-    'headers': null,
-    'height': USE_ATTRIBUTE,
+    'headers': SPACE_SEPARATED,
+    'height': USE_ATTRIBUTE | POSITIVE_NUMERIC_VALUE,
     'hidden': USE_ATTRIBUTE | BOOLEAN_VALUE,
-    'high': null,
+    'high': NUMERIC_VALUE,
     'href': null,
     'hrefLang': null,
-    'htmlFor': null,
-    'httpEquiv': null,
+    'htmlFor': SPACE_SEPARATED,
+    'httpEquiv': SPACE_SEPARATED,
     'icon': null,
     'id': USE_PROPERTY,
     'inputMode': USE_ATTRIBUTE,
+    /* Web Components */
     'is': USE_ATTRIBUTE,
+    'isMap': BOOLEAN_VALUE,
     'keyParams': USE_ATTRIBUTE,
     'keyType': USE_ATTRIBUTE,
     'label': null,
     'lang': null,
     'list': USE_ATTRIBUTE,
     'loop': USE_PROPERTY | BOOLEAN_VALUE,
-    'low': null,
+    'low': NUMERIC_VALUE,
     'manifest': USE_ATTRIBUTE,
-    'marginHeight': null,
-    'marginWidth': null,
+    'marginHeight': NUMERIC_VALUE,
+    'marginWidth': NUMERIC_VALUE,
     'max': null,
-    'maxLength': USE_ATTRIBUTE,
+    'maxLength': USE_ATTRIBUTE | POSITIVE_NUMERIC_VALUE,
     'media': USE_ATTRIBUTE,
     'mediaGroup': null,
+    'menu': null,
     'method': null,
     'min': null,
-    'minLength': USE_ATTRIBUTE,
+    'minLength': USE_ATTRIBUTE | POSITIVE_NUMERIC_VALUE,
     'multiple': USE_PROPERTY | BOOLEAN_VALUE,
     'muted': USE_PROPERTY | BOOLEAN_VALUE,
     'name': null,
+    'nonce': null,
     'noValidate': BOOLEAN_VALUE,
     'open': BOOLEAN_VALUE,
-    'optimum': null,
+    'optimum': NUMERIC_VALUE,
     'pattern': null,
+    'ping': SPACE_SEPARATED,
     'placeholder': null,
     'poster': null,
     'preload': null,
     'radioGroup': null,
     'readOnly': USE_PROPERTY | BOOLEAN_VALUE,
-    'rel': null,
+    'rel': SPACE_SEPARATED,
     'required': BOOLEAN_VALUE,
+    'reversed': BOOLEAN_VALUE,
     'role': USE_ATTRIBUTE,
     'rows': USE_ATTRIBUTE | POSITIVE_NUMERIC_VALUE,
-    'rowSpan': null,
-    'sandbox': null,
+    'rowSpan': POSITIVE_NUMERIC_VALUE,
+    'sandbox': SPACE_SEPARATED,
     'scope': null,
     'scoped': BOOLEAN_VALUE,
     'scrolling': null,
@@ -147,23 +160,28 @@ var propertyConfig = {
     'selected': USE_PROPERTY | BOOLEAN_VALUE,
     'shape': null,
     'size': USE_ATTRIBUTE | POSITIVE_NUMERIC_VALUE,
-    'sizes': USE_ATTRIBUTE,
+    'sizes': USE_ATTRIBUTE | SPACE_SEPARATED,
+    'sortable': BOOLEAN_VALUE,
+    'sorted': SPACE_SEPARATED,
     'span': POSITIVE_NUMERIC_VALUE,
     'spellCheck': null,
     'src': null,
     'srcDoc': USE_PROPERTY,
-    'srcSet': USE_ATTRIBUTE,
+    'srcLang': null,
+    'srcSet': USE_ATTRIBUTE | COMMA_SEPARATED,
     'start': NUMERIC_VALUE,
     'step': null,
     'style': null,
     'summary': null,
-    'tabIndex': null,
+    'tabIndex': NUMERIC_VALUE,
     'target': null,
     'title': null,
+    'translate': null,
     'type': null,
+    'typeMustMatch': BOOLEAN_VALUE,
     'useMap': null,
     'value': USE_PROPERTY,
-    'width': USE_ATTRIBUTE,
+    'width': USE_ATTRIBUTE | NUMERIC_VALUE,
     'wmode': USE_ATTRIBUTE,
     'wrap': null,
 
@@ -172,7 +190,7 @@ var propertyConfig = {
      */
 
     /* autoCapitalize and autoCorrect are supported in
-     * Mobile Safari forkeyboard hints. */
+     * Mobile Safari for keyboard hints. */
     'autoCapitalize': null,
     'autoCorrect': null,
     /* autoSave allows WebKit/Blink to persist values of
@@ -180,16 +198,16 @@ var propertyConfig = {
     'autoSave': null,
     /* itemProp, itemScope, itemType are for Microdata
      * support. See http://schema.org/docs/gs.html */
-    'itemProp': USE_ATTRIBUTE,
-    'itemScope': USE_ATTRIBUTE | BOOLEAN_VALUE,
-    'itemType': USE_ATTRIBUTE,
+    'itemProp': USE_ATTRIBUTE | SPACE_SEPARATED,
+    'itemScope': USE_ATTRIBUTE | BOOLEAN_VALUE | SPACE_SEPARATED,
+    'itemType': USE_ATTRIBUTE | SPACE_SEPARATED,
     /* itemID and itemRef are for Microdata support as well
      * but only specified in the the WHATWG spec document.
      * See https://html.spec.whatwg.org/multipage/
      * microdata.html#microdata-dom-api
      */
     'itemID': USE_ATTRIBUTE,
-    'itemRef': USE_ATTRIBUTE,
+    'itemRef': USE_ATTRIBUTE | SPACE_SEPARATED,
     /* property is supported for OpenGraph in meta tags. */
     'property': null,
     /* results show looking glass icon and recent searches
@@ -236,7 +254,9 @@ for (property in propertyConfig) {
         'boolean': check(config, BOOLEAN_VALUE),
         'overloadedBoolean': check(config, OVERLOADED_BOOLEAN_VALUE),
         'numeric': check(config, NUMERIC_VALUE),
-        'positiveNumeric': check(config, POSITIVE_NUMERIC_VALUE)
+        'positiveNumeric': check(config, POSITIVE_NUMERIC_VALUE),
+        'commaSeparated': check(config, COMMA_SEPARATED),
+        'spaceSeparated': check(config, SPACE_SEPARATED)
     };
 }
 

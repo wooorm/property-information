@@ -18,7 +18,7 @@ and for AMD, CommonJS, and globals ([uncompressed](property-information.js) and
 ## Usage
 
 ```js
-console.log(propertyInformation('itemScope'));
+console.log(propertyInformation('class'));
 ```
 
 Yields:
@@ -32,7 +32,9 @@ Yields:
   "boolean": false,
   "overloadedBoolean": false,
   "numeric": false,
-  "positiveNumeric": false
+  "positiveNumeric": false,
+  "commaSeparated": false,
+  "spaceSeparated": true
 }
 ```
 
@@ -82,6 +84,35 @@ Properties:
 
 *   `positiveNumeric` (`boolean`)
     — Whether the value of the property is `number` and positive;
+
+*   `spaceSeparated` (`boolean`)
+    — Whether the value of the property is a
+    [space-separated](https://html.spec.whatwg.org/#space-separated-tokens)
+    list;
+
+*   `commaSeparated` (`boolean`)
+    — Whether the value of the property is a
+    [comma-separated](https://html.spec.whatwg.org/#comma-separated-tokens)
+    list;
+
+Note that some values can be both `*Separated` _and_ a primitive, in that case
+each of the tokens should be regarded as a primitive. For example, `itemScope`
+is both `spaceSeparated` and `boolean`:
+
+```json
+{
+  "name": "itemscope",
+  "propertyName": "itemScope",
+  "mustUseAttribute": true,
+  "mustUseProperty": false,
+  "boolean": true,
+  "overloadedBoolean": false,
+  "numeric": false,
+  "positiveNumeric": false,
+  "commaSeparated": false,
+  "spaceSeparated": true
+}
+```
 
 ## License
 

@@ -22,7 +22,7 @@ var propertyInformation = require('./');
  */
 
 test('propertyInformation(name)', function (t) {
-    t.plan(6);
+    t.plan(7);
 
     t.deepEqual(propertyInformation('foo'), undefined);
 
@@ -34,7 +34,22 @@ test('propertyInformation(name)', function (t) {
         'boolean': false,
         'overloadedBoolean': false,
         'numeric': false,
-        'positiveNumeric': false
+        'positiveNumeric': false,
+        'commaSeparated': false,
+        'spaceSeparated': true
+    });
+
+    t.deepEqual(propertyInformation('srcSet'), {
+        'name': 'srcset',
+        'propertyName': 'srcSet',
+        'mustUseAttribute': true,
+        'mustUseProperty': false,
+        'boolean': false,
+        'overloadedBoolean': false,
+        'numeric': false,
+        'positiveNumeric': false,
+        'commaSeparated': true,
+        'spaceSeparated': false
     });
 
     t.deepEqual(propertyInformation('download'), {
@@ -45,7 +60,9 @@ test('propertyInformation(name)', function (t) {
         'boolean': false,
         'overloadedBoolean': true,
         'numeric': false,
-        'positiveNumeric': false
+        'positiveNumeric': false,
+        'commaSeparated': false,
+        'spaceSeparated': false
     });
 
     t.deepEqual(propertyInformation('itemScope'), {
@@ -56,7 +73,9 @@ test('propertyInformation(name)', function (t) {
         'boolean': true,
         'overloadedBoolean': false,
         'numeric': false,
-        'positiveNumeric': false
+        'positiveNumeric': false,
+        'commaSeparated': false,
+        'spaceSeparated': true
     });
 
     t.deepEqual(propertyInformation('span'), {
@@ -67,7 +86,9 @@ test('propertyInformation(name)', function (t) {
         'boolean': false,
         'overloadedBoolean': false,
         'numeric': true,
-        'positiveNumeric': true
+        'positiveNumeric': true,
+        'commaSeparated': false,
+        'spaceSeparated': false
     });
 
     t.deepEqual(propertyInformation('value'), {
@@ -78,7 +99,9 @@ test('propertyInformation(name)', function (t) {
         'boolean': false,
         'overloadedBoolean': false,
         'numeric': false,
-        'positiveNumeric': false
+        'positiveNumeric': false,
+        'commaSeparated': false,
+        'spaceSeparated': false
     });
 });
 
