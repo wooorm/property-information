@@ -209,26 +209,27 @@ var propertyConfig = {
  */
 
 var propertyToAttributeMapping = {
-    'className': 'class',
-    'htmlFor': 'for',
-    'httpEquiv': 'http-equiv',
-    'acceptCharset': 'accept-charset'
+    'classname': 'class',
+    'htmlfor': 'for',
+    'httpequiv': 'http-equiv',
+    'acceptcharset': 'accept-charset'
 };
 
 /*
  * Expand config.
  */
 
-var propertyInformationByAttributeName = {};
+var information = {};
 var property;
 var name;
 var config;
 
 for (property in propertyConfig) {
-    name = propertyToAttributeMapping[property] || lower(property);
+    name = lower(property);
+    name = propertyToAttributeMapping[name] || name;
     config = propertyConfig[property];
 
-    propertyInformationByAttributeName[name] = {
+    information[name] = {
         'name': name,
         'propertyName': property,
         'mustUseAttribute': check(config, USE_ATTRIBUTE),
@@ -247,14 +248,16 @@ for (property in propertyConfig) {
  * @return {Object?} - Property config.
  */
 function getPropertyInformation(propertyName) {
-    return propertyInformationByAttributeName[lower(propertyName)];
+    var insensitive = lower(propertyName);
+
+    return information[propertyToAttributeMapping[insensitive] || insensitive];
 }
 
 /*
  * Expose raw access.
  */
 
-getPropertyInformation.all = propertyInformationByAttributeName;
+getPropertyInformation.all = information;
 
 /*
  * Expose.
