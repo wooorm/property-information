@@ -108,7 +108,13 @@ test('propertyInformation(name)', function (t) {
 test('Should accept attributes', function (t) {
     t.plan(2);
 
-    t.equal(propertyInformation('className'), propertyInformation('class'));
+    t.equal(
+        propertyInformation('className'),
+        propertyInformation('class')
+    );
 
-    t.equal(propertyInformation('httpEquiv'), propertyInformation('http-equiv'));
+    t.equal(
+        propertyInformation('httpEquiv'),
+        propertyInformation('http-equiv')
+    );
 });

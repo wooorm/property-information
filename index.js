@@ -32,7 +32,7 @@ var COMMA_SEPARATED = 0x100;
  * @return {boolean} - Whether `mask` matches `config`.
  */
 function check(value, bitmask) {
-  return (value & bitmask) === bitmask;
+    return (value & bitmask) === bitmask;
 }
 
 /**
@@ -42,7 +42,7 @@ function check(value, bitmask) {
  * @return {string} - Lower-cased `value`.
  */
 function lower(value) {
-  return value.toLowerCase();
+    return value.toLowerCase();
 }
 
 var propertyConfig = {
