@@ -1,4 +1,4 @@
-# property-information [![Build Status](https://img.shields.io/travis/wooorm/property-information.svg?style=flat)](https://travis-ci.org/wooorm/property-information) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/mdast.svg)](https://codecov.io/github/wooorm/mdast)
+# property-information [![Build Status](https://img.shields.io/travis/wooorm/property-information.svg?style=flat)](https://travis-ci.org/wooorm/property-information) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/property-information.svg)](https://codecov.io/github/wooorm/property-information)
 
 Information for HTML properties.
 
