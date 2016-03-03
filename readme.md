@@ -10,9 +10,8 @@ Information for HTML properties.
 npm install property-information
 ```
 
-**property-information** is also available for
-[bower](http://bower.io/#install-packages), [duo](http://duojs.org/#getting-started),
-and for AMD, CommonJS, and globals ([uncompressed](property-information.js) and
+**property-information** is also available for AMD, CommonJS, and
+globals ([uncompressed](property-information.js) and
 [compressed](property-information.min.js)).
 
 ## Usage
