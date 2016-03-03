@@ -116,6 +116,7 @@ var propertyConfig = {
     'isMap': BOOLEAN_VALUE,
     'keyParams': USE_ATTRIBUTE,
     'keyType': USE_ATTRIBUTE,
+    'kind': null,
     'label': null,
     'lang': null,
     'list': USE_ATTRIBUTE,
