@@ -1,18 +1,17 @@
-# property-information [![Build Status](https://img.shields.io/travis/wooorm/property-information.svg?style=flat)](https://travis-ci.org/wooorm/property-information) [![Coverage Status](https://img.shields.io/codecov/c/github/wooorm/property-information.svg)](https://codecov.io/github/wooorm/property-information)
+# property-information [![Build Status][build-badge]][build-status] [![Coverage Status][coverage-badge]][coverage-status]
 
 Information for HTML properties.
 
 ## Installation
 
-[npm](https://docs.npmjs.com/cli/install):
+[npm][]:
 
 ```bash
 npm install property-information
 ```
 
 **property-information** is also available for AMD, CommonJS, and
-globals ([uncompressed and
-compressed](https://github.com/wooorm/property-information/releases)).
+globals ([uncompressed and compressed][releases]).
 
 ## Usage
 
@@ -39,7 +38,7 @@ Yields:
 
 ## API
 
-### propertyInformation(name)
+### `propertyInformation(name)`
 
 Get information for a DOM property.
 
@@ -47,16 +46,16 @@ Parameters:
 
 *   `name` (`string`) — Case-insensitive name.
 
-Returns: [`Information?`](#information) — Information, when available.
+Returns: [`Information?`][information] — Information, when available.
 
-### propertyInformation.all
+### `propertyInformation.all`
 
-`Object` mapping case-insensitive names to [Information](#information)
+`Object` mapping case-insensitive names to [`Information`][information]
 objects. This gives raw access to the information returned by
-[`propertyInformation()`](#propertyinformationname): do not change the
+[`propertyInformation()`][property-information]: do not change the
 objects.
 
-### Information
+### `Information`
 
 Properties:
 
@@ -85,14 +84,10 @@ Properties:
     — Whether the value of the property is `number` and positive;
 
 *   `spaceSeparated` (`boolean`)
-    — Whether the value of the property is a
-    [space-separated](https://html.spec.whatwg.org/#space-separated-tokens)
-    list;
+    — Whether the value of the property is a [space-separated][] list;
 
 *   `commaSeparated` (`boolean`)
-    — Whether the value of the property is a
-    [comma-separated](https://html.spec.whatwg.org/#comma-separated-tokens)
-    list;
+    — Whether the value of the property is a [comma-separated][] list.
 
 Note that some values can be both `*Separated` _and_ a primitive, in that case
 each of the tokens should be regarded as a primitive. For example, `itemScope`
@@ -115,8 +110,35 @@ is both `spaceSeparated` and `boolean`:
 
 ## License
 
-[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
+[MIT][license] © [Titus Wormer][author]
 
-Derivative work based on [React](https://github.com/facebook/react/blob/f445dd9/src/renderers/dom/shared/HTMLDOMPropertyConfig.js)
-licensed under [BSD-3-Clause-Clear](https://github.com/facebook/react/blob/88cdc27/LICENSE),
-© 2013-2015, Facebook, Inc.
+Derivative work based on [React][source] licensed under
+[BSD-3-Clause-Clear][source-license], © 2013-2015, Facebook, Inc.
+
+[build-badge]: https://img.shields.io/travis/wooorm/property-information.svg?style=flat
+
+[build-status]: https://travis-ci.org/wooorm/property-information
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/property-information.svg
+
+[coverage-status]: https://codecov.io/github/wooorm/property-information
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[author]: http://wooorm.com
+
+[releases]: https://github.com/wooorm/property-information/releases
+
+[license]: LICENSE
+
+[source]: https://github.com/facebook/react/blob/f445dd9/src/renderers/dom/shared/HTMLDOMPropertyConfig.js
+
+[source-license]: https://github.com/facebook/react/blob/88cdc27/LICENSE
+
+[space-separated]: https://html.spec.whatwg.org/#space-separated-tokens
+
+[comma-separated]: https://html.spec.whatwg.org/#comma-separated-tokens
+
+[information]: #information
+
+[property-information]: #propertyinformationname
