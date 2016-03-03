@@ -39,7 +39,7 @@
     "tape": "^4.2.0"
   },
   "scripts": {
-    "build-md": "mdast . --quiet  --frail",
+    "build-md": "remark . --quiet  --frail",
     "build-bundle": "browserify index.js --bare -s propertyInformation > property-information.js",
     "build-mangle": "esmangle property-information.js > property-information.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
