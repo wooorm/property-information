@@ -11,8 +11,8 @@ npm install property-information
 ```
 
 **property-information** is also available for AMD, CommonJS, and
-globals ([uncompressed](property-information.js) and
-[compressed](property-information.min.js)).
+globals ([uncompressed and
+compressed](https://github.com/wooorm/property-information/releases)).
 
 ## Usage
 

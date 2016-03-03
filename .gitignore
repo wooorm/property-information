@@ -2,3 +2,5 @@
 *.log
 coverage/
 node_modules/
+property-information.js
+property-information.min.js
