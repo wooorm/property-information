@@ -182,6 +182,7 @@ var propertyConfig = {
     'typeMustMatch': BOOLEAN_VALUE,
     'useMap': null,
     'value': USE_PROPERTY,
+    'volume': POSITIVE_NUMERIC_VALUE,
     'width': USE_ATTRIBUTE | NUMERIC_VALUE,
     'wmode': USE_ATTRIBUTE,
     'wrap': null,
