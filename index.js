@@ -152,7 +152,8 @@ var propertyConfig = {
     'preload': null,
     'radioGroup': null,
     'readOnly': USE_PROPERTY | BOOLEAN_VALUE,
-    'rel': SPACE_SEPARATED,
+    /* property is `relList` in DOM */
+    'rel': SPACE_SEPARATED | USE_ATTRIBUTE,
     'required': BOOLEAN_VALUE,
     'reversed': BOOLEAN_VALUE,
     'role': USE_ATTRIBUTE,
