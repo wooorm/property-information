@@ -2,6 +2,13 @@
 
 <!--lint disable no-multiple-toplevel-headings -->
 
+3.1.0 / 2016-04-12
+==================
+
+*   Update `rel` info to prefer setting as attribute ([`c78e62e`](https://github.com/wooorm/property-information/commit/c78e62e))
+*   Add support for `xml:lang`, `xml:base` ([`d49f362`](https://github.com/wooorm/property-information/commit/d49f362))
+*   Fix `itemScope` incorrect classification as a list ([`f7695de`](https://github.com/wooorm/property-information/commit/f7695de))
+
 3.0.0 / 2016-03-03
 ==================
 
