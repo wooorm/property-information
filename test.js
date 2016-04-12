@@ -106,11 +106,16 @@ test('propertyInformation(name)', function (t) {
 });
 
 test('Should accept attributes', function (t) {
-    t.plan(2);
+    t.plan(3);
 
     t.equal(
         propertyInformation('className'),
         propertyInformation('class')
+    );
+
+    t.equal(
+        propertyInformation('xmlLang'),
+        propertyInformation('xml:lang')
     );
 
     t.equal(

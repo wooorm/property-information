@@ -45,6 +45,11 @@ function lower(value) {
     return value.toLowerCase();
 }
 
+/*
+ * Map of properties.
+ * Names are camel-cased properties.
+ */
+
 var propertyConfig = {
     /*
      * Standard Properties
@@ -220,14 +225,22 @@ var propertyConfig = {
      * sandbox attribute on IE < 10 */
     'security': USE_ATTRIBUTE,
     /* IE-only attribute that controls focus behavior */
-    'unselectable': USE_ATTRIBUTE
+    'unselectable': USE_ATTRIBUTE,
+
+    /* Ancient. */
+    'xmlLang': USE_ATTRIBUTE,
+    'xmlBase': USE_ATTRIBUTE
 };
 
 /*
  * Map of properties to attributes.
+ * Names are lower-case properties.
+ * Values are HTML attributes.
  */
 
 var propertyToAttributeMapping = {
+    'xmlbase': 'xml:base',
+    'xmllang': 'xml:lang',
     'classname': 'class',
     'htmlfor': 'for',
     'httpequiv': 'http-equiv',
