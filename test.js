@@ -75,7 +75,7 @@ test('propertyInformation(name)', function (t) {
         'numeric': false,
         'positiveNumeric': false,
         'commaSeparated': false,
-        'spaceSeparated': true
+        'spaceSeparated': false
     });
 
     t.deepEqual(propertyInformation('span'), {

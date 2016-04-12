@@ -201,7 +201,7 @@ var propertyConfig = {
     /* itemProp, itemScope, itemType are for Microdata
      * support. See http://schema.org/docs/gs.html */
     'itemProp': USE_ATTRIBUTE | SPACE_SEPARATED,
-    'itemScope': USE_ATTRIBUTE | BOOLEAN_VALUE | SPACE_SEPARATED,
+    'itemScope': USE_ATTRIBUTE | BOOLEAN_VALUE,
     'itemType': USE_ATTRIBUTE | SPACE_SEPARATED,
     /* itemID and itemRef are for Microdata support as well
      * but only specified in the the WHATWG spec document.
