@@ -10,18 +10,14 @@
     "information",
     "info"
   ],
-  "files": [
-    "index.js",
-    "LICENSE"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wooorm/property-information.git"
-  },
+  "repository": "https://github.com/wooorm/property-information",
   "bugs": "https://github.com/wooorm/property-information/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
   ],
   "devDependencies": {
     "browserify": "^13.0.0",
