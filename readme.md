@@ -51,7 +51,7 @@ Returns: [`Information?`][information] — Information, when available.
 ### `propertyInformation.all`
 
 `Object` mapping case-insensitive names to [`Information`][information]
-objects. This gives raw access to the information returned by
+objects.  This gives raw access to the information returned by
 [`propertyInformation()`][property-information]: do not change the
 objects.
 
@@ -90,7 +90,7 @@ Properties:
     — Whether the value of the property is a [comma-separated][] list.
 
 Note that some values can be both `*Separated` _and_ a primitive, in that case
-each of the tokens should be regarded as a primitive. For example, `itemScope`
+each of the tokens should be regarded as a primitive.  For example, `itemScope`
 is both `spaceSeparated` and `boolean`:
 
 ```json
