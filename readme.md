@@ -10,13 +10,12 @@ Information for HTML properties.
 npm install property-information
 ```
 
-**property-information** is also available for AMD, CommonJS, and
-globals ([uncompressed and compressed][releases]).
-
 ## Usage
 
 ```js
-console.log(propertyInformation('class'));
+var info = require('property-information');
+
+console.log(info('class'));
 ```
 
 Yields:
@@ -40,13 +39,9 @@ Yields:
 
 ### `propertyInformation(name)`
 
-Get information for a DOM property.
+Get information for a DOM property by (case-insensitive) name.
 
-Parameters:
-
-*   `name` (`string`) — Case-insensitive name.
-
-Returns: [`Information?`][information] — Information, when available.
+Returns an [`Information`][information] object, if available.
 
 ### `propertyInformation.all`
 
@@ -57,35 +52,27 @@ objects.
 
 ### `Information`
 
-Properties:
+`Object`:
 
-*   `name` (`string`) — Case-insensitive name;
-
+*   `name` (`string`)
+    — Case-insensitive name;
 *   `propertyName` (`string`)
     — Case-sensitive IDL attribute (e.g., a `class` attribute is added in HTML
     and a `className` is added in Web IDL);
-
 *   `mustUseAttribute` (`boolean`)
     — Whether `setAttribute` must be used when patching a DOM node;
-
 *   `mustUseProperty` (`boolean`)
     — Whether `node[propertyName]` must be used when patching a DOM node;
-
 *   `boolean` (`boolean`)
     — Whether the value of the property is `boolean`;
-
 *   `overloadedBoolean` (`boolean`)
     — Whether the value of the property can be `boolean`;
-
 *   `numeric` (`boolean`)
     — Whether the value of the property is `number`;
-
 *   `positiveNumeric` (`boolean`)
     — Whether the value of the property is `number` and positive;
-
 *   `spaceSeparated` (`boolean`)
     — Whether the value of the property is a [space-separated][] list;
-
 *   `commaSeparated` (`boolean`)
     — Whether the value of the property is a [comma-separated][] list.
 
@@ -126,8 +113,6 @@ Derivative work based on [React][source] licensed under
 [npm]: https://docs.npmjs.com/cli/install
 
 [author]: http://wooorm.com
-
-[releases]: https://github.com/wooorm/property-information/releases
 
 [license]: LICENSE
 
