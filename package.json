@@ -23,13 +23,13 @@
     "browserify": "^14.0.0",
     "esmangle": "^1.0.0",
     "nyc": "^10.0.0",
-    "remark-cli": "^2.1.0",
-    "remark-preset-wooorm": "^1.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-preset-wooorm": "^2.0.0",
     "tape": "^4.2.0",
     "xo": "^0.17.1"
   },
   "scripts": {
-    "build-md": "remark . --quiet  --frail --output",
+    "build-md": "remark . -qfo",
     "build-bundle": "browserify index.js --bare -s propertyInformation > property-information.js",
     "build-mangle": "esmangle property-information.js > property-information.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
@@ -54,6 +54,6 @@
     ]
   },
   "remarkConfig": {
-    "presets": "wooorm"
+    "plugins": ["preset-wooorm"]
   }
 }
