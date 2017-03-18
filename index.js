@@ -114,7 +114,7 @@ var propertyConfig = {
   preload: null,
   radioGroup: null,
   readOnly: USE_PROPERTY | BOOLEAN_VALUE,
-  /* property is `relList` in DOM */
+  /* `rel` is `relList` in DOM */
   rel: SPACE_SEPARATED | USE_ATTRIBUTE,
   required: BOOLEAN_VALUE,
   reversed: BOOLEAN_VALUE,
@@ -157,27 +157,27 @@ var propertyConfig = {
 
   /* Non-standard Properties. */
 
-  /* autoCapitalize and autoCorrect are supported in
+  /* `autoCapitalize` and `autoCorrect` are supported in
    * Mobile Safari for keyboard hints. */
   autoCapitalize: null,
   autoCorrect: null,
-  /* autoSave allows WebKit/Blink to persist values of
+  /* `autoSave` allows WebKit/Blink to persist values of
    * input fields on page reloads */
   autoSave: null,
-  /* itemProp, itemScope, itemType are for Microdata
+  /* `itemProp`, `itemScope`, `itemType` are for Microdata
    * support. See http://schema.org/docs/gs.html */
   itemProp: USE_ATTRIBUTE | SPACE_SEPARATED,
   itemScope: USE_ATTRIBUTE | BOOLEAN_VALUE,
   itemType: USE_ATTRIBUTE | SPACE_SEPARATED,
-  /* itemID and itemRef are for Microdata support as well
+  /* `itemID` and `itemRef` are for Microdata support as well
    * but only specified in the the WHATWG spec document.
    * See https://html.spec.whatwg.org/multipage/
    * microdata.html#microdata-dom-api */
   itemID: USE_ATTRIBUTE,
   itemRef: USE_ATTRIBUTE | SPACE_SEPARATED,
-  /* property is supported for OpenGraph in meta tags. */
+  /* `property` is supported for OpenGraph in meta tags. */
   property: null,
-  /* results show looking glass icon and recent searches
+  /* `results` show looking glass icon and recent searches
    * on input search fields in WebKit/Blink */
   results: null,
   /* IE-only attribute that specifies security
@@ -205,10 +205,12 @@ var propertyToAttributeMapping = {
 };
 
 /* Expand config. */
-var information = getPropertyInformation.all = {};
+var information = {};
 var property;
 var name;
 var config;
+
+getPropertyInformation.all = information;
 
 for (property in propertyConfig) {
   name = lower(property);
