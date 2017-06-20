@@ -55,26 +55,26 @@ objects.
 `Object`:
 
 *   `name` (`string`)
-    — Case-insensitive name;
+    — Case-insensitive name
 *   `propertyName` (`string`)
     — Case-sensitive IDL attribute (e.g., a `class` attribute is added in HTML
-    and a `className` is added in Web IDL);
+    and a `className` is added in Web IDL)
 *   `mustUseAttribute` (`boolean`)
-    — Whether `setAttribute` must be used when patching a DOM node;
+    — Whether `setAttribute` must be used when patching a DOM node
 *   `mustUseProperty` (`boolean`)
-    — Whether `node[propertyName]` must be used when patching a DOM node;
+    — Whether `node[propertyName]` must be used when patching a DOM node
 *   `boolean` (`boolean`)
-    — Whether the value of the property is `boolean`;
+    — Whether the value of the property is `boolean`
 *   `overloadedBoolean` (`boolean`)
-    — Whether the value of the property can be `boolean`;
+    — Whether the value of the property can be `boolean`
 *   `numeric` (`boolean`)
-    — Whether the value of the property is `number`;
+    — Whether the value of the property is `number`
 *   `positiveNumeric` (`boolean`)
-    — Whether the value of the property is `number` and positive;
+    — Whether the value of the property is `number` and positive
 *   `spaceSeparated` (`boolean`)
-    — Whether the value of the property is a [space-separated][] list;
+    — Whether the value of the property is a [space-separated][] list
 *   `commaSeparated` (`boolean`)
-    — Whether the value of the property is a [comma-separated][] list.
+    — Whether the value of the property is a [comma-separated][] list
 
 Note that some values can be both `*Separated` _and_ a primitive, in that case
 each of the tokens should be regarded as a primitive.  For example, `itemScope`
