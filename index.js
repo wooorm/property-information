@@ -24,6 +24,8 @@ var propertyConfig = {
   allowFullScreen: USE_ATTRIBUTE | BOOLEAN_VALUE,
   allowTransparency: USE_ATTRIBUTE,
   alt: null,
+  /* https://html.spec.whatwg.org/#attr-link-as */
+  as: null,
   async: BOOLEAN_VALUE,
   autoComplete: SPACE_SEPARATED,
   autoFocus: BOOLEAN_VALUE,
@@ -46,6 +48,8 @@ var propertyConfig = {
   contentEditable: null,
   contextMenu: USE_ATTRIBUTE,
   controls: USE_PROPERTY | BOOLEAN_VALUE,
+  /* https://github.com/WICG/controls-list/blob/gh-pages/explainer.md */
+  controlsList: SPACE_SEPARATED,
   coords: NUMERIC_VALUE | COMMA_SEPARATED,
   crossOrigin: null,
   /* For `<object />` acts as `src`. */
@@ -75,7 +79,6 @@ var propertyConfig = {
   hrefLang: null,
   htmlFor: SPACE_SEPARATED,
   httpEquiv: SPACE_SEPARATED,
-  icon: null,
   id: USE_PROPERTY,
   inputMode: USE_ATTRIBUTE,
   /* Web Components */
@@ -110,10 +113,16 @@ var propertyConfig = {
   pattern: null,
   ping: SPACE_SEPARATED,
   placeholder: null,
+  /* https://html.spec.whatwg.org/#attr-video-playsinline */
+  playsInline: BOOLEAN_VALUE,
   poster: null,
   preload: null,
+  /* https://html.spec.whatwg.org/#dom-head-profile */
+  profile: null,
   radioGroup: null,
   readOnly: USE_PROPERTY | BOOLEAN_VALUE,
+  /* https://html.spec.whatwg.org/#attr-link-referrerpolicy */
+  referrerPolicy: null,
   /* `rel` is `relList` in DOM */
   rel: SPACE_SEPARATED | USE_ATTRIBUTE,
   required: BOOLEAN_VALUE,
@@ -130,6 +139,8 @@ var propertyConfig = {
   shape: null,
   size: USE_ATTRIBUTE | POSITIVE_NUMERIC_VALUE,
   sizes: USE_ATTRIBUTE | SPACE_SEPARATED,
+  /* https://html.spec.whatwg.org/#attr-slot */
+  slot: null,
   sortable: BOOLEAN_VALUE,
   sorted: SPACE_SEPARATED,
   span: POSITIVE_NUMERIC_VALUE,
