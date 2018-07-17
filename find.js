@@ -1,61 +1,61 @@
-'use strict';
+'use strict'
 
-var normalize = require('./normalize');
-var Info = require('./lib/util/info');
+var normalize = require('./normalize')
+var Info = require('./lib/util/info')
 
-var data = 'data';
+var data = 'data'
 
-module.exports = find;
+module.exports = find
 
-var valid = /^data[-a-z0-9.:_]+$/i;
-var dash = /-[a-z]/g;
-var cap = /[A-Z]/g;
+var valid = /^data[-a-z0-9.:_]+$/i
+var dash = /-[a-z]/g
+var cap = /[A-Z]/g
 
 function find(schema, value) {
-  var normal = normalize(value);
-  var prop = value;
+  var normal = normalize(value)
+  var prop = value
 
   if (normal in schema.normal) {
-    return schema.property[schema.normal[normal]];
+    return schema.property[schema.normal[normal]]
   }
 
   if (normal.length > 4 && normal.slice(0, 4) === data && valid.test(value)) {
     // Attribute or property.
     if (value.charAt(4) === '-') {
-      prop = datasetToProperty(value);
+      prop = datasetToProperty(value)
     } else {
-      value = datasetToAttribute(value);
+      value = datasetToAttribute(value)
     }
   }
 
-  return new Info(prop, value);
+  return new Info(prop, value)
 }
 
 function datasetToProperty(attribute) {
-  var value = attribute.slice(5).replace(dash, camelcase);
-  return data + value.charAt(0).toUpperCase() + value.slice(1);
+  var value = attribute.slice(5).replace(dash, camelcase)
+  return data + value.charAt(0).toUpperCase() + value.slice(1)
 }
 
 function datasetToAttribute(property) {
-  var value = property.slice(4);
+  var value = property.slice(4)
 
   if (dash.test(value)) {
-    return property;
+    return property
   }
 
-  value = value.replace(cap, kebab);
+  value = value.replace(cap, kebab)
 
   if (value.charAt(0) !== '-') {
-    value = '-' + value;
+    value = '-' + value
   }
 
-  return data + value;
+  return data + value
 }
 
 function kebab($0) {
-  return '-' + $0.toLowerCase();
+  return '-' + $0.toLowerCase()
 }
 
 function camelcase($0) {
-  return $0.charAt(1).toUpperCase();
+  return $0.charAt(1).toUpperCase()
 }

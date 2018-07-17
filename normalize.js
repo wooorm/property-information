@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-module.exports = normalize;
+module.exports = normalize
 
-var re = /[^a-z0-9]/gi;
+var re = /[^a-z0-9]/gi
 
 function normalize(value) {
-  return value.replace(re, '').toLowerCase();
+  return value.replace(re, '').toLowerCase()
 }

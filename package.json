@@ -37,6 +37,7 @@
     "html-element-attributes": "^2.0.0",
     "mdast-util-to-string": "^1.0.4",
     "nyc": "^12.0.0",
+    "prettier": "^1.13.7",
     "remark-cli": "^5.0.0",
     "remark-frontmatter": "^1.2.0",
     "remark-parse": "^5.0.0",
@@ -48,15 +49,14 @@
     "xo": "^0.21.0"
   },
   "scripts": {
-    "generate-react": "node build/generate-react",
-    "build-md": "remark . -qfo",
+    "generate": "node build/generate-react",
+    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
     "build-bundle": "browserify index.js --bare -s propertyInformation > property-information.js",
     "build-mangle": "esmangle property-information.js > property-information.min.js",
-    "build": "npm run generate-react && npm run build-md && npm run build-bundle && npm run build-mangle",
-    "lint": "xo",
+    "build": "npm run build-bundle && npm run build-mangle",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test.js",
-    "test": "npm run build && npm run lint && npm run test-coverage"
+    "test": "npm run generate && npm run format && npm run build && npm run test-coverage"
   },
   "nyc": {
     "check-coverage": true,
@@ -64,8 +64,16 @@
     "functions": 100,
     "branches": 100
   },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "semi": false,
+    "trailingComma": "none"
+  },
   "xo": {
-    "space": true,
+    "prettier": true,
     "esnext": false,
     "rules": {
       "guard-for-in": "off"
