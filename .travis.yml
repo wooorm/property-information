@@ -4,19 +4,12 @@ node_js:
 - '8.0'
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
-  - provider: npm
-    email: tituswormer@gmail.com
-    api_key:
-      secure: SPA5OUZ7XB5PVpcivtJHTCMjyCnB3vEYI7sPXN51GXKbAyeEbI84Egr/B5Az5BjFlsC+550Z9oiAj7XerksKrCylj8cLz4ICohxvIPRNMmhihL8H68i24374NlskXlpslOsaaZjsaxsri6E/k8eKSIPTATrjZNOvaoZPYuOwUE5zBr+7ERDvDgWVgmx5R1qab68Kf04n9HSVuC08N02s5ikT8hUpqkkNNUgMX/fwfsmfT1cUq6DQf9Yd4M3K9N4AFesi5hq5gJ3I5E2KcYuC47o7dBQra9akyq7pLqE5MYm1ehgLKiOfhZqm2F6nNzP1crb80x89sjBt6824ho8F1SOPQQtqbztoENlDTYtPjei2niHpJ00Y3YPLUS0JUqSLeNlJU1qSe+HMjLzntKcrw9Co4QlMdqRbS+WBfQInjTISKcbe3vqy6K8zHmGoXLQSkKWF9vBiWqTLogZRL4Fe5ZmipXoury8yNEpBmxKK+ck1k2y1QYY79qwroEWu0ZolyeMV3j4NJJTFoBasF4H90B3DVbxav7G9gP568OBJO5/gx7dV/gw89f0w5TO16q29eSqIZlmP+vKzPiKrY9v1lJSU2uVk6DSVlhuj6yUfwFO0TrUuRpDakoUMj152Ur/bcmCV6QFlG87NOdgiGIYqzpvIzzeXVJ+SozYjWFJ2nvI=
-    on:
-      tags: true
-      node: '4.0'
-  - provider: releases
-    api_key:
-      secure: CZurkmOCwH1Dy95/t9oJCGWsTbGBR+4eubuJ06jpeKMZsdTFrEYfDd3xJKQvjJiguIsbf3qyc9O5734oMvt8rqgEOfaxPBrFL/FDbNgrKB+tZUQAdKevgYf7bp239tSdJweveBMx7brvTH4+Uf8lNXQwJFWyH1J5eGCwHlmnW8ncvcy40MRjX0lJGNRIB2rT5+ELhvcUADLAsQBg90rFq9aDbcFPhOcFAjTIx+jQoCOkftjxwp9dYzqsIjmv1iYQ6NQo3E9c2MoBBU0A0F6pGcUHUhmH7e2Hf6IvpUvnEBVmwYwk2hKkUtA90qb8VmN4BpkjoMLvyvFdzOKw0NGaJGB2e4kua3vbCQeSDhdPY09xtGrnWarXWBBZ3dRCgGP2NEq8PKBlsrYdS+tMb8o6oDamYF7IRy3Xi82D/K/lljvTOnCoTn2jekvem5J01GDCuO3A1HgW34WEzZEn4O7defQMx87toJ72KGgphGxIm3m8tLnF3axCri71jJwe2isYV1Nl2705b14Cd0ZHQdqeHRT1sa8ctsPGq0z1CRiv78Ibh3C33lbQDfYUEckDhQrTTI5ngTQljlmn33oXNoCZpUOGCbp1bsfDMwc5wS3AYCJnorF0xr9Vu7VEtn+QoTSwyAAMzX3O1t1Oy5kuU7eZZJONS5zrhEaU3N7mpm1EYxo=
-    file:
-      - "property-information.js"
-      - "property-information.min.js"
-    on:
-      tags: true
-      node: '8.0'
+  provider: releases
+  api_key:
+    secure: CZurkmOCwH1Dy95/t9oJCGWsTbGBR+4eubuJ06jpeKMZsdTFrEYfDd3xJKQvjJiguIsbf3qyc9O5734oMvt8rqgEOfaxPBrFL/FDbNgrKB+tZUQAdKevgYf7bp239tSdJweveBMx7brvTH4+Uf8lNXQwJFWyH1J5eGCwHlmnW8ncvcy40MRjX0lJGNRIB2rT5+ELhvcUADLAsQBg90rFq9aDbcFPhOcFAjTIx+jQoCOkftjxwp9dYzqsIjmv1iYQ6NQo3E9c2MoBBU0A0F6pGcUHUhmH7e2Hf6IvpUvnEBVmwYwk2hKkUtA90qb8VmN4BpkjoMLvyvFdzOKw0NGaJGB2e4kua3vbCQeSDhdPY09xtGrnWarXWBBZ3dRCgGP2NEq8PKBlsrYdS+tMb8o6oDamYF7IRy3Xi82D/K/lljvTOnCoTn2jekvem5J01GDCuO3A1HgW34WEzZEn4O7defQMx87toJ72KGgphGxIm3m8tLnF3axCri71jJwe2isYV1Nl2705b14Cd0ZHQdqeHRT1sa8ctsPGq0z1CRiv78Ibh3C33lbQDfYUEckDhQrTTI5ngTQljlmn33oXNoCZpUOGCbp1bsfDMwc5wS3AYCJnorF0xr9Vu7VEtn+QoTSwyAAMzX3O1t1Oy5kuU7eZZJONS5zrhEaU3N7mpm1EYxo=
+  file:
+    - "property-information.js"
+    - "property-information.min.js"
+  on:
+    tags: true
+    node: '8.0'
