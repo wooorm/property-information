@@ -36,6 +36,7 @@
     "esmangle": "^1.0.0",
     "html-element-attributes": "^2.0.0",
     "mdast-util-to-string": "^1.0.4",
+    "mdast-zone": "^3.0.1",
     "nyc": "^12.0.0",
     "object.values": "^1.0.4",
     "prettier": "^1.13.7",
@@ -46,11 +47,12 @@
     "svg-element-attributes": "^1.2.1",
     "tape": "^4.2.0",
     "unified": "^7.0.0",
+    "unist-builder": "^1.0.2",
     "unist-util-visit": "^1.3.1",
     "xo": "^0.21.0"
   },
   "scripts": {
-    "generate": "node build/generate-react",
+    "generate": "node script/generate-react",
     "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
     "build-bundle": "browserify index.js --bare -s propertyInformation > property-information.js",
     "build-mangle": "esmangle property-information.js > property-information.min.js",
@@ -85,6 +87,7 @@
   },
   "remarkConfig": {
     "plugins": [
+      "./script/list",
       "preset-wooorm"
     ]
   }

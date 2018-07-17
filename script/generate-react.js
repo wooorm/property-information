@@ -49,7 +49,7 @@ function onreact(res) {
         .filter(filter)
 
       fs.writeFile(
-        path.join('build', 'react-' + type + '.json'),
+        path.join('script', 'react-' + type + '.json'),
         JSON.stringify(value, null, 2) + '\n',
         bail
       )

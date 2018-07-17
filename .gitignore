@@ -6,5 +6,5 @@ node_modules/
 property-information.js
 property-information.min.js
 yarn.lock
-build/react-html.json
-build/react-svg.json
+script/react-html.json
+script/react-svg.json
