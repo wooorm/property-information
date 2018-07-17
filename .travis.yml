@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- '4.0'
-- '8.0'
+- lts/boron
+- node
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
@@ -12,4 +12,3 @@ deploy:
     - "property-information.min.js"
   on:
     tags: true
-    node: '8.0'
