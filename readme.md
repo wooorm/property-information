@@ -748,7 +748,7 @@ Info on a property.
 | `ariaValueMin`               | `aria-valuemin`                |         |
 | `ariaValueNow`               | `aria-valuenow`                |         |
 | `ariaValueText`              | `aria-valuetext`               |         |
-| `role`                       | `aria-`                        |         |
+| `role`                       | `role`                         |         |
 
 <!--list end-->
 
