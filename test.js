@@ -3,6 +3,7 @@
 var assert = require('assert')
 var test = require('tape')
 var union = require('arr-union')
+var values = require('object.values')
 var htmlAttributes = require('html-element-attributes')
 var svgAttributes = require('svg-element-attributes')
 var reactHtmlProperties = require('./build/react-html')
@@ -11,8 +12,8 @@ var normalize = require('./normalize')
 var find = require('./find')
 var information = require('.')
 
-htmlAttributes = union.apply(null, Object.values(htmlAttributes)).sort()
-svgAttributes = union.apply(null, Object.values(svgAttributes)).sort()
+htmlAttributes = union.apply(null, values(htmlAttributes)).sort()
+svgAttributes = union.apply(null, values(svgAttributes)).sort()
 
 var htmlReactIgnore = [
   // Existed on the deprecated `<keygen>`.

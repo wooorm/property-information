@@ -37,6 +37,7 @@
     "html-element-attributes": "^2.0.0",
     "mdast-util-to-string": "^1.0.4",
     "nyc": "^12.0.0",
+    "object.values": "^1.0.4",
     "prettier": "^1.13.7",
     "remark-cli": "^5.0.0",
     "remark-frontmatter": "^1.2.0",
