@@ -9,7 +9,7 @@ var reactHtmlProperties = require('./build/react-html');
 var reactSvgProperties = require('./build/react-svg');
 var normalize = require('./normalize');
 var find = require('./find');
-var information = require('./');
+var information = require('.');
 
 htmlAttributes = union.apply(null, Object.values(htmlAttributes)).sort();
 svgAttributes = union.apply(null, Object.values(svgAttributes)).sort();
