@@ -3,6 +3,8 @@
 Information for properties and attributes on the web-platform (HTML, SVG, ARIA,
 XML, XMLNS, XLink).
 
+This package follows a sensible naming scheme as defined by [HAST][]
+
 ## Installation
 
 [npm][]:
@@ -809,3 +811,5 @@ Derivative work based on [React][source] licensed under
 [schema]: #schema
 
 [normalize]: #propertyinformationnormalizename
+
+[hast]: https://github.com/syntax-tree/hast#property-names
