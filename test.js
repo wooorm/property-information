@@ -16,6 +16,8 @@ htmlAttributes = union.apply(null, values(htmlAttributes)).sort()
 svgAttributes = union.apply(null, values(svgAttributes)).sort()
 
 var htmlReactIgnore = [
+  // Spelled `classId` here, in alignment with `itemId`.
+  'classID',
   // Existed on the deprecated `<keygen>`.
   'challenge',
   'keyParams',

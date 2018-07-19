@@ -338,7 +338,7 @@ Info on a property.
 | `charSet`                    | `charset`                      | `html`        |
 | `checked`                    | `checked`                      | `html`        |
 | `cite`                       | `cite`                         | `html`        |
-| `classID`                    | `classid`                      | `html`        |
+| `classId`                    | `classid`                      | `html`        |
 | `className`                  | `class`                        | `svg`, `html` |
 | `clear`                      | `clear`                        | `html`        |
 | `clip`                       | `clip`                         | `svg`         |
