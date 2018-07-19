@@ -333,8 +333,8 @@ Info on a property.
 | `capture`                    | `capture`                      | `html`        |
 | `cellPadding`                | `cellpadding`                  | `html`        |
 | `cellSpacing`                | `cellspacing`                  | `html`        |
-| `ch`                         | `char`                         | `html`        |
-| `chOff`                      | `charoff`                      | `html`        |
+| `char`                       | `char`                         | `html`        |
+| `charOff`                    | `charoff`                      | `html`        |
 | `charSet`                    | `charset`                      | `html`        |
 | `checked`                    | `checked`                      | `html`        |
 | `cite`                       | `cite`                         | `html`        |
