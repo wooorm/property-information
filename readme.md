@@ -286,7 +286,7 @@ Info on a property.
 | `ariaOrientation`            | `aria-orientation`             |               |
 | `ariaOwns`                   | `aria-owns`                    |               |
 | `ariaPlaceholder`            | `aria-placeholder`             |               |
-| `ariaPosInset`               | `aria-posinset`                |               |
+| `ariaPosInSet`               | `aria-posinset`                |               |
 | `ariaPressed`                | `aria-pressed`                 |               |
 | `ariaReadOnly`               | `aria-readonly`                |               |
 | `ariaRelevant`               | `aria-relevant`                |               |
