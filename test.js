@@ -184,6 +184,36 @@ test('normalize', function(t) {
     'properties should match attributes (#5)'
   )
 
+  t.equal(
+    information.svg.normal[normalize('glyphOrientationVertical')],
+    information.svg.normal[normalize('glyph-orientation-vertical')],
+    'properties should match attributes (#6)'
+  )
+
+  t.equal(
+    information.svg.normal[normalize('panose1')],
+    information.svg.normal[normalize('panose-1')],
+    'properties should match attributes (#7)'
+  )
+
+  t.equal(
+    normalize(':class'),
+    ':class',
+    'attribute delimiters should remain if not following a word boundary (GH-7)'
+  )
+
+  t.equal(
+    normalize('class-'),
+    'class-',
+    'attribute delimiters should remain if not preceding a word boundary (GH-7)'
+  )
+
+  t.equal(
+    normalize('[cl]a[ss]'),
+    '[cl]a[ss]',
+    'non-attribute characters should not be removed (GH-7)'
+  )
+
   t.end()
 })
 
