@@ -53,7 +53,7 @@
   },
   "scripts": {
     "generate": "node script/generate-react",
-    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
     "build-bundle": "browserify index.js -s propertyInformation > property-information.js",
     "build-mangle": "browserify index.js -s propertyInformation -p tinyify > property-information.min.js",
     "build": "npm run build-bundle && npm run build-mangle",

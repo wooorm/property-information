@@ -184,6 +184,24 @@ test('normalize', function(t) {
     'properties should match attributes (#5)'
   )
 
+  t.equal(
+    normalize(':class'),
+    ':class',
+    'special characters should not be removed (#7)'
+  )
+
+  t.equal(
+    normalize('[class]'),
+    '[class]',
+    'special characters should not be removed (#7) / 2'
+  )
+
+  t.equal(
+    normalize('class-'),
+    'class-',
+    'special characters should not be removed (#7) / 3'
+  )
+
   t.end()
 })
 
