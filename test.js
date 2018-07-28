@@ -187,19 +187,22 @@ test('normalize', function(t) {
   t.equal(
     normalize(':class'),
     ':class',
-    'special characters should not be removed (#7)'
+    `non-word characters should not be removed
+    when they did not serve as a delimiter (#7)`
   )
 
   t.equal(
     normalize('[class]'),
     '[class]',
-    'special characters should not be removed (#7) / 2'
+    `non-word characters should not be removed
+    when they did not serve as a delimiter (#7) / 2`
   )
 
   t.equal(
     normalize('class-'),
     'class-',
-    'special characters should not be removed (#7) / 3'
+    `non-word characters should not be removed
+    when they did not serve as a delimiter (#7) / 3`
   )
 
   t.end()
