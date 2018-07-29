@@ -184,6 +184,27 @@ test('normalize', function(t) {
     'properties should match attributes (#5)'
   )
 
+  t.equal(
+    normalize(':class'),
+    ':class',
+    `non-word characters should not be removed
+    when they did not serve as a delimiter GH-7, (#1)`
+  )
+
+  t.equal(
+    normalize('[class]'),
+    '[class]',
+    `non-word characters should not be removed
+    when they did not serve as a delimiter GH-7, (#2)`
+  )
+
+  t.equal(
+    normalize('class-'),
+    'class-',
+    `non-word characters should not be removed
+    when they did not serve as a delimiter GH-7, (#3)`
+  )
+
   t.end()
 })
 
