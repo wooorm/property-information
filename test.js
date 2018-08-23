@@ -310,6 +310,16 @@ test('find', function(t) {
     'should find aria properties'
   )
 
+  t.deepEqual(
+    find(information.html, 'bar'),
+    {
+      custom: true,
+      attribute: 'bar',
+      property: 'bar'
+    },
+    'should mark properties which are not part of the spec'
+  )
+
   t.test('data', function(st) {
     var mapping = {
       'data-alpha': 'dataAlpha',
@@ -346,13 +356,13 @@ test('find', function(t) {
 
     st.deepEqual(
       find(information.html, 'dataFoo-bar'),
-      {attribute: 'dataFoo-bar', property: 'dataFoo-bar'},
+      {attribute: 'dataFoo-bar', property: 'dataFoo-bar', custom: true},
       'should ignore invalid properties'
     )
 
     st.deepEqual(
       find(information.html, 'data!Foo-bar'),
-      {attribute: 'data!Foo-bar', property: 'data!Foo-bar'},
+      {attribute: 'data!Foo-bar', property: 'data!Foo-bar', custom: true},
       'should ignore invalid attributes'
     )
 
@@ -361,25 +371,25 @@ test('find', function(t) {
 
   t.deepEqual(
     find(information.html, 'foo'),
-    {attribute: 'foo', property: 'foo'},
+    {attribute: 'foo', property: 'foo', custom: true},
     'should find unknown values (#1)'
   )
 
   t.deepEqual(
     find(information.html, 'Bar'),
-    {attribute: 'Bar', property: 'Bar'},
+    {attribute: 'Bar', property: 'Bar', custom: true},
     'should find unknown values (#2)'
   )
 
   t.deepEqual(
     find(information.html, 'BAZ'),
-    {attribute: 'BAZ', property: 'BAZ'},
+    {attribute: 'BAZ', property: 'BAZ', custom: true},
     'should find unknown values (#3)'
   )
 
   t.deepEqual(
     find(information.html, 'QuX'),
-    {attribute: 'QuX', property: 'QuX'},
+    {attribute: 'QuX', property: 'QuX', custom: true},
     'should find unknown values (#4)'
   )
 
