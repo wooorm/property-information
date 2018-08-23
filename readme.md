@@ -228,6 +228,10 @@ Info on a property.
 *   `mustUseProperty` (`boolean`) — If a DOM is used, setting the property
     should be used for the change to take effect (this is true only for
     `'checked'`, `'multiple'`, `'muted'`, and `'selected'`)
+*   `defined` (`boolean`) — The property is [defined by a space](#support).
+    This is true for values in HTML (including data and ARIA), SVG, XML,
+    XMLNS, and XLink.
+    These values can only be accessed through `find`.
 
 ## Support
 

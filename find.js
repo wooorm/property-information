@@ -1,6 +1,7 @@
 'use strict'
 
 var normalize = require('./normalize')
+var DefinedInfo = require('./lib/util/defined-info')
 var Info = require('./lib/util/info')
 
 var data = 'data'
@@ -14,6 +15,7 @@ var cap = /[A-Z]/g
 function find(schema, value) {
   var normal = normalize(value)
   var prop = value
+  var Type = Info
 
   if (normal in schema.normal) {
     return schema.property[schema.normal[normal]]
@@ -26,9 +28,11 @@ function find(schema, value) {
     } else {
       value = datasetToAttribute(value)
     }
+
+    Type = DefinedInfo
   }
 
-  return new Info(prop, value)
+  return new Type(prop, value)
 }
 
 function datasetToProperty(attribute) {

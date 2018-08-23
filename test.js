@@ -383,6 +383,24 @@ test('find', function(t) {
     'should find unknown values (#4)'
   )
 
+  t.equal(
+    find(information.html, 'id').defined,
+    true,
+    'should mark known properties as defined'
+  )
+
+  t.equal(
+    find(information.html, 'data-x').defined,
+    true,
+    'should mark data properties as defined'
+  )
+
+  t.equal(
+    find(information.html, 'foo').defined,
+    false,
+    'should mark undefined properties'
+  )
+
   t.end()
 })
 
