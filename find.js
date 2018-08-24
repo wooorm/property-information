@@ -28,8 +28,6 @@ function find(schema, value) {
     }
   }
 
-  console.log('###############')
-
   return new UndefinedInfo(prop, value)
 }
 
