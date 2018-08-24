@@ -228,7 +228,7 @@ Info on a property.
 *   `mustUseProperty` (`boolean`) — If a DOM is used, setting the property
     should be used for the change to take effect (this is true only for
     `'checked'`, `'multiple'`, `'muted'`, and `'selected'`)
-*   `unspecified` (`boolean`) — The property is not in the [list](#support)
+*   `undefined` (`boolean`) — The property is not in the [list](#support)
     of the supported properties.
     It can be used to detect a user-defined property.
     (this is true for e.g `'foo'` but not for `'data-*'` attributes)

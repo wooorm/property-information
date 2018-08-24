@@ -1,7 +1,7 @@
 'use strict'
 
 var normalize = require('./normalize')
-var Info = require('./lib/util/info')
+var UndefinedInfo = require('./lib/util/undefined-info')
 
 var data = 'data'
 
@@ -28,7 +28,9 @@ function find(schema, value) {
     }
   }
 
-  return new Info(prop, value)
+  console.log('###############')
+
+  return new UndefinedInfo(prop, value)
 }
 
 function datasetToProperty(attribute) {

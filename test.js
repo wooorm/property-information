@@ -313,7 +313,7 @@ test('find', function(t) {
   t.deepEqual(
     find(information.html, 'bar'),
     {
-      unspecified: true,
+      undefined: true,
       attribute: 'bar',
       property: 'bar'
     },
@@ -356,13 +356,13 @@ test('find', function(t) {
 
     st.deepEqual(
       find(information.html, 'dataFoo-bar'),
-      {attribute: 'dataFoo-bar', property: 'dataFoo-bar', unspecified: true},
+      {attribute: 'dataFoo-bar', property: 'dataFoo-bar', undefined: true},
       'should ignore invalid properties'
     )
 
     st.deepEqual(
       find(information.html, 'data!Foo-bar'),
-      {attribute: 'data!Foo-bar', property: 'data!Foo-bar', unspecified: true},
+      {attribute: 'data!Foo-bar', property: 'data!Foo-bar', undefined: true},
       'should ignore invalid attributes'
     )
 
@@ -371,25 +371,25 @@ test('find', function(t) {
 
   t.deepEqual(
     find(information.html, 'foo'),
-    {attribute: 'foo', property: 'foo', unspecified: true},
+    {attribute: 'foo', property: 'foo', undefined: true},
     'should find unknown values (#1)'
   )
 
   t.deepEqual(
     find(information.html, 'Bar'),
-    {attribute: 'Bar', property: 'Bar', unspecified: true},
+    {attribute: 'Bar', property: 'Bar', undefined: true},
     'should find unknown values (#2)'
   )
 
   t.deepEqual(
     find(information.html, 'BAZ'),
-    {attribute: 'BAZ', property: 'BAZ', unspecified: true},
+    {attribute: 'BAZ', property: 'BAZ', undefined: true},
     'should find unknown values (#3)'
   )
 
   t.deepEqual(
     find(information.html, 'QuX'),
-    {attribute: 'QuX', property: 'QuX', unspecified: true},
+    {attribute: 'QuX', property: 'QuX', undefined: true},
     'should find unknown values (#4)'
   )
 
