@@ -800,7 +800,7 @@ Derivative work based on [React][source] licensed under
 
 [author]: http://wooorm.com
 
-[license]: LICENSE
+[license]: license
 
 [source]: https://github.com/facebook/react/blob/f445dd9/src/renderers/dom/shared/HTMLDOMPropertyConfig.js
 
