@@ -209,6 +209,12 @@ test('normalize', function(t) {
   )
 
   t.equal(
+    normalize('class-name'),
+    'class-name',
+    'attribute delimiters should remain otherwise it will be handled as a different known property called className'
+  )
+
+  t.equal(
     normalize('[cl]a[ss]'),
     '[cl]a[ss]',
     'non-attribute characters should not be removed (GH-7)'
@@ -308,6 +314,12 @@ test('find', function(t) {
     find(information.html, 'ariaValueNow'),
     {attribute: 'aria-valuenow', property: 'ariaValueNow', number: true},
     'should find aria properties'
+  )
+
+  t.deepEqual(
+    find(information.html, 'class-name'),
+    {attribute: 'class-name', property: 'class-name'},
+    'should not handle class-name as class property'
   )
 
   t.test('data', function(st) {
