@@ -211,7 +211,7 @@ test('normalize', function(t) {
   t.equal(
     normalize('class-name'),
     'class-name',
-    'attribute delimiters should remain otherwise it will be handled as a different known property called className'
+    'attribute delimiters should remain otherwise it will be handled as a different known property called className (GH-12)'
   )
 
   t.equal(
@@ -319,7 +319,7 @@ test('find', function(t) {
   t.deepEqual(
     find(information.html, 'class-name'),
     {attribute: 'class-name', property: 'class-name'},
-    'should not handle class-name as class property'
+    'should not handle class-name as class property (GH-12)'
   )
 
   t.test('data', function(st) {
