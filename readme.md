@@ -127,7 +127,7 @@ Yields:
 
 Get the cleaned case-insensitive form of an attribute or a property.
 
-This lowercases the result.
+This lowercases the `name` and return the result.
 
 #### Parameters
 
