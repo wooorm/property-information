@@ -127,8 +127,7 @@ Yields:
 
 Get the cleaned case-insensitive form of an attribute or a property.
 
-This removed all non-alphanumerical characters from `name`, and lowercases
-the result.
+This lowercases the result.
 
 #### Parameters
 
@@ -150,6 +149,7 @@ the result.
 info.html.normal[info.normalize('for')] // => 'htmlFor'
 info.svg.normal[info.normalize('VIEWBOX')] // => 'viewBox'
 info.html.normal[info.normalize('unknown')] // => undefined
+info.html.normal[info.normalize('accept-charset')] // => 'acceptCharset'
 ```
 
 ### `propertyInformation.html`
