@@ -1,4 +1,4 @@
-# property-information [![Build Status][build-badge]][build-status] [![Coverage Status][coverage-badge]][coverage-status]
+# property-information [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Size][size-badge]][size]
 
 Information for properties and attributes on the web-platform (HTML, SVG, ARIA,
 XML, XMLNS, XLink).
@@ -788,13 +788,21 @@ Info on a property.
 Derivative work based on [React][source] licensed under
 [BSD-3-Clause-Clear][source-license], © 2013-2015, Facebook, Inc.
 
-[build-badge]: https://img.shields.io/travis/wooorm/property-information.svg?style=flat
+[build-badge]: https://img.shields.io/travis/wooorm/property-information/master.svg
 
-[build-status]: https://travis-ci.org/wooorm/property-information
+[build]: https://travis-ci.org/wooorm/property-information
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/property-information.svg
 
-[coverage-status]: https://codecov.io/github/wooorm/property-information
+[coverage]: https://codecov.io/github/wooorm/property-information
+
+[downloads-badge]: https://img.shields.io/npm/dm/property-information.svg
+
+[downloads]: https://www.npmjs.com/package/property-information
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/property-information.svg
+
+[size]: https://bundlephobia.com/result?p=property-information
 
 [npm]: https://docs.npmjs.com/cli/install
 
