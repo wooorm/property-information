@@ -80,7 +80,8 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "guard-for-in": "off"
+      "guard-for-in": "off",
+      "unicorn/prefer-exponentiation-operator": "off"
     },
     "ignore": [
       "property-information.js"
