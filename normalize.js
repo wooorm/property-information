@@ -3,5 +3,5 @@
 module.exports = normalize
 
 function normalize(value) {
-  return value.toLowerCase().replace(/\b[:-]\b/g, '')
+  return value.toLowerCase()
 }
