@@ -798,7 +798,7 @@ Derivative work based on [React][source] licensed under
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[author]: http://wooorm.com
+[author]: https://wooorm.com
 
 [license]: license
 
