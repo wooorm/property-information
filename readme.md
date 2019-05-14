@@ -251,6 +251,7 @@ Info on a property.
 | `additive`                   | `additive`                     | `svg`         |
 | `align`                      | `align`                        | `html`        |
 | `alignmentBaseline`          | `alignment-baseline`           | `svg`         |
+| `allow`                      | `allow`                        | `html`        |
 | `allowFullScreen`            | `allowfullscreen`              | `html`        |
 | `allowPaymentRequest`        | `allowpaymentrequest`          | `html`        |
 | `allowTransparency`          | `allowtransparency`            | `html`        |
@@ -402,6 +403,7 @@ Info on a property.
 | `enableBackground`           | `enable-background`            | `svg`         |
 | `encType`                    | `enctype`                      | `html`        |
 | `end`                        | `end`                          | `svg`         |
+| `enterKeyHint`               | `enterkeyhint`                 | `html`        |
 | `event`                      | `event`                        | `svg`, `html` |
 | `exponent`                   | `exponent`                     | `svg`         |
 | `externalResourcesRequired`  | `externalResourcesRequired`    | `svg`         |
@@ -463,6 +465,8 @@ Info on a property.
 | `id`                         | `id`                           | `svg`, `html` |
 | `ideographic`                | `ideographic`                  | `svg`         |
 | `imageRendering`             | `image-rendering`              | `svg`         |
+| `imageSizes`                 | `imagesizes`                   | `html`        |
+| `imageSrcSet`                | `imagesrcset`                  | `html`        |
 | `in`                         | `in`                           | `svg`         |
 | `in2`                        | `in2`                          | `svg`         |
 | `initialVisibility`          | `initialVisibility`            | `svg`         |
@@ -572,7 +576,7 @@ Info on a property.
 | `patternTransform`           | `patternTransform`             | `svg`         |
 | `patternUnits`               | `patternUnits`                 | `svg`         |
 | `phase`                      | `phase`                        | `svg`         |
-| `ping`                       | `ping`                         | `html`        |
+| `ping`                       | `ping`                         | `svg`, `html` |
 | `pitch`                      | `pitch`                        | `svg`         |
 | `placeholder`                | `placeholder`                  | `html`        |
 | `playbackOrder`              | `playbackorder`                | `svg`         |
@@ -597,7 +601,7 @@ Info on a property.
 | `readOnly`                   | `readonly`                     | `html`        |
 | `refX`                       | `refX`                         | `svg`         |
 | `refY`                       | `refY`                         | `svg`         |
-| `referrerPolicy`             | `referrerpolicy`               | `html`        |
+| `referrerPolicy`             | `referrerpolicy`               | `svg`, `html` |
 | `rel`                        | `rel`                          | `svg`, `html` |
 | `renderingIntent`            | `rendering-intent`             | `svg`         |
 | `repeatCount`                | `repeatCount`                  | `svg`         |
