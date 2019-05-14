@@ -99,7 +99,15 @@ var next = [
 var nonStandardAttributes = [].concat(legacy, custom, next)
 
 // Some SVG properties:
-var nonStandardSVGAttributes = ['paint-order', 'vector-effect']
+var nonStandardSVGAttributes = [
+  'paint-order',
+  'vector-effect',
+
+  // https://github.com/wooorm/svg-element-attributes/commit/dcc7643
+  'hatchContentUnits',
+  'hatchUnits',
+  'pitch'
+]
 
 test('schema', function(t) {
   t.deepEqual(information.html.property.className, {
