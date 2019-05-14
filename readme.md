@@ -8,7 +8,7 @@
 Information for properties and attributes on the web-platform (HTML, SVG, ARIA,
 XML, XMLNS, XLink).
 
-This package follows a sensible naming scheme as defined by [HAST][]
+This package follows a sensible naming scheme as defined by [HAST][].
 
 ## Installation
 
