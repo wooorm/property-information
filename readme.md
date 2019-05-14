@@ -1,4 +1,9 @@
-# property-information [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Size][size-badge]][size]
+# property-information
+
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
 
 Information for properties and attributes on the web-platform (HTML, SVG, ARIA,
 XML, XMLNS, XLink).
