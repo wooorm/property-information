@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- lts/boron
-- node
+  - lts/dubnium
+  - node
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
@@ -9,7 +9,7 @@ deploy:
   api_key:
     secure: CZurkmOCwH1Dy95/t9oJCGWsTbGBR+4eubuJ06jpeKMZsdTFrEYfDd3xJKQvjJiguIsbf3qyc9O5734oMvt8rqgEOfaxPBrFL/FDbNgrKB+tZUQAdKevgYf7bp239tSdJweveBMx7brvTH4+Uf8lNXQwJFWyH1J5eGCwHlmnW8ncvcy40MRjX0lJGNRIB2rT5+ELhvcUADLAsQBg90rFq9aDbcFPhOcFAjTIx+jQoCOkftjxwp9dYzqsIjmv1iYQ6NQo3E9c2MoBBU0A0F6pGcUHUhmH7e2Hf6IvpUvnEBVmwYwk2hKkUtA90qb8VmN4BpkjoMLvyvFdzOKw0NGaJGB2e4kua3vbCQeSDhdPY09xtGrnWarXWBBZ3dRCgGP2NEq8PKBlsrYdS+tMb8o6oDamYF7IRy3Xi82D/K/lljvTOnCoTn2jekvem5J01GDCuO3A1HgW34WEzZEn4O7defQMx87toJ72KGgphGxIm3m8tLnF3axCri71jJwe2isYV1Nl2705b14Cd0ZHQdqeHRT1sa8ctsPGq0z1CRiv78Ibh3C33lbQDfYUEckDhQrTTI5ngTQljlmn33oXNoCZpUOGCbp1bsfDMwc5wS3AYCJnorF0xr9Vu7VEtn+QoTSwyAAMzX3O1t1Oy5kuU7eZZJONS5zrhEaU3N7mpm1EYxo=
   file:
-    - "property-information.js"
-    - "property-information.min.js"
+    - 'property-information.js'
+    - 'property-information.min.js'
   on:
     tags: true
