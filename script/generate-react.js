@@ -45,7 +45,7 @@ function onreact(res) {
     function add(node, type) {
       var value = node.value
         .split(/\s/g)
-        .sort(alphaSort.asc)
+        .sort(alphaSort.ascending)
         .filter(filter)
 
       fs.writeFile(
