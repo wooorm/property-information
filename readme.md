@@ -8,9 +8,9 @@
 Information for properties and attributes on the web-platform (HTML, SVG, ARIA,
 XML, XMLNS, XLink).
 
-This package follows a sensible naming scheme as defined by [HAST][].
+This package follows a sensible naming scheme as defined by [hast][].
 
-## Installation
+## Install
 
 [npm][]:
 
@@ -20,7 +20,7 @@ npm install property-information
 
 ## Table of Contents
 
-*   [Usage](#usage)
+*   [Use](#use)
 *   [API](#api)
     *   [propertyInformation.find(schema, name)](#propertyinformationfindschema-name)
     *   [propertyInformation.normalize(name)](#propertyinformationnormalizename)
@@ -30,7 +30,7 @@ npm install property-information
 *   [Related](#related)
 *   [License](#license)
 
-## Usage
+## Use
 
 ```js
 var info = require('property-information')
@@ -132,7 +132,7 @@ Yields:
 
 Get the cleaned case-insensitive form of an attribute or a property.
 
-This lowercases the `name` and return the result.
+This lowercases the `name` and returns the result.
 
 #### Parameters
 
@@ -210,7 +210,7 @@ Info on a property.
     `'xml:lang'`, `'for'`, or `'charoff'`)
 *   `property` (`string`) — JavaScript-style camel-cased name, based on the
     DOM, but sometimes different (for example: `'ariaDescribedBy'`,
-    `'allowFullScreen'`, `'xmlLang'`, `'htmlFor'`, `'chOff'`)
+    `'allowFullScreen'`, `'xmlLang'`, `'htmlFor'`, `'charOff'`)
 *   `boolean` (`boolean`) — The property is `boolean`.
     The default value of this property is false, so it can be omitted
 *   `booleanish` (`boolean`) — The property is a `boolean`.
