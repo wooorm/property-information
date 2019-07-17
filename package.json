@@ -15,7 +15,8 @@
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-    "Dustin Deus <deusdustin@gmail.com> (http://starptech.de)"
+    "Dustin Deus <deusdustin@gmail.com> (http://starptech.de)",
+    "Andrew Burgess <andrew@andrewburgess.io>"
   ],
   "files": [
     "index.js",
