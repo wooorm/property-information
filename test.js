@@ -6,14 +6,18 @@ var union = require('arr-union')
 var values = require('object.values')
 var htmlAttributes = require('html-element-attributes')
 var svgAttributes = require('svg-element-attributes')
+var htmlEvents = require('html-event-attributes')
+var svgEvents = require('svg-event-attributes')
 var reactHtmlProperties = require('./script/react-html')
 var reactSvgProperties = require('./script/react-svg')
 var normalize = require('./normalize')
 var find = require('./find')
 var information = require('.')
 
-htmlAttributes = union.apply(null, values(htmlAttributes)).sort()
-svgAttributes = union.apply(null, values(svgAttributes)).sort()
+htmlAttributes = values(htmlAttributes).concat([htmlEvents])
+svgAttributes = values(svgAttributes).concat([svgEvents])
+htmlAttributes = union.apply(null, htmlAttributes).sort()
+svgAttributes = union.apply(null, svgAttributes).sort()
 
 var htmlReactIgnore = [
   // Spelled `classId` here, in alignment with `itemId`.

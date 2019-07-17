@@ -560,6 +560,97 @@ Info on a property.
 | `object`                     | `object`                       | `html`        |
 | `observer`                   | `observer`                     | `svg`         |
 | `offset`                     | `offset`                       | `svg`         |
+| `onAbort`                    | `onabort`                      | `svg`, `html` |
+| `onActivate`                 | `onactivate`                   | `svg`         |
+| `onAfterPrint`               | `onafterprint`                 | `svg`, `html` |
+| `onAuxClick`                 | `onauxclick`                   | `html`        |
+| `onBeforePrint`              | `onbeforeprint`                | `svg`, `html` |
+| `onBeforeUnload`             | `onbeforeunload`               | `html`        |
+| `onBegin`                    | `onbegin`                      | `svg`         |
+| `onBlur`                     | `onblur`                       | `html`        |
+| `onCanPlay`                  | `oncanplay`                    | `svg`, `html` |
+| `onCanPlayThrough`           | `oncanplaythrough`             | `svg`, `html` |
+| `onCancel`                   | `oncancel`                     | `svg`, `html` |
+| `onChange`                   | `onchange`                     | `svg`, `html` |
+| `onClick`                    | `onclick`                      | `svg`, `html` |
+| `onClose`                    | `onclose`                      | `svg`, `html` |
+| `onContextMenu`              | `oncontextmenu`                | `html`        |
+| `onCopy`                     | `oncopy`                       | `svg`, `html` |
+| `onCueChange`                | `oncuechange`                  | `svg`, `html` |
+| `onCut`                      | `oncut`                        | `svg`, `html` |
+| `onDblClick`                 | `ondblclick`                   | `svg`, `html` |
+| `onDrag`                     | `ondrag`                       | `svg`, `html` |
+| `onDragEnd`                  | `ondragend`                    | `svg`, `html` |
+| `onDragEnter`                | `ondragenter`                  | `svg`, `html` |
+| `onDragExit`                 | `ondragexit`                   | `svg`, `html` |
+| `onDragLeave`                | `ondragleave`                  | `svg`, `html` |
+| `onDragOver`                 | `ondragover`                   | `svg`, `html` |
+| `onDragStart`                | `ondragstart`                  | `svg`, `html` |
+| `onDrop`                     | `ondrop`                       | `svg`, `html` |
+| `onDurationChange`           | `ondurationchange`             | `svg`, `html` |
+| `onEmptied`                  | `onemptied`                    | `svg`, `html` |
+| `onEnd`                      | `onend`                        | `svg`         |
+| `onEnded`                    | `onended`                      | `svg`, `html` |
+| `onError`                    | `onerror`                      | `svg`, `html` |
+| `onFocus`                    | `onfocus`                      | `svg`, `html` |
+| `onFocusIn`                  | `onfocusin`                    | `svg`         |
+| `onFocusOut`                 | `onfocusout`                   | `svg`         |
+| `onFormData`                 | `onformdata`                   | `html`        |
+| `onHashChange`               | `onhashchange`                 | `svg`, `html` |
+| `onInput`                    | `oninput`                      | `svg`, `html` |
+| `onInvalid`                  | `oninvalid`                    | `svg`, `html` |
+| `onKeyDown`                  | `onkeydown`                    | `svg`, `html` |
+| `onKeyPress`                 | `onkeypress`                   | `svg`, `html` |
+| `onKeyUp`                    | `onkeyup`                      | `svg`, `html` |
+| `onLanguageChange`           | `onlanguagechange`             | `html`        |
+| `onLoad`                     | `onload`                       | `svg`, `html` |
+| `onLoadEnd`                  | `onloadend`                    | `html`        |
+| `onLoadStart`                | `onloadstart`                  | `svg`, `html` |
+| `onLoadedData`               | `onloadeddata`                 | `svg`, `html` |
+| `onLoadedMetadata`           | `onloadedmetadata`             | `svg`, `html` |
+| `onMessage`                  | `onmessage`                    | `svg`, `html` |
+| `onMessageError`             | `onmessageerror`               | `html`        |
+| `onMouseDown`                | `onmousedown`                  | `svg`, `html` |
+| `onMouseEnter`               | `onmouseenter`                 | `svg`, `html` |
+| `onMouseLeave`               | `onmouseleave`                 | `svg`, `html` |
+| `onMouseMove`                | `onmousemove`                  | `svg`, `html` |
+| `onMouseOut`                 | `onmouseout`                   | `svg`, `html` |
+| `onMouseOver`                | `onmouseover`                  | `svg`, `html` |
+| `onMouseUp`                  | `onmouseup`                    | `svg`, `html` |
+| `onMouseWheel`               | `onmousewheel`                 | `svg`         |
+| `onOffline`                  | `onoffline`                    | `svg`, `html` |
+| `onOnline`                   | `ononline`                     | `svg`, `html` |
+| `onPageHide`                 | `onpagehide`                   | `svg`, `html` |
+| `onPageShow`                 | `onpageshow`                   | `svg`, `html` |
+| `onPaste`                    | `onpaste`                      | `svg`, `html` |
+| `onPause`                    | `onpause`                      | `svg`, `html` |
+| `onPlay`                     | `onplay`                       | `svg`, `html` |
+| `onPlaying`                  | `onplaying`                    | `svg`, `html` |
+| `onPopState`                 | `onpopstate`                   | `svg`, `html` |
+| `onProgress`                 | `onprogress`                   | `svg`, `html` |
+| `onRateChange`               | `onratechange`                 | `svg`, `html` |
+| `onRejectionHandled`         | `onrejectionhandled`           | `html`        |
+| `onRepeat`                   | `onrepeat`                     | `svg`         |
+| `onReset`                    | `onreset`                      | `svg`, `html` |
+| `onResize`                   | `onresize`                     | `svg`, `html` |
+| `onScroll`                   | `onscroll`                     | `svg`, `html` |
+| `onSecurityPolicyViolation`  | `onsecuritypolicyviolation`    | `html`        |
+| `onSeeked`                   | `onseeked`                     | `svg`, `html` |
+| `onSeeking`                  | `onseeking`                    | `svg`, `html` |
+| `onSelect`                   | `onselect`                     | `svg`, `html` |
+| `onShow`                     | `onshow`                       | `svg`         |
+| `onStalled`                  | `onstalled`                    | `svg`, `html` |
+| `onStorage`                  | `onstorage`                    | `svg`, `html` |
+| `onSubmit`                   | `onsubmit`                     | `svg`, `html` |
+| `onSuspend`                  | `onsuspend`                    | `svg`, `html` |
+| `onTimeUpdate`               | `ontimeupdate`                 | `svg`, `html` |
+| `onToggle`                   | `ontoggle`                     | `svg`, `html` |
+| `onUnhandledRejection`       | `onunhandledrejection`         | `html`        |
+| `onUnload`                   | `onunload`                     | `svg`, `html` |
+| `onVolumeChange`             | `onvolumechange`               | `svg`, `html` |
+| `onWaiting`                  | `onwaiting`                    | `svg`, `html` |
+| `onWheel`                    | `onwheel`                      | `html`        |
+| `onZoom`                     | `onzoom`                       | `svg`         |
 | `opacity`                    | `opacity`                      | `svg`         |
 | `open`                       | `open`                         | `html`        |
 | `operator`                   | `operator`                     | `svg`         |
