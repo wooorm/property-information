@@ -8,48 +8,67 @@ var htmlAttributes = require('html-element-attributes')
 var svgAttributes = require('svg-element-attributes')
 var htmlEvents = require('html-event-attributes')
 var svgEvents = require('svg-event-attributes')
-var reactHtmlProperties = require('./script/react-html')
-var reactSvgProperties = require('./script/react-svg')
+var react = require('./script/react-data')
 var normalize = require('./normalize')
 var find = require('./find')
 var information = require('.')
+
+var schemas = {
+  html: require('./lib/html'),
+  svg: require('./lib/svg'),
+  aria: require('./lib/aria'),
+  xlink: require('./lib/xlink'),
+  xml: require('./lib/xml'),
+  xmlns: require('./lib/xmlns')
+}
 
 htmlAttributes = values(htmlAttributes).concat([htmlEvents])
 svgAttributes = values(svgAttributes).concat([svgEvents])
 htmlAttributes = union.apply(null, htmlAttributes).sort()
 svgAttributes = union.apply(null, svgAttributes).sort()
 
-var htmlReactIgnore = [
-  // Spelled `classId` here, in alignment with `itemId`.
-  'classID',
+var reactIgnore = [
+  // React specific:
+  'children',
+  'dangerouslysetinnerhtml',
+  'defaultchecked',
+  'defaultvalue',
+  'innerhtml',
+  'suppresscontenteditablewarning',
+  'suppresshydrationwarning',
+
+  // HTML
   // Existed on the deprecated `<keygen>`.
   'challenge',
-  'keyParams',
-  'keyType',
+  'keyparams',
+  'keytype',
   // Existed on the deprecated `<command>`.
   'icon',
-  'radioGroup',
+  'radiogroup',
   // Deprecated on all elements.
-  'contextMenu',
+  'contextmenu',
   // Deprecated, existed on `<audio>` and `<video>`.
-  'mediaGroup',
+  'mediagroup',
   // Existed on the `<param>` element of the deprecated `<embed>` attribute.
-  'wmode'
-]
+  'wmode',
 
-var svgReactIgnore = [
+  // SVG
   // Deprecated on the `<switch>` element.
-  'allowReorder',
+  'allowreorder',
   // Deprecated SMIL attributes.
-  'autoReverse',
+  'autoreverse',
   'decelerate',
   'speed',
-  // Cased differently here:
-  'strokeDasharray', // `strokeDashArray`
-  'strokeDashoffset', // `strokeDashOffset`
-  'strokeLinecap', // `strokeLineCap`
-  'strokeLinejoin', // `strokeLineJoin`
-  'strokeMiterlimit' // `strokeMiterLimit`
+
+  // RDFa
+  'inlist',
+  'vocab',
+
+  // These are supported, but grouped by React as SVG, even though they aren’t.
+  'prefix',
+  'results',
+  'security',
+  'unselectable'
 ]
 
 var legacy = [
@@ -73,6 +92,8 @@ var custom = [
   // `autoSave` allows WebKit/Blink to persist values of input fields on page reloads.
   // https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/Attributes.html#//apple_ref/doc/uid/TP40008058-autosave
   'autosave',
+  // https://developers.google.com/web/updates/2018/10/watch-video-using-picture-in-picture
+  'disablepictureinpicture',
   // `prefix` on `<html>` and `property` on `<meta>` are from OpenGraph
   // http://ogp.me
   'prefix',
@@ -436,14 +457,6 @@ test('html', function(t) {
   }, 'known HTML attributes should be defined')
 
   t.doesNotThrow(function() {
-    reactHtmlProperties.forEach(function(property) {
-      if (htmlReactIgnore.indexOf(property) === -1) {
-        assert(property in information.html.property, property)
-      }
-    })
-  }, 'known React properties should be defined')
-
-  t.doesNotThrow(function() {
     Object.keys(information.html.property)
       .map(function(prop) {
         return information.html.property[prop]
@@ -479,14 +492,6 @@ test('svg', function(t) {
   }, 'known SVG attributes should be defined')
 
   t.doesNotThrow(function() {
-    reactSvgProperties.forEach(function(property) {
-      if (svgReactIgnore.indexOf(property) === -1) {
-        assert(property in information.svg.property, property)
-      }
-    })
-  }, 'known React properties should be defined')
-
-  t.doesNotThrow(function() {
     Object.keys(information.svg.property)
       .map(function(prop) {
         return information.svg.property[prop]
@@ -502,6 +507,24 @@ test('svg', function(t) {
         assert(defined, attribute + ' is not known')
       })
   }, 'Defined SVG attributes should be known')
+
+  t.end()
+})
+
+test('react', function(t) {
+  Object.keys(react).forEach(each)
+
+  function each(type) {
+    t.doesNotThrow(function() {
+      var data = react[type]
+
+      Object.keys(data).forEach(function(attr) {
+        if (reactIgnore.indexOf(attr) === -1) {
+          assert(normalize(attr) in schemas[type].normal, attr)
+        }
+      })
+    }, 'known ' + type + ' properties should be defined')
+  }
 
   t.end()
 })

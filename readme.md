@@ -26,6 +26,7 @@ npm install property-information
     *   [`propertyInformation.normalize(name)`](#propertyinformationnormalizename)
     *   [`propertyInformation.html`](#propertyinformationhtml)
     *   [`propertyInformation.svg`](#propertyinformationsvg)
+    *   [`hastToReact`](#hasttoreact)
 *   [Support](#support)
 *   [Related](#related)
 *   [License](#license)
@@ -237,6 +238,15 @@ Info on a property.
     This is true for values in HTML (including data and ARIA), SVG, XML,
     XMLNS, and XLink.
     These values can only be accessed through `find`.
+
+### `hastToReact`
+
+> Accessible through `require('property-information/hast-to-react.json')`
+
+[hast][] is close to [React][], but differs in a couple of cases.
+To get a React property from a hast property, check if it is in
+[`hast-to-react`][hast-to-react] (`Object.<string>`), if it is, then use the
+corresponding value, otherwise, use the hast property.
 
 ## Support
 
@@ -924,5 +934,9 @@ Derivative work based on [React][source] licensed under
 [schema]: #schema
 
 [normalize]: #propertyinformationnormalizename
+
+[react]: https://github.com/facebook/react
+
+[hast-to-react]: hast-to-react.json
 
 [hast]: https://github.com/syntax-tree/hast#property-names
