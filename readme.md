@@ -939,4 +939,4 @@ Derivative work based on [React][source] licensed under
 
 [hast-to-react]: hast-to-react.json
 
-[hast]: https://github.com/syntax-tree/hast#property-names
+[hast]: https://github.com/syntax-tree/hast#propertyname
