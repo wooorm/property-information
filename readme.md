@@ -393,6 +393,7 @@ Info on a property.
 | `dir`                        | `dir`                          | `html`        |
 | `dirName`                    | `dirname`                      | `html`        |
 | `direction`                  | `direction`                    | `svg`         |
+| `disablePictureInPicture`    | `disablepictureinpicture`      | `html`        |
 | `disabled`                   | `disabled`                     | `html`        |
 | `display`                    | `display`                      | `svg`         |
 | `divisor`                    | `divisor`                      | `svg`         |
