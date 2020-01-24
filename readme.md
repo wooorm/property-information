@@ -648,6 +648,7 @@ corresponding value, otherwise, use the hast property.
 | `onSeeking`                  | `onseeking`                    | `svg`, `html` |
 | `onSelect`                   | `onselect`                     | `svg`, `html` |
 | `onShow`                     | `onshow`                       | `svg`         |
+| `onSlotChange`               | `onslotchange`                 | `html`        |
 | `onStalled`                  | `onstalled`                    | `svg`, `html` |
 | `onStorage`                  | `onstorage`                    | `svg`, `html` |
 | `onSubmit`                   | `onsubmit`                     | `svg`, `html` |
