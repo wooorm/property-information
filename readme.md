@@ -5,8 +5,8 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Information for properties and attributes on the web-platform (HTML, SVG, ARIA,
-XML, XMLNS, XLink).
+Info for properties and attributes on the web-platform (HTML, SVG, ARIA, XML,
+XMLNS, XLink).
 
 This package follows a sensible naming scheme as defined by [hast][].
 
@@ -14,11 +14,11 @@ This package follows a sensible naming scheme as defined by [hast][].
 
 [npm][]:
 
-```bash
+```sh
 npm install property-information
 ```
 
-## Table of Contents
+## Contents
 
 *   [Use](#use)
 *   [API](#api)
@@ -104,7 +104,7 @@ well.
 #### Example
 
 Aside from the aforementioned example, which shows known HTML, SVG, XML, XLink,
-and ARIA support, data properties and attributes are also supported:
+and ARIA support, data properties, and attributes are also supported:
 
 ```js
 console.log(info.find(info.html, 'data-date-of-birth'))
@@ -132,8 +132,6 @@ Yields:
 ### `propertyInformation.normalize(name)`
 
 Get the cleaned case-insensitive form of an attribute or a property.
-
-This lowercases the `name` and returns the result.
 
 #### Parameters
 

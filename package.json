@@ -94,7 +94,13 @@
   "remarkConfig": {
     "plugins": [
       "./script/list",
-      "preset-wooorm"
+      "preset-wooorm",
+      [
+        "toc",
+        {
+          "heading": "contents"
+        }
+      ]
     ]
   }
 }
