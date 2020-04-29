@@ -94,6 +94,8 @@ var custom = [
   'autosave',
   // https://developers.google.com/web/updates/2018/10/watch-video-using-picture-in-picture
   'disablepictureinpicture',
+  // https://w3c.github.io/remote-playback/
+  'disableremoteplayback',
   // `prefix` on `<html>` and `property` on `<meta>` are from OpenGraph
   // http://ogp.me
   'prefix',

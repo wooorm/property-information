@@ -402,6 +402,7 @@ corresponding value, otherwise, use the hast property.
 | `dirName`                    | `dirname`                      | `html`        |
 | `direction`                  | `direction`                    | `svg`         |
 | `disablePictureInPicture`    | `disablepictureinpicture`      | `html`        |
+| `disableRemotePlayback`      | `disableremoteplayback`        | `html`        |
 | `disabled`                   | `disabled`                     | `html`        |
 | `display`                    | `display`                      | `svg`         |
 | `divisor`                    | `divisor`                      | `svg`         |
