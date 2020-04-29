@@ -8,7 +8,7 @@ var data = 'data'
 
 module.exports = find
 
-var valid = /^data[-a-z0-9.:_]+$/i
+var valid = /^data[-\w.:]+$/i
 var dash = /-[a-z]/g
 var cap = /[A-Z]/g
 

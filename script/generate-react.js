@@ -12,11 +12,11 @@ https.get(
   onreact
 )
 
-function onreact(res) {
-  res.pipe(concat(onconcat)).on('error', bail)
+function onreact(response) {
+  response.pipe(concat(onconcat)).on('error', bail)
 
-  function onconcat(buf) {
-    var doc = String(buf)
+  function onconcat(buffer) {
+    var doc = String(buffer)
     var ns = ['xlink', 'xmlns', 'xml']
     var html = doc.match(/\/\/ HTML\s*?\n/)
     var svg = doc.match(/\/\/ SVG\s*?\n/)
@@ -58,7 +58,7 @@ function onreact(res) {
           return false
         }
 
-        return ns.every(function(space) {
+        return ns.every(function (space) {
           var dat
 
           if (d.startsWith(space)) {

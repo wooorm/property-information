@@ -134,49 +134,49 @@ var nonStandardSVGAttributes = [
   'pitch'
 ]
 
-test('schema', function(t) {
-  t.deepEqual(information.html.property.className, {
+test('schema', function (t) {
+  t.deepLooseEqual(information.html.property.className, {
     space: 'html',
     attribute: 'class',
     property: 'className',
     spaceSeparated: true
   })
 
-  t.deepEqual(information.html.property.srcSet, {
+  t.deepLooseEqual(information.html.property.srcSet, {
     space: 'html',
     attribute: 'srcset',
     property: 'srcSet',
     commaSeparated: true
   })
 
-  t.deepEqual(information.html.property.download, {
+  t.deepLooseEqual(information.html.property.download, {
     space: 'html',
     attribute: 'download',
     property: 'download',
     overloadedBoolean: true
   })
 
-  t.deepEqual(information.html.property.xmlLang, {
+  t.deepLooseEqual(information.html.property.xmlLang, {
     space: 'xml',
     attribute: 'xml:lang',
     property: 'xmlLang'
   })
 
-  t.deepEqual(information.html.property.span, {
+  t.deepLooseEqual(information.html.property.span, {
     space: 'html',
     attribute: 'span',
     property: 'span',
     number: true
   })
 
-  t.deepEqual(information.html.property.value, {
+  t.deepLooseEqual(information.html.property.value, {
     space: 'html',
     attribute: 'value',
     property: 'value',
     booleanish: true
   })
 
-  t.deepEqual(information.html.property.itemScope, {
+  t.deepLooseEqual(information.html.property.itemScope, {
     space: 'html',
     attribute: 'itemscope',
     property: 'itemScope',
@@ -186,7 +186,7 @@ test('schema', function(t) {
   t.end()
 })
 
-test('normalize', function(t) {
+test('normalize', function (t) {
   t.equal(
     information.html.normal[normalize('className')],
     information.html.normal[normalize('class')],
@@ -256,8 +256,8 @@ test('normalize', function(t) {
   t.end()
 })
 
-test('find', function(t) {
-  t.deepEqual(
+test('find', function (t) {
+  t.deepLooseEqual(
     find(information.html, 'for'),
     {
       space: 'html',
@@ -268,7 +268,7 @@ test('find', function(t) {
     'should find knowns by attribute'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'htmlFor'),
     {
       space: 'html',
@@ -279,7 +279,7 @@ test('find', function(t) {
     'should find knowns by property'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'FoR'),
     {
       space: 'html',
@@ -290,7 +290,7 @@ test('find', function(t) {
     'should find knowns by weirdly cased attribute'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'hTMLfOR'),
     {
       space: 'html',
@@ -301,61 +301,61 @@ test('find', function(t) {
     'should find knowns by weirdly cased property'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'xml:lang'),
     {space: 'xml', attribute: 'xml:lang', property: 'xmlLang'},
     'should find XML knowns by attribute'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'xmlLang'),
     {space: 'xml', attribute: 'xml:lang', property: 'xmlLang'},
     'should find knowns by property'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'xlink:arcrole'),
     {space: 'xlink', attribute: 'xlink:arcrole', property: 'xLinkArcRole'},
     'should find XLink knowns by attribute'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'xLinkArcRole'),
     {space: 'xlink', attribute: 'xlink:arcrole', property: 'xLinkArcRole'},
     'should find XLink knowns by property'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'xmlns:xlink'),
     {space: 'xmlns', attribute: 'xmlns:xlink', property: 'xmlnsXLink'},
     'should find XMLNS knowns by attribute'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'xmlnsXLink'),
     {space: 'xmlns', attribute: 'xmlns:xlink', property: 'xmlnsXLink'},
     'should find XMLNS knowns by property'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'aria-valuenow'),
     {attribute: 'aria-valuenow', property: 'ariaValueNow', number: true},
     'should find aria attributes'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'ariaValueNow'),
     {attribute: 'aria-valuenow', property: 'ariaValueNow', number: true},
     'should find aria properties'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'class-name'),
     {attribute: 'class-name', property: 'class-name'},
     'should not handle class-name as class property (GH-12)'
   )
 
-  t.test('data', function(st) {
+  t.test('data', function (st) {
     var mapping = {
       'data-alpha': 'dataAlpha',
       'data-bravo-charlie': 'dataBravoCharlie',
@@ -376,26 +376,26 @@ test('find', function(t) {
     function check(attribute, index) {
       var property = mapping[attribute]
 
-      st.deepEqual(
+      st.deepLooseEqual(
         find(information.html, attribute),
         {attribute: attribute, property: property},
         'should find data (#' + index + ', attribute)'
       )
 
-      st.deepEqual(
+      st.deepLooseEqual(
         find(information.html, property),
         {attribute: attribute, property: property},
         'should find data (#' + index + ', property)'
       )
     }
 
-    st.deepEqual(
+    st.deepLooseEqual(
       find(information.html, 'dataFoo-bar'),
       {attribute: 'dataFoo-bar', property: 'dataFoo-bar'},
       'should ignore invalid properties'
     )
 
-    st.deepEqual(
+    st.deepLooseEqual(
       find(information.html, 'data!Foo-bar'),
       {attribute: 'data!Foo-bar', property: 'data!Foo-bar'},
       'should ignore invalid attributes'
@@ -404,25 +404,25 @@ test('find', function(t) {
     st.end()
   })
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'foo'),
     {attribute: 'foo', property: 'foo'},
     'should find unknown values (#1)'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'Bar'),
     {attribute: 'Bar', property: 'Bar'},
     'should find unknown values (#2)'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'BAZ'),
     {attribute: 'BAZ', property: 'BAZ'},
     'should find unknown values (#3)'
   )
 
-  t.deepEqual(
+  t.deepLooseEqual(
     find(information.html, 'QuX'),
     {attribute: 'QuX', property: 'QuX'},
     'should find unknown values (#4)'
@@ -449,22 +449,22 @@ test('find', function(t) {
   t.end()
 })
 
-test('html', function(t) {
-  t.doesNotThrow(function() {
-    htmlAttributes.forEach(function(attribute) {
+test('html', function (t) {
+  t.doesNotThrow(function () {
+    htmlAttributes.forEach(function (attribute) {
       assert(normalize(attribute) in information.html.normal, attribute)
     })
   }, 'known HTML attributes should be defined')
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     Object.keys(information.html.property)
-      .map(function(prop) {
+      .map(function (prop) {
         return information.html.property[prop]
       })
-      .filter(function(info) {
+      .filter(function (info) {
         return info.space === 'html'
       })
-      .forEach(function(info) {
+      .forEach(function (info) {
         var attribute = info.attribute
         var defined =
           htmlAttributes.indexOf(attribute) !== -1 ||
@@ -479,27 +479,27 @@ test('html', function(t) {
   t.end()
 })
 
-test('svg', function(t) {
-  t.doesNotThrow(function() {
+test('svg', function (t) {
+  t.doesNotThrow(function () {
     // Ignore these. In tiny they’re cased. In SVG2 they’re lowercase.
     var ignore = ['playbackOrder', 'timelineBegin']
 
-    svgAttributes.forEach(function(attribute) {
+    svgAttributes.forEach(function (attribute) {
       if (ignore.indexOf(attribute) === -1) {
         assert(normalize(attribute) in information.svg.normal, attribute)
       }
     })
   }, 'known SVG attributes should be defined')
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     Object.keys(information.svg.property)
-      .map(function(prop) {
+      .map(function (prop) {
         return information.svg.property[prop]
       })
-      .filter(function(info) {
+      .filter(function (info) {
         return info.space === 'svg'
       })
-      .forEach(function(info) {
+      .forEach(function (info) {
         var attribute = info.attribute
         var defined =
           svgAttributes.indexOf(attribute) !== -1 ||
@@ -511,14 +511,14 @@ test('svg', function(t) {
   t.end()
 })
 
-test('react', function(t) {
+test('react', function (t) {
   Object.keys(react).forEach(each)
 
   function each(type) {
-    t.doesNotThrow(function() {
+    t.doesNotThrow(function () {
       var data = react[type]
 
-      Object.keys(data).forEach(function(attr) {
+      Object.keys(data).forEach(function (attr) {
         if (reactIgnore.indexOf(attr) === -1) {
           assert(normalize(attr) in schemas[type].normal, attr)
         }

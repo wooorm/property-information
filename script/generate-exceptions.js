@@ -19,10 +19,10 @@ var schemas = {
 var reactAdditional = []
 var hastPropToReact = {}
 
-Object.keys(react).forEach(function(type) {
+Object.keys(react).forEach(function (type) {
   var info = schemas[type]
 
-  Object.keys(react[type]).forEach(function(attr) {
+  Object.keys(react[type]).forEach(function (attr) {
     var reactProp = react[type][attr]
     var hastProp = info.normal[normalize(attr)]
 
@@ -38,7 +38,7 @@ var toReact = {}
 
 Object.keys(hastPropToReact)
   .sort(alphaSort.ascending)
-  .forEach(x => {
+  .forEach((x) => {
     toReact[x] = hastPropToReact[x]
   })
 
