@@ -899,7 +899,7 @@ corresponding value, otherwise, use the hast property.
 Derivative work based on [React][source] licensed under
 [BSD-3-Clause-Clear][source-license], © 2013-2015, Facebook, Inc.
 
-[build-badge]: https://img.shields.io/travis/wooorm/property-information/master.svg
+[build-badge]: https://img.shields.io/travis/wooorm/property-information.svg
 
 [build]: https://travis-ci.org/wooorm/property-information
 
