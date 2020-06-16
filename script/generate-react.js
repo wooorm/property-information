@@ -37,19 +37,21 @@ function onreact(response) {
     function process(doc) {
       var map = {}
       var re = /\s+(?:'([^']+)'|(\w+)): '([^']+)',/g
+      var clean = {}
       var match
 
       while ((match = re.exec(doc))) {
         map[match[1] || match[2]] = match[3]
       }
 
-      return Object.keys(map)
+      Object.keys(map)
         .sort(alphaSort.ascending)
         .filter(filter)
-        .reduce((all, d) => {
-          all[d] = map[d]
-          return all
-        }, {})
+        .forEach((d) => {
+          clean[d] = map[d]
+        })
+
+      return clean
 
       function filter(d) {
         if (d === 'role') {
