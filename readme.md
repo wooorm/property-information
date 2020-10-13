@@ -517,6 +517,7 @@ corresponding value, otherwise, use the hast property.
 | `limitingConeAngle`          | `limitingConeAngle`            | `svg`         |
 | `link`                       | `link`                         | `html`        |
 | `list`                       | `list`                         | `html`        |
+| `loading`                    | `loading`                      | `html`        |
 | `local`                      | `local`                        | `svg`         |
 | `longDesc`                   | `longdesc`                     | `html`        |
 | `loop`                       | `loop`                         | `html`        |
