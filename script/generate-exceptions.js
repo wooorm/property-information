@@ -3,7 +3,7 @@
 var fs = require('fs')
 var path = require('path')
 var bail = require('bail')
-var alphaSort = require('alpha-sort')
+var alphaSort = require('alpha-sort')()
 var normalize = require('../normalize')
 var react = require('./react-data.json')
 
@@ -37,7 +37,7 @@ Object.keys(react).forEach(function (type) {
 var toReact = {}
 
 Object.keys(hastPropToReact)
-  .sort(alphaSort.ascending)
+  .sort(alphaSort)
   .forEach((x) => {
     toReact[x] = hastPropToReact[x]
   })

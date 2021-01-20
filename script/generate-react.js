@@ -5,7 +5,7 @@ var path = require('path')
 var https = require('https')
 var bail = require('bail')
 var concat = require('concat-stream')
-var alphaSort = require('alpha-sort')
+var alphaSort = require('alpha-sort')()
 
 https.get(
   'https://raw.githubusercontent.com/facebook/react/master/packages/react-dom/src/shared/possibleStandardNames.js',

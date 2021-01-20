@@ -46,7 +46,7 @@ function visit(start, nodes, end) {
 
     schemas.forEach(exists)
 
-    if (spaces.length !== 0) {
+    if (spaces.length > 0) {
       fields.push(u('tableCell', spaces))
     }
 
@@ -55,7 +55,7 @@ function visit(start, nodes, end) {
     function exists(schema) {
       var info = schema.property[property]
       if (info && info.space) {
-        if (spaces.length !== 0) {
+        if (spaces.length > 0) {
           spaces.push(u('text', ', '))
         }
 
