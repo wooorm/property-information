@@ -72,10 +72,10 @@ Look up info on a property.
 
 In most cases, the given `schema` contains info on the property.
 All standard, most legacy, and some non-standard properties are supported.
-For these cases, the returned [`Info`][info] has hints about value of the
+For these cases, the returned [`Info`][info] has hints about the value of the
 property.
 
-`name` can be a [valid data attribute or property][data], in which case an
+`name` can also be a [valid data attribute or property][data], in which case an
 [`Info`][info] object with the correctly cased `attribute` and `property` is
 returned.
 
