@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import {bail} from 'bail'
 import alphaSort from 'alpha-sort'
-import {normalize} from '../normalize.js'
+import {normalize} from '../lib/normalize.js'
 import {xlink} from '../lib/xlink.js'
 import {xml} from '../lib/xml.js'
 import {xmlns} from '../lib/xmlns.js'
@@ -39,7 +39,7 @@ while (++index < sorted.length) {
 }
 
 fs.writeFile(
-  path.join('hast-to-react.js'),
+  path.join('lib', 'hast-to-react.js'),
   'export var hastToReact = ' + JSON.stringify(toReact, null, 2) + '\n',
   bail
 )

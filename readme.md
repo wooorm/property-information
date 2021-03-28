@@ -25,11 +25,6 @@ npm install property-information
 
 *   [Use](#use)
 *   [API](#api)
-    *   [`propertyInformation.find(schema, name)`](#propertyinformationfindschema-name)
-    *   [`propertyInformation.normalize(name)`](#propertyinformationnormalizename)
-    *   [`propertyInformation.html`](#propertyinformationhtml)
-    *   [`propertyInformation.svg`](#propertyinformationsvg)
-    *   [`hastToReact`](#hasttoreact)
 *   [Support](#support)
 *   [Related](#related)
 *   [License](#license)
@@ -37,18 +32,18 @@ npm install property-information
 ## Use
 
 ```js
-import * as info from 'property-information'
+import {html, svg, find, normalize} from 'property-information'
 
-console.log(info.find(info.html, 'className'))
-// Or: info.find(info.html, 'class')
-console.log(info.find(info.svg, 'horiz-adv-x'))
-// Or: info.find(info.svg, 'horizAdvX')
-console.log(info.find(info.svg, 'xlink:arcrole'))
-// Or: info.find(info.svg, 'xLinkArcRole')
-console.log(info.find(info.html, 'xmlLang'))
-// Or: info.find(info.html, 'xml:lang')
-console.log(info.find(info.html, 'ariaValueNow'))
-// Or: info.find(info.html, 'aria-valuenow')
+console.log(find(html, 'className'))
+// Or: find(html, 'class')
+console.log(find(svg, 'horiz-adv-x'))
+// Or: find(svg, 'horizAdvX')
+console.log(find(svg, 'xlink:arcrole'))
+// Or: find(svg, 'xLinkArcRole')
+console.log(find(html, 'xmlLang'))
+// Or: find(html, 'xml:lang')
+console.log(find(html, 'ariaValueNow'))
+// Or: find(html, 'aria-valuenow')
 ```
 
 Yields:
@@ -69,7 +64,11 @@ Yields:
 
 ## API
 
-### `propertyInformation.find(schema, name)`
+This package exports the following identifiers: `html`, `svg`, `find`,
+`normalize`, `hastToReact`.
+There is no default export.
+
+### `find(schema, name)`
 
 Look up info on a property.
 
@@ -90,7 +89,7 @@ properties.
 #### Parameters
 
 *   `schema` ([`Schema`][schema])
-    — Either `propertyInformation.html` or `propertyInformation.svg`
+    — Either `html` or `svg`
 *   `name` (`string`)
     — An attribute-like or property-like name that is passed through
     [`normalize`][normalize] to find the correct info
@@ -105,8 +104,8 @@ Aside from the aforementioned example, which shows known HTML, SVG, XML, XLink,
 and ARIA support, data properties, and attributes are also supported:
 
 ```js
-console.log(info.find(info.html, 'data-date-of-birth'))
-// Or: info.find(info.html, 'dataDateOfBirth')
+console.log(find(html, 'data-date-of-birth'))
+// Or: find(html, 'dataDateOfBirth')
 ```
 
 Yields:
@@ -118,7 +117,7 @@ Yields:
 Unknown values are passed through untouched:
 
 ```js
-console.log(info.find(info.html, 'un-Known'))
+console.log(find(html, 'un-Known'))
 ```
 
 Yields:
@@ -127,7 +126,7 @@ Yields:
 { attribute: 'un-Known', property: 'un-Known' }
 ```
 
-### `propertyInformation.normalize(name)`
+### `normalize(name)`
 
 Get the cleaned case-insensitive form of an attribute or a property.
 
@@ -143,15 +142,15 @@ Get the cleaned case-insensitive form of an attribute or a property.
 #### Example
 
 ```js
-info.html.normal[info.normalize('for')] // => 'htmlFor'
-info.svg.normal[info.normalize('VIEWBOX')] // => 'viewBox'
-info.html.normal[info.normalize('unknown')] // => undefined
-info.html.normal[info.normalize('accept-charset')] // => 'acceptCharset'
+html.normal[normalize('for')] // => 'htmlFor'
+svg.normal[normalize('VIEWBOX')] // => 'viewBox'
+html.normal[normalize('unknown')] // => undefined
+html.normal[normalize('accept-charset')] // => 'acceptCharset'
 ```
 
-### `propertyInformation.html`
+### `html`
 
-### `propertyInformation.svg`
+### `svg`
 
 [`Schema`][schema] for either HTML or SVG, containing info on properties from
 the primary space (HTML or SVG) and related embedded spaces (ARIA, XML, XMLNS,
@@ -160,9 +159,9 @@ XLink).
 #### Example
 
 ```js
-console.log(info.html.property.htmlFor)
-console.log(info.svg.property.viewBox)
-console.log(info.html.property.unknown)
+console.log(html.property.htmlFor)
+console.log(svg.property.viewBox)
+console.log(html.property.unknown)
 ```
 
 Yields:
@@ -227,9 +226,9 @@ Info on a property.
 ### `hastToReact`
 
 [hast][] is close to [React][], but differs in a couple of cases.
-To get a React property from a hast property, check if it is in
-[`hast-to-react`][hast-to-react] (`Object.<string>`), if it is, then use the
-corresponding value, otherwise, use the hast property.
+To get a React property from a hast property, check if it is in `hastToReact`
+(`Object.<string>`), if it is, then use the corresponding value, otherwise, use
+the hast property.
 
 ## Support
 
@@ -919,10 +918,8 @@ Derivative work based on [React][source] licensed under
 
 [schema]: #schema
 
-[normalize]: #propertyinformationnormalizename
+[normalize]: #normalizename
 
 [react]: https://github.com/facebook/react
-
-[hast-to-react]: hast-to-react.js
 
 [hast]: https://github.com/syntax-tree/hast#propertyname
