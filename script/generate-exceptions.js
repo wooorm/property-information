@@ -18,29 +18,28 @@ var schemas = {
 
 var reactAdditional = []
 var hastPropToReact = {}
+var type
+var attr
 
-Object.keys(react).forEach(function (type) {
+for (type in react) {
   var info = schemas[type]
 
-  Object.keys(react[type]).forEach(function (attr) {
-    var reactProp = react[type][attr]
-    var hastProp = info.normal[normalize(attr)]
-
-    if (!hastProp) {
+  for (attr in react[type]) {
+    if (!info.normal[normalize(attr)]) {
       reactAdditional.push(attr)
-    } else if (reactProp !== hastProp) {
-      hastPropToReact[hastProp] = reactProp
+    } else if (react[type][attr] !== info.normal[normalize(attr)]) {
+      hastPropToReact[info.normal[normalize(attr)]] = react[type][attr]
     }
-  })
-})
+  }
+}
 
 var toReact = {}
+var sorted = Object.keys(hastPropToReact).sort(alphaSort)
+var index = -1
 
-Object.keys(hastPropToReact)
-  .sort(alphaSort)
-  .forEach((x) => {
-    toReact[x] = hastPropToReact[x]
-  })
+while (++index < sorted.length) {
+  toReact[sorted[index]] = hastPropToReact[sorted[index]]
+}
 
 fs.writeFile(
   path.join('hast-to-react.json'),

@@ -43,24 +43,25 @@ function visit(start, nodes, end) {
       u('tableCell', [u('inlineCode', property)]),
       u('tableCell', [u('inlineCode', info.attribute)])
     ]
+    var index = -1
+    var propInfo
 
-    schemas.forEach(exists)
+    while (++index < schemas.length) {
+      propInfo = schemas[index].property[property]
+
+      if (propInfo && propInfo.space) {
+        if (spaces.length > 0) {
+          spaces.push(u('text', ', '))
+        }
+
+        spaces.push(u('inlineCode', propInfo.space))
+      }
+    }
 
     if (spaces.length > 0) {
       fields.push(u('tableCell', spaces))
     }
 
     return u('tableRow', fields)
-
-    function exists(schema) {
-      var info = schema.property[property]
-      if (info && info.space) {
-        if (spaces.length > 0) {
-          spaces.push(u('text', ', '))
-        }
-
-        spaces.push(u('inlineCode', info.space))
-      }
-    }
   }
 }

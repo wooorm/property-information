@@ -372,11 +372,13 @@ test('find', function (t) {
       'data-mike-1': 'dataMike-1',
       'data-november-1-2': 'dataNovember-1-2'
     }
+    var index = -1
+    var attribute
+    var property
 
-    Object.keys(mapping).forEach(check)
-
-    function check(attribute, index) {
-      var property = mapping[attribute]
+    for (attribute in mapping) {
+      property = mapping[attribute]
+      index++
 
       st.deepLooseEqual(
         find(information.html, attribute),
@@ -453,29 +455,28 @@ test('find', function (t) {
 
 test('html', function (t) {
   t.doesNotThrow(function () {
-    htmlAttributes.forEach(function (attribute) {
-      assert(normalize(attribute) in information.html.normal, attribute)
-    })
+    var index = -1
+    while (++index < htmlAttributes.length) {
+      assert(
+        normalize(htmlAttributes[index]) in information.html.normal,
+        htmlAttributes[index]
+      )
+    }
   }, 'known HTML attributes should be defined')
 
   t.doesNotThrow(function () {
-    Object.keys(information.html.property)
-      .map(function (prop) {
-        return information.html.property[prop]
-      })
-      .filter(function (info) {
-        return info.space === 'html'
-      })
-      .forEach(function (info) {
-        var attribute = info.attribute
-        var defined =
-          htmlAttributes.indexOf(attribute) !== -1 ||
-          nonStandardAttributes.indexOf(attribute) !== -1
-        assert(
-          defined,
-          attribute + ' should be known or marked as non-standard'
-        )
-      })
+    var info = Object.keys(information.html.property)
+      .map((prop) => information.html.property[prop])
+      .filter((info) => info.space === 'html')
+    var index = -1
+
+    while (++index < info.length) {
+      assert(
+        htmlAttributes.indexOf(info[index].attribute) !== -1 ||
+          nonStandardAttributes.indexOf(info[index].attribute) !== -1,
+        info[index].attribute + ' should be known or marked as non-standard'
+      )
+    }
   }, 'Defined HTML attributes should be known')
 
   t.end()
@@ -485,46 +486,48 @@ test('svg', function (t) {
   t.doesNotThrow(function () {
     // Ignore these. In tiny they’re cased. In SVG2 they’re lowercase.
     var ignore = ['playbackOrder', 'timelineBegin']
+    var index = -1
 
-    svgAttributes.forEach(function (attribute) {
-      if (ignore.indexOf(attribute) === -1) {
-        assert(normalize(attribute) in information.svg.normal, attribute)
+    while (++index < svgAttributes.length) {
+      if (ignore.indexOf(svgAttributes[index]) === -1) {
+        assert(
+          normalize(svgAttributes[index]) in information.svg.normal,
+          svgAttributes[index]
+        )
       }
-    })
+    }
   }, 'known SVG attributes should be defined')
 
   t.doesNotThrow(function () {
-    Object.keys(information.svg.property)
-      .map(function (prop) {
-        return information.svg.property[prop]
-      })
-      .filter(function (info) {
-        return info.space === 'svg'
-      })
-      .forEach(function (info) {
-        var attribute = info.attribute
-        var defined =
-          svgAttributes.indexOf(attribute) !== -1 ||
-          nonStandardSVGAttributes.indexOf(attribute) !== -1
-        assert(defined, attribute + ' is not known')
-      })
+    var info = Object.keys(information.svg.property)
+      .map((prop) => information.svg.property[prop])
+      .filter((info) => info.space === 'svg')
+    var index = -1
+
+    while (++index < info.length) {
+      var defined =
+        svgAttributes.indexOf(info[index].attribute) !== -1 ||
+        nonStandardSVGAttributes.indexOf(info[index].attribute) !== -1
+      assert(defined, info[index].attribute + ' is not known')
+    }
   }, 'Defined SVG attributes should be known')
 
   t.end()
 })
 
 test('react', function (t) {
-  Object.keys(react).forEach(each)
+  var type
 
-  function each(type) {
+  for (type in react) {
     t.doesNotThrow(function () {
       var data = react[type]
+      var attr
 
-      Object.keys(data).forEach(function (attr) {
+      for (attr in data) {
         if (reactIgnore.indexOf(attr) === -1) {
           assert(normalize(attr) in schemas[type].normal, attr)
         }
-      })
+      }
     }, 'known ' + type + ' properties should be defined')
   }
 

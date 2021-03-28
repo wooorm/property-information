@@ -39,17 +39,18 @@ function onreact(response) {
       var re = /\s+(?:'([^']+)'|(\w+)): '([^']+)',/g
       var clean = {}
       var match
+      var sorted
+      var index = -1
 
       while ((match = re.exec(doc))) {
         map[match[1] || match[2]] = match[3]
       }
 
-      Object.keys(map)
-        .sort(alphaSort.ascending)
-        .filter(filter)
-        .forEach((d) => {
-          clean[d] = map[d]
-        })
+      sorted = Object.keys(map).sort(alphaSort.ascending).filter(filter)
+
+      while (++index < sorted.length) {
+        clean[sorted[index]] = map[sorted[index]]
+      }
 
       return clean
 
