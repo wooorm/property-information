@@ -34,9 +34,6 @@
     "normalize.js",
     "svg.js"
   ],
-  "dependencies": {
-    "xtend": "^4.0.0"
-  },
   "devDependencies": {
     "alpha-sort": "^4.0.0",
     "arr-union": "^3.0.0",
