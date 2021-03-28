@@ -19,8 +19,8 @@ import {svg} from './lib/svg.js'
 
 var schemas = {html, svg, aria, xlink, xml, xmlns}
 
-var htmlAttributes = values(htmlElementAttributes).concat([htmlEventAttributes])
-var svgAttributes = values(svgElementAttributes).concat([svgEventAttributes])
+var htmlAttributes = values(htmlElementAttributes).concat(htmlEventAttributes)
+var svgAttributes = values(svgElementAttributes).concat(svgEventAttributes)
 
 htmlAttributes = union.apply(null, htmlAttributes).sort()
 svgAttributes = union.apply(null, svgAttributes).sort()
@@ -75,6 +75,10 @@ var legacy = [
   'event',
   'leftmargin',
   'lowsrc',
+  // `ondragexit` -> `ondragleave`
+  'ondragexit',
+  // `onloadend` -> `onload` probably?
+  'onloadend',
   'rightmargin',
   'topmargin',
   'scoped',
