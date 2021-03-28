@@ -1,11 +1,9 @@
-'use strict'
-
-var fs = require('fs')
-var path = require('path')
-var https = require('https')
-var bail = require('bail')
-var concat = require('concat-stream')
-var alphaSort = require('alpha-sort')()
+import fs from 'fs'
+import path from 'path'
+import https from 'https'
+import {bail} from 'bail'
+import concat from 'concat-stream'
+import alphaSort from 'alpha-sort'
 
 https.get(
   'https://raw.githubusercontent.com/facebook/react/master/packages/react-dom/src/shared/possibleStandardNames.js',
@@ -29,8 +27,8 @@ function onreact(response) {
     )
 
     fs.writeFile(
-      path.join('script', 'react-data.json'),
-      JSON.stringify(data, null, 2) + '\n',
+      path.join('script', 'react-data.js'),
+      'export var reactData = ' + JSON.stringify(data, null, 2) + '\n',
       bail
     )
 
@@ -46,7 +44,7 @@ function onreact(response) {
         map[match[1] || match[2]] = match[3]
       }
 
-      sorted = Object.keys(map).sort(alphaSort.ascending).filter(filter)
+      sorted = Object.keys(map).sort(alphaSort()).filter(filter)
 
       while (++index < sorted.length) {
         clean[sorted[index]] = map[sorted[index]]

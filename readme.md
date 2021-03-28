@@ -12,6 +12,9 @@ This package follows a sensible naming scheme as defined by [hast][].
 
 ## Install
 
+This package is ESM only: Node 12+ is needed to use it and it must be `import`ed
+instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -34,7 +37,7 @@ npm install property-information
 ## Use
 
 ```js
-var info = require('property-information')
+import * as info from 'property-information'
 
 console.log(info.find(info.html, 'className'))
 // Or: info.find(info.html, 'class')
@@ -96,11 +99,6 @@ properties.
 
 [`Info`][info].
 
-#### Note
-
-`find` can be accessed directly from `require('property-information/find')` as
-well.
-
 #### Example
 
 Aside from the aforementioned example, which shows known HTML, SVG, XML, XLink,
@@ -142,11 +140,6 @@ Get the cleaned case-insensitive form of an attribute or a property.
 `string` that can be used to look up the properly cased property in a
 [`Schema`][schema].
 
-#### Note
-
-`normalize` can be accessed directly from
-`require('property-information/normalize')` as well.
-
 #### Example
 
 ```js
@@ -163,12 +156,6 @@ info.html.normal[info.normalize('accept-charset')] // => 'acceptCharset'
 [`Schema`][schema] for either HTML or SVG, containing info on properties from
 the primary space (HTML or SVG) and related embedded spaces (ARIA, XML, XMLNS,
 XLink).
-
-#### Note
-
-`html` and `svg` can be accessed directly from
-`require('property-information/html')` and `require('property-information/svg')`
-as well.
 
 #### Example
 
@@ -238,8 +225,6 @@ Info on a property.
     These values can only be accessed through `find`.
 
 ### `hastToReact`
-
-> Accessible through `require('property-information/hast-to-react.json')`
 
 [hast][] is close to [React][], but differs in a couple of cases.
 To get a React property from a hast property, check if it is in
@@ -938,6 +923,6 @@ Derivative work based on [React][source] licensed under
 
 [react]: https://github.com/facebook/react
 
-[hast-to-react]: hast-to-react.json
+[hast-to-react]: hast-to-react.js
 
 [hast]: https://github.com/syntax-tree/hast#propertyname

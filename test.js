@@ -1,29 +1,27 @@
-'use strict'
+import assert from 'assert'
+import test from 'tape'
+import union from 'arr-union'
+import values from 'object.values'
+import {htmlElementAttributes} from 'html-element-attributes'
+import {svgElementAttributes} from 'svg-element-attributes'
+import {htmlEventAttributes} from 'html-event-attributes'
+import {svgEventAttributes} from 'svg-event-attributes'
+import {reactData} from './script/react-data.js'
+import {normalize} from './normalize.js'
+import {find} from './find.js'
+import * as information from './index.js'
+import {xlink} from './lib/xlink.js'
+import {xml} from './lib/xml.js'
+import {xmlns} from './lib/xmlns.js'
+import {aria} from './lib/aria.js'
+import {html} from './lib/html.js'
+import {svg} from './lib/svg.js'
 
-var assert = require('assert')
-var test = require('tape')
-var union = require('arr-union')
-var values = require('object.values')
-var htmlAttributes = require('html-element-attributes')
-var svgAttributes = require('svg-element-attributes')
-var htmlEvents = require('html-event-attributes')
-var svgEvents = require('svg-event-attributes')
-var react = require('./script/react-data')
-var normalize = require('./normalize')
-var find = require('./find')
-var information = require('.')
+var schemas = {html, svg, aria, xlink, xml, xmlns}
 
-var schemas = {
-  html: require('./lib/html'),
-  svg: require('./lib/svg'),
-  aria: require('./lib/aria'),
-  xlink: require('./lib/xlink'),
-  xml: require('./lib/xml'),
-  xmlns: require('./lib/xmlns')
-}
+var htmlAttributes = values(htmlElementAttributes).concat([htmlEventAttributes])
+var svgAttributes = values(svgElementAttributes).concat([svgEventAttributes])
 
-htmlAttributes = values(htmlAttributes).concat([htmlEvents])
-svgAttributes = values(svgAttributes).concat([svgEvents])
 htmlAttributes = union.apply(null, htmlAttributes).sort()
 svgAttributes = union.apply(null, svgAttributes).sort()
 
@@ -518,9 +516,9 @@ test('svg', function (t) {
 test('react', function (t) {
   var type
 
-  for (type in react) {
+  for (type in reactData) {
     t.doesNotThrow(function () {
-      var data = react[type]
+      var data = reactData[type]
       var attr
 
       for (attr in data) {

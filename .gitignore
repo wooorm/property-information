@@ -1,9 +1,6 @@
 .DS_Store
 *.log
-.nyc_output/
 coverage/
 node_modules/
-property-information.js
-property-information.min.js
 yarn.lock
-script/react-data.json
+script/react-data.js

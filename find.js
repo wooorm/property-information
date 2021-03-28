@@ -1,18 +1,13 @@
-'use strict'
-
-var normalize = require('./normalize')
-var DefinedInfo = require('./lib/util/defined-info')
-var Info = require('./lib/util/info')
+import {normalize} from './normalize.js'
+import {DefinedInfo} from './lib/util/defined-info.js'
+import {Info} from './lib/util/info.js'
 
 var data = 'data'
-
-module.exports = find
-
 var valid = /^data[-\w.:]+$/i
 var dash = /-[a-z]/g
 var cap = /[A-Z]/g
 
-function find(schema, value) {
+export function find(schema, value) {
   var normal = normalize(value)
   var prop = value
   var Type = Info

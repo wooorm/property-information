@@ -1,21 +1,17 @@
-'use strict'
-
-var u = require('unist-builder')
-var zone = require('mdast-zone')
-var xlink = require('../lib/xlink')
-var xml = require('../lib/xml')
-var xmlns = require('../lib/xmlns')
-var aria = require('../lib/aria')
-var svg = require('../lib/svg')
-var html = require('../lib/html')
-var merge = require('../lib/util/merge')
+import u from 'unist-builder'
+import zone from 'mdast-zone'
+import xlink from '../lib/xlink.js'
+import xml from '../lib/xml.js'
+import xmlns from '../lib/xmlns.js'
+import aria from '../lib/aria.js'
+import svg from '../lib/svg.js'
+import html from '../lib/html.js'
+import merge from '../lib/util/merge.js'
 
 var schemas = [xml, xlink, xmlns, svg, html, aria]
 var all = merge(schemas)
 
-module.exports = parseErrors
-
-function parseErrors() {
+export default function remarkList() {
   return transform
 }
 

@@ -1,10 +1,8 @@
-'use strict'
+import {merge} from './lib/util/merge.js'
+import {xlink} from './lib/xlink.js'
+import {xml} from './lib/xml.js'
+import {xmlns} from './lib/xmlns.js'
+import {aria} from './lib/aria.js'
+import {svg as svgBase} from './lib/svg.js'
 
-var merge = require('./lib/util/merge')
-var xlink = require('./lib/xlink')
-var xml = require('./lib/xml')
-var xmlns = require('./lib/xmlns')
-var aria = require('./lib/aria')
-var svg = require('./lib/svg')
-
-module.exports = merge([xml, xlink, xmlns, aria, svg])
+export var svg = merge([xml, xlink, xmlns, aria, svgBase])

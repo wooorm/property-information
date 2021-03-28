@@ -1,7 +1,3 @@
-'use strict'
-
-module.exports = normalize
-
-function normalize(value) {
+export function normalize(value) {
   return value.toLowerCase()
 }

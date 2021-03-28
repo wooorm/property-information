@@ -1,40 +1,37 @@
-'use strict'
+import fs from 'fs'
+import path from 'path'
+import {bail} from 'bail'
+import alphaSort from 'alpha-sort'
+import {normalize} from '../normalize.js'
+import {xlink} from '../lib/xlink.js'
+import {xml} from '../lib/xml.js'
+import {xmlns} from '../lib/xmlns.js'
+import {aria} from '../lib/aria.js'
+import {html} from '../lib/html.js'
+import {svg} from '../lib/svg.js'
+import {reactData} from './react-data.js'
 
-var fs = require('fs')
-var path = require('path')
-var bail = require('bail')
-var alphaSort = require('alpha-sort')()
-var normalize = require('../normalize')
-var react = require('./react-data.json')
-
-var schemas = {
-  html: require('../lib/html'),
-  svg: require('../lib/svg'),
-  aria: require('../lib/aria'),
-  xlink: require('../lib/xlink'),
-  xml: require('../lib/xml'),
-  xmlns: require('../lib/xmlns')
-}
+var schemas = {html, svg, aria, xlink, xml, xmlns}
 
 var reactAdditional = []
 var hastPropToReact = {}
 var type
 var attr
 
-for (type in react) {
+for (type in reactData) {
   var info = schemas[type]
 
-  for (attr in react[type]) {
+  for (attr in reactData[type]) {
     if (!info.normal[normalize(attr)]) {
       reactAdditional.push(attr)
-    } else if (react[type][attr] !== info.normal[normalize(attr)]) {
-      hastPropToReact[info.normal[normalize(attr)]] = react[type][attr]
+    } else if (reactData[type][attr] !== info.normal[normalize(attr)]) {
+      hastPropToReact[info.normal[normalize(attr)]] = reactData[type][attr]
     }
   }
 }
 
 var toReact = {}
-var sorted = Object.keys(hastPropToReact).sort(alphaSort)
+var sorted = Object.keys(hastPropToReact).sort(alphaSort())
 var index = -1
 
 while (++index < sorted.length) {
@@ -42,7 +39,7 @@ while (++index < sorted.length) {
 }
 
 fs.writeFile(
-  path.join('hast-to-react.json'),
-  JSON.stringify(toReact, null, 2) + '\n',
+  path.join('hast-to-react.js'),
+  'export var hastToReact = ' + JSON.stringify(toReact, null, 2) + '\n',
   bail
 )

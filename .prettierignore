@@ -1,5 +1,2 @@
 coverage/
-property-information.js
-property-information.min.js
-*.json
 *.md
