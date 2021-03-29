@@ -11,6 +11,8 @@ import {html} from '../lib/html.js'
 import {svg} from '../lib/svg.js'
 import {reactData} from './react-data.js'
 
+var own = {}.hasOwnProperty
+
 var schemas = {html, svg, aria, xlink, xml, xmlns}
 
 /** @type {Array.<string>} */
@@ -25,13 +27,15 @@ var attr
 var info
 
 for (type in reactData) {
-  info = schemas[type]
+  if (own.call(reactData, type)) {
+    info = schemas[type]
 
-  for (attr in reactData[type]) {
-    if (!info.normal[normalize(attr)]) {
-      reactAdditional.push(attr)
-    } else if (reactData[type][attr] !== info.normal[normalize(attr)]) {
-      hastPropToReact[info.normal[normalize(attr)]] = reactData[type][attr]
+    for (attr in reactData[type]) {
+      if (!info.normal[normalize(attr)]) {
+        reactAdditional.push(attr)
+      } else if (reactData[type][attr] !== info.normal[normalize(attr)]) {
+        hastPropToReact[info.normal[normalize(attr)]] = reactData[type][attr]
+      }
     }
   }
 }

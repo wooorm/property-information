@@ -55,43 +55,45 @@ function onreact(response) {
         map[match[1] || match[2]] = match[3]
       }
 
-      sorted = Object.keys(map).sort(alphaSort()).filter(filter)
+      sorted = Object.keys(map)
+        .sort(alphaSort())
+        .filter(
+          /**
+           * @param {string} d
+           * @returns {boolean}
+           */
+          function (d) {
+            if (d === 'role') {
+              data.aria = {}
+              data.aria[d] = map[d]
+              return false
+            }
+
+            return ns.every(function (space) {
+              /** @type {Object.<string, string>} */
+              var dat
+
+              if (d.startsWith(space)) {
+                // Ignore the ones w/o colon:
+                if (!d.includes(':') && d !== space) {
+                  return false
+                }
+
+                dat = data[space] || (data[space] = {})
+                dat[d] = map[d]
+                return false
+              }
+
+              return true
+            })
+          }
+        )
 
       while (++index < sorted.length) {
         clean[sorted[index]] = map[sorted[index]]
       }
 
       return clean
-
-      /**
-       * @param {string} d
-       * @returns {boolean}
-       */
-      function filter(d) {
-        if (d === 'role') {
-          data.aria = {}
-          data.aria[d] = map[d]
-          return false
-        }
-
-        return ns.every(function (space) {
-          /** @type {Object.<string, string>} */
-          var dat
-
-          if (d.startsWith(space)) {
-            // Ignore the ones w/o colon:
-            if (d.indexOf(':') === -1 && d !== space) {
-              return false
-            }
-
-            dat = data[space] || (data[space] = {})
-            dat[d] = map[d]
-            return false
-          }
-
-          return true
-        })
-      }
     }
   }
 }

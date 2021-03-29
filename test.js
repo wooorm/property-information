@@ -15,6 +15,8 @@ import {aria} from './lib/aria.js'
 import {html} from './lib/html.js'
 import {svg} from './lib/svg.js'
 
+var own = {}.hasOwnProperty
+
 var schemas = {html, svg, aria, xlink, xml, xmlns}
 
 var htmlAttributes = htmlEventAttributes
@@ -24,7 +26,7 @@ var svgAttributes = svgEventAttributes
   .concat(...Object.values(svgElementAttributes))
   .sort()
 
-var reactIgnore = [
+var reactIgnore = new Set([
   // React specific:
   'children',
   'dangerouslysetinnerhtml',
@@ -66,7 +68,7 @@ var reactIgnore = [
   'results',
   'security',
   'unselectable'
-]
+])
 
 var legacy = [
   'bordercolor',
@@ -124,10 +126,10 @@ var next = [
 
 // These are supported by `property-information`, but no longer or not yet in
 // the core HTML specs.
-var nonStandardAttributes = [...legacy, ...custom, ...next]
+var nonStandardAttributes = new Set([...legacy, ...custom, ...next])
 
 // Some SVG properties:
-var nonStandardSVGAttributes = [
+var nonStandardSVGAttributes = new Set([
   'paint-order',
   'vector-effect',
 
@@ -135,7 +137,7 @@ var nonStandardSVGAttributes = [
   'hatchContentUnits',
   'hatchUnits',
   'pitch'
-]
+])
 
 test('schema', function (t) {
   t.deepLooseEqual(information.html.property.className, {
@@ -380,20 +382,22 @@ test('find', function (t) {
     var property
 
     for (attribute in mapping) {
-      property = mapping[attribute]
-      index++
+      if (own.call(mapping, attribute)) {
+        property = mapping[attribute]
+        index++
 
-      st.deepLooseEqual(
-        find(information.html, attribute),
-        {attribute: attribute, property: property},
-        'should find data (#' + index + ', attribute)'
-      )
+        st.deepLooseEqual(
+          find(information.html, attribute),
+          {attribute: attribute, property: property},
+          'should find data (#' + index + ', attribute)'
+        )
 
-      st.deepLooseEqual(
-        find(information.html, property),
-        {attribute: attribute, property: property},
-        'should find data (#' + index + ', property)'
-      )
+        st.deepLooseEqual(
+          find(information.html, property),
+          {attribute: attribute, property: property},
+          'should find data (#' + index + ', property)'
+        )
+      }
     }
 
     st.deepLooseEqual(
@@ -475,8 +479,8 @@ test('html', function (t) {
 
     while (++index < info.length) {
       assert(
-        htmlAttributes.indexOf(info[index].attribute) !== -1 ||
-          nonStandardAttributes.indexOf(info[index].attribute) !== -1,
+        htmlAttributes.includes(info[index].attribute) ||
+          nonStandardAttributes.has(info[index].attribute),
         info[index].attribute + ' should be known or marked as non-standard'
       )
     }
@@ -488,11 +492,11 @@ test('html', function (t) {
 test('svg', function (t) {
   t.doesNotThrow(function () {
     // Ignore these. In tiny they’re cased. In SVG2 they’re lowercase.
-    var ignore = ['playbackOrder', 'timelineBegin']
+    var ignore = new Set(['playbackOrder', 'timelineBegin'])
     var index = -1
 
     while (++index < svgAttributes.length) {
-      if (ignore.indexOf(svgAttributes[index]) === -1) {
+      if (!ignore.has(svgAttributes[index])) {
         assert(
           normalize(svgAttributes[index]) in information.svg.normal,
           svgAttributes[index]
@@ -509,8 +513,8 @@ test('svg', function (t) {
 
     while (++index < info.length) {
       var defined =
-        svgAttributes.indexOf(info[index].attribute) !== -1 ||
-        nonStandardSVGAttributes.indexOf(info[index].attribute) !== -1
+        svgAttributes.includes(info[index].attribute) ||
+        nonStandardSVGAttributes.has(info[index].attribute)
       assert(defined, info[index].attribute + ' is not known')
     }
   }, 'Defined SVG attributes should be known')
@@ -523,21 +527,23 @@ test('react', function (t) {
   var type
 
   for (type in reactData) {
-    t.doesNotThrow(function () {
-      /** @type {Object.<string, string>} */
-      var data = reactData[type]
-      /** @type {string} */
-      var attr
-      /** @type {import('./lib/util/schema.js').Schema} */
-      var schema
+    if (own.call(reactData, type)) {
+      t.doesNotThrow(function () {
+        /** @type {Object.<string, string>} */
+        var data = reactData[type]
+        /** @type {string} */
+        var attr
+        /** @type {import('./lib/util/schema.js').Schema} */
+        var schema
 
-      for (attr in data) {
-        if (reactIgnore.indexOf(attr) === -1) {
-          schema = schemas[type]
-          assert(normalize(attr) in schema.normal, attr)
+        for (attr in data) {
+          if (!reactIgnore.has(attr)) {
+            schema = schemas[type]
+            assert(normalize(attr) in schema.normal, attr)
+          }
         }
-      }
-    }, 'known ' + type + ' properties should be defined')
+      }, 'known ' + type + ' properties should be defined')
+    }
   }
 
   t.end()

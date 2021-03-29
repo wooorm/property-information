@@ -77,13 +77,9 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "guard-for-in": "off",
       "import/no-mutable-exports": "off",
       "no-var": "off",
-      "prefer-exponentiation-operator": "off",
-      "prefer-arrow-callback": "off",
-      "unicorn/no-array-callback-reference": "off",
-      "unicorn/prefer-includes": "off"
+      "prefer-arrow-callback": "off"
     }
   },
   "remarkConfig": {
