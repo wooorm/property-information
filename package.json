@@ -25,35 +25,40 @@
   "sideEffects": false,
   "type": "module",
   "main": "index.js",
+  "types": "index.d.ts",
   "files": [
     "lib/",
-    "find.js",
-    "hast-to-react.js",
-    "html.js",
-    "index.js",
-    "normalize.js",
-    "svg.js"
+    "index.d.ts",
+    "index.js"
   ],
   "devDependencies": {
+    "@types/concat-stream": "^1.0.0",
+    "@types/mdast": "^3.0.0",
+    "@types/node": "^14.0.0",
+    "@types/tape": "^4.0.0",
+    "@types/unist": "^2.0.0",
     "alpha-sort": "^4.0.0",
-    "arr-union": "^3.0.0",
     "bail": "^2.0.0",
     "c8": "^7.0.0",
     "concat-stream": "^2.0.0",
     "html-element-attributes": "^3.0.0",
     "html-event-attributes": "^2.0.0",
     "mdast-zone": "^4.0.0",
-    "object.values": "^1.0.0",
     "prettier": "^2.0.0",
     "remark-cli": "^9.0.0",
     "remark-preset-wooorm": "^8.0.0",
+    "rimraf": "^3.0.0",
     "svg-element-attributes": "^2.0.0",
     "svg-event-attributes": "^2.0.0",
     "tape": "^5.0.0",
+    "type-coverage": "^2.0.0",
+    "typescript": "^4.0.0",
     "unist-builder": "^2.0.0",
     "xo": "^0.38.0"
   },
   "scripts": {
+    "prepack": "npm run build && npm run format",
+    "build": "rimraf \"{lib/**/,script/**,}*.d.ts\" && tsc && type-coverage",
     "generate": "node script/generate-react && node script/generate-exceptions",
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
     "test-api": "node test.js",
@@ -86,5 +91,10 @@
     "plugins": [
       "preset-wooorm"
     ]
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true
   }
 }

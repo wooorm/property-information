@@ -25,6 +25,11 @@ npm install property-information
 
 *   [Use](#use)
 *   [API](#api)
+    *   [`find(schema, name)`](#findschema-name)
+    *   [`normalize(name)`](#normalizename)
+    *   [`html`](#html)
+    *   [`svg`](#svg)
+    *   [`hastToReact`](#hasttoreact)
 *   [Support](#support)
 *   [Related](#related)
 *   [License](#license)

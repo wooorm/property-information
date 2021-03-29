@@ -1,7 +1,5 @@
 import assert from 'assert'
 import test from 'tape'
-import union from 'arr-union'
-import values from 'object.values'
 import {htmlElementAttributes} from 'html-element-attributes'
 import {svgElementAttributes} from 'svg-element-attributes'
 import {htmlEventAttributes} from 'html-event-attributes'
@@ -19,11 +17,12 @@ import {svg} from './lib/svg.js'
 
 var schemas = {html, svg, aria, xlink, xml, xmlns}
 
-var htmlAttributes = values(htmlElementAttributes).concat(htmlEventAttributes)
-var svgAttributes = values(svgElementAttributes).concat(svgEventAttributes)
-
-htmlAttributes = union.apply(null, htmlAttributes).sort()
-svgAttributes = union.apply(null, svgAttributes).sort()
+var htmlAttributes = htmlEventAttributes
+  .concat(...Object.values(htmlElementAttributes))
+  .sort()
+var svgAttributes = svgEventAttributes
+  .concat(...Object.values(svgElementAttributes))
+  .sort()
 
 var reactIgnore = [
   // React specific:
@@ -125,7 +124,7 @@ var next = [
 
 // These are supported by `property-information`, but no longer or not yet in
 // the core HTML specs.
-var nonStandardAttributes = [].concat(legacy, custom, next)
+var nonStandardAttributes = [...legacy, ...custom, ...next]
 
 // Some SVG properties:
 var nonStandardSVGAttributes = [
@@ -375,7 +374,9 @@ test('find', function (t) {
       'data-november-1-2': 'dataNovember-1-2'
     }
     var index = -1
+    /** @type {string} */
     var attribute
+    /** @type {string} */
     var property
 
     for (attribute in mapping) {
@@ -518,16 +519,22 @@ test('svg', function (t) {
 })
 
 test('react', function (t) {
+  /** @type {string} */
   var type
 
   for (type in reactData) {
     t.doesNotThrow(function () {
+      /** @type {Object.<string, string>} */
       var data = reactData[type]
+      /** @type {string} */
       var attr
+      /** @type {import('./lib/util/schema.js').Schema} */
+      var schema
 
       for (attr in data) {
         if (reactIgnore.indexOf(attr) === -1) {
-          assert(normalize(attr) in schemas[type].normal, attr)
+          schema = schemas[type]
+          assert(normalize(attr) in schema.normal, attr)
         }
       }
     }, 'known ' + type + ' properties should be defined')

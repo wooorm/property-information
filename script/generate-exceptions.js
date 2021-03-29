@@ -13,13 +13,19 @@ import {reactData} from './react-data.js'
 
 var schemas = {html, svg, aria, xlink, xml, xmlns}
 
+/** @type {Array.<string>} */
 var reactAdditional = []
+/** @type {Object.<string, string>} */
 var hastPropToReact = {}
+/** @type {string} */
 var type
+/** @type {string} */
 var attr
+/** @type {import('../lib/util/info.js').Info} */
+var info
 
 for (type in reactData) {
-  var info = schemas[type]
+  info = schemas[type]
 
   for (attr in reactData[type]) {
     if (!info.normal[normalize(attr)]) {
@@ -30,6 +36,7 @@ for (type in reactData) {
   }
 }
 
+/** @type {Object.<string, string>} */
 var toReact = {}
 var sorted = Object.keys(hastPropToReact).sort(alphaSort())
 var index = -1
