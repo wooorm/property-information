@@ -83,9 +83,9 @@
     }
   },
   "remarkConfig": {
-    "to do: add the following plugin back when `unified-engine` supports ESM": "./script/list",
     "plugins": [
-      "preset-wooorm"
+      "preset-wooorm",
+      "./script/list.js"
     ]
   },
   "typeCoverage": {
