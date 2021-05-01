@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('./lib/util/info.js').Info} Info
+ * @typedef {import('./lib/util/schema.js').Schema} Schema
+ */
+
 import {merge} from './lib/util/merge.js'
 import {xlink} from './lib/xlink.js'
 import {xml} from './lib/xml.js'
