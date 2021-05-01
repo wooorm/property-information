@@ -388,13 +388,13 @@ test('find', function (t) {
 
         st.deepLooseEqual(
           find(information.html, attribute),
-          {attribute: attribute, property: property},
+          {attribute, property},
           'should find data (#' + index + ', attribute)'
         )
 
         st.deepLooseEqual(
           find(information.html, property),
-          {attribute: attribute, property: property},
+          {attribute, property},
           'should find data (#' + index + ', property)'
         )
       }

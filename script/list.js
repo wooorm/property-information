@@ -1,6 +1,5 @@
 import u from 'unist-builder'
-// @ts-ignore remove when typed
-import zone from 'mdast-zone'
+import {zone} from 'mdast-zone'
 import {xlink} from '../lib/xlink.js'
 import {xml} from '../lib/xml.js'
 import {xmlns} from '../lib/xmlns.js'
