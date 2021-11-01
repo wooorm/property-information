@@ -461,6 +461,9 @@ test('find', function (t) {
 })
 
 test('html', function (t) {
+  // Does this throw an error?
+  // Then an attribute was likely recently added to HTML.
+  // The solution is probably to define it in `lib/html.js`.
   t.doesNotThrow(function () {
     let index = -1
     while (++index < htmlAttributes.length) {

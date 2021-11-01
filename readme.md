@@ -574,7 +574,9 @@ the hast property.
 | `onChange`                   | `onchange`                     | `svg`, `html` |
 | `onClick`                    | `onclick`                      | `svg`, `html` |
 | `onClose`                    | `onclose`                      | `svg`, `html` |
+| `onContextLost`              | `oncontextlost`                | `html`        |
 | `onContextMenu`              | `oncontextmenu`                | `html`        |
+| `onContextRestored`          | `oncontextrestored`            | `html`        |
 | `onCopy`                     | `oncopy`                       | `svg`, `html` |
 | `onCueChange`                | `oncuechange`                  | `svg`, `html` |
 | `onCut`                      | `oncut`                        | `svg`, `html` |
