@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import https from 'https'
+import fs from 'node:fs'
+import path from 'node:path'
+import https from 'node:https'
 import {bail} from 'bail'
 import concat from 'concat-stream'
 import alphaSort from 'alpha-sort'
@@ -20,12 +20,12 @@ function onreact(response) {
    * @param {Buffer} buffer
    */
   function onconcat(buffer) {
-    var doc = String(buffer)
-    var ns = ['xlink', 'xmlns', 'xml']
-    var html = doc.match(/\/\/ HTML\s*?\n/)
-    var svg = doc.match(/\/\/ SVG\s*?\n/)
+    const doc = String(buffer)
+    const ns = ['xlink', 'xmlns', 'xml']
+    const html = doc.match(/\/\/ HTML\s*?\n/)
+    const svg = doc.match(/\/\/ SVG\s*?\n/)
     /** @type {Object.<string, Object.<string, string>>}  */
-    var data = {}
+    const data = {}
 
     data.html = process(doc.slice(html.index + html[0].length, svg.index))
     data.svg = process(
@@ -34,28 +34,27 @@ function onreact(response) {
 
     fs.writeFile(
       path.join('script', 'react-data.js'),
-      'export var reactData = ' + JSON.stringify(data, null, 2) + '\n',
+      'export const reactData = ' + JSON.stringify(data, null, 2) + '\n',
       bail
     )
 
     /** @param {string} doc */
     function process(doc) {
-      var re = /\s+(?:'([^']+)'|(\w+)): '([^']+)',/g
-      var index = -1
+      const re = /\s+(?:'([^']+)'|(\w+)): '([^']+)',/g
+      let index = -1
       /** @type {Object.<string, string>} */
-      var map = {}
+      const map = {}
       /** @type {Object.<string, string>} */
-      var clean = {}
+      const clean = {}
       /** @type {RegExpMatchArray} */
-      var match
-      /** @type {Array.<string>} */
-      var sorted
+      let match
 
       while ((match = re.exec(doc))) {
         map[match[1] || match[2]] = match[3]
       }
 
-      sorted = Object.keys(map)
+      /** @type {Array.<string>} */
+      const sorted = Object.keys(map)
         .sort(alphaSort())
         .filter(
           /**
@@ -71,7 +70,7 @@ function onreact(response) {
 
             return ns.every(function (space) {
               /** @type {Object.<string, string>} */
-              var dat
+              let dat
 
               if (d.startsWith(space)) {
                 // Ignore the ones w/o colon:

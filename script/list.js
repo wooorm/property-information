@@ -1,4 +1,4 @@
-import u from 'unist-builder'
+import {u} from 'unist-builder'
 import {zone} from 'mdast-zone'
 import {xlink} from '../lib/xlink.js'
 import {xml} from '../lib/xml.js'
@@ -8,8 +8,8 @@ import {svg} from '../lib/svg.js'
 import {html} from '../lib/html.js'
 import {merge} from '../lib/util/merge.js'
 
-var schemas = [xml, xlink, xmlns, svg, html, aria]
-var all = merge(schemas)
+const schemas = [xml, xlink, xmlns, svg, html, aria]
+const all = merge(schemas)
 
 export default function remarkList() {
   return transform
@@ -28,9 +28,9 @@ function transform(tree) {
  * @param {import('unist').Node?} end
  */
 function visit(start, _, end) {
-  var properties = all.property
-  var props = Object.keys(properties).sort()
-  var rows = [
+  const properties = all.property
+  const props = Object.keys(properties).sort()
+  const rows = [
     u('tableRow', [
       u('tableCell', [u('text', 'Property')]),
       u('tableCell', [u('text', 'Attribute')]),
@@ -50,17 +50,17 @@ function visit(start, _, end) {
            * @returns {import('mdast').TableCell}
            */
           function (property) {
-            var info = properties[property]
+            const info = properties[property]
             /** @type {import('mdast').PhrasingContent[]} */
-            var spaces = []
+            const spaces = []
             /** @type {import('mdast').RowContent[]} */
-            var fields = [
+            const fields = [
               u('tableCell', [u('inlineCode', property)]),
               u('tableCell', [u('inlineCode', info.attribute)])
             ]
-            var index = -1
+            let index = -1
             /** @type {import('../lib/util/info').Info} */
-            var propInfo
+            let propInfo
 
             while (++index < schemas.length) {
               propInfo = schemas[index].property[property]

@@ -14,5 +14,5 @@ import {svg as svgBase} from './lib/svg.js'
 export {find} from './lib/find.js'
 export {hastToReact} from './lib/hast-to-react.js'
 export {normalize} from './lib/normalize.js'
-export var html = merge([xml, xlink, xmlns, aria, htmlBase], 'html')
-export var svg = merge([xml, xlink, xmlns, aria, svgBase], 'svg')
+export const html = merge([xml, xlink, xmlns, aria, htmlBase], 'html')
+export const svg = merge([xml, xlink, xmlns, aria, svgBase], 'svg')

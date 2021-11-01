@@ -1,11 +1,10 @@
-import assert from 'assert'
+import assert from 'node:assert'
 import test from 'tape'
 import {htmlElementAttributes} from 'html-element-attributes'
 import {svgElementAttributes} from 'svg-element-attributes'
 import {htmlEventAttributes} from 'html-event-attributes'
 import {svgEventAttributes} from 'svg-event-attributes'
 import {reactData} from './script/react-data.js'
-import * as information from './index.js'
 import {normalize} from './lib/normalize.js'
 import {find} from './lib/find.js'
 import {xlink} from './lib/xlink.js'
@@ -14,19 +13,20 @@ import {xmlns} from './lib/xmlns.js'
 import {aria} from './lib/aria.js'
 import {html} from './lib/html.js'
 import {svg} from './lib/svg.js'
+import * as information from './index.js'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
-var schemas = {html, svg, aria, xlink, xml, xmlns}
+const schemas = {html, svg, aria, xlink, xml, xmlns}
 
-var htmlAttributes = htmlEventAttributes
+const htmlAttributes = htmlEventAttributes
   .concat(...Object.values(htmlElementAttributes))
   .sort()
-var svgAttributes = svgEventAttributes
+const svgAttributes = svgEventAttributes
   .concat(...Object.values(svgElementAttributes))
   .sort()
 
-var reactIgnore = new Set([
+const reactIgnore = new Set([
   // React specific:
   'children',
   'dangerouslysetinnerhtml',
@@ -70,7 +70,7 @@ var reactIgnore = new Set([
   'unselectable'
 ])
 
-var legacy = [
+const legacy = [
   'bordercolor',
   'bottommargin',
   'event',
@@ -86,7 +86,7 @@ var legacy = [
   'seamless'
 ]
 
-var custom = [
+const custom = [
   // Iframes, supported everywhere
   'allowtransparency',
   // `autoCorrect` is supported in Mobile Safari for keyboard hints.
@@ -115,7 +115,7 @@ var custom = [
   'unselectable'
 ]
 
-var next = [
+const next = [
   // Media capture on `input[type=file]`
   // https://www.w3.org/TR/html-media-capture/
   'capture',
@@ -126,10 +126,10 @@ var next = [
 
 // These are supported by `property-information`, but no longer or not yet in
 // the core HTML specs.
-var nonStandardAttributes = new Set([...legacy, ...custom, ...next])
+const nonStandardAttributes = new Set([...legacy, ...custom, ...next])
 
 // Some SVG properties:
-var nonStandardSVGAttributes = new Set([
+const nonStandardSVGAttributes = new Set([
   'paint-order',
   'vector-effect',
 
@@ -361,7 +361,7 @@ test('find', function (t) {
   )
 
   t.test('data', function (st) {
-    var mapping = {
+    const mapping = {
       'data-alpha': 'dataAlpha',
       'data-bravo-charlie': 'dataBravoCharlie',
       'data-delta:echo': 'dataDelta:echo',
@@ -375,11 +375,11 @@ test('find', function (t) {
       'data-mike-1': 'dataMike-1',
       'data-november-1-2': 'dataNovember-1-2'
     }
-    var index = -1
+    let index = -1
     /** @type {string} */
-    var attribute
+    let attribute
     /** @type {string} */
-    var property
+    let property
 
     for (attribute in mapping) {
       if (own.call(mapping, attribute)) {
@@ -462,7 +462,7 @@ test('find', function (t) {
 
 test('html', function (t) {
   t.doesNotThrow(function () {
-    var index = -1
+    let index = -1
     while (++index < htmlAttributes.length) {
       assert(
         normalize(htmlAttributes[index]) in information.html.normal,
@@ -472,10 +472,10 @@ test('html', function (t) {
   }, 'known HTML attributes should be defined')
 
   t.doesNotThrow(function () {
-    var info = Object.keys(information.html.property)
+    const info = Object.keys(information.html.property)
       .map((prop) => information.html.property[prop])
       .filter((info) => info.space === 'html')
-    var index = -1
+    let index = -1
 
     while (++index < info.length) {
       assert(
@@ -492,8 +492,8 @@ test('html', function (t) {
 test('svg', function (t) {
   t.doesNotThrow(function () {
     // Ignore these. In tiny they’re cased. In SVG2 they’re lowercase.
-    var ignore = new Set(['playbackOrder', 'timelineBegin'])
-    var index = -1
+    const ignore = new Set(['playbackOrder', 'timelineBegin'])
+    let index = -1
 
     while (++index < svgAttributes.length) {
       if (!ignore.has(svgAttributes[index])) {
@@ -506,13 +506,13 @@ test('svg', function (t) {
   }, 'known SVG attributes should be defined')
 
   t.doesNotThrow(function () {
-    var info = Object.keys(information.svg.property)
+    const info = Object.keys(information.svg.property)
       .map((prop) => information.svg.property[prop])
       .filter((info) => info.space === 'svg')
-    var index = -1
+    let index = -1
 
     while (++index < info.length) {
-      var defined =
+      const defined =
         svgAttributes.includes(info[index].attribute) ||
         nonStandardSVGAttributes.has(info[index].attribute)
       assert(defined, info[index].attribute + ' is not known')
@@ -524,17 +524,17 @@ test('svg', function (t) {
 
 test('react', function (t) {
   /** @type {string} */
-  var type
+  let type
 
   for (type in reactData) {
     if (own.call(reactData, type)) {
       t.doesNotThrow(function () {
         /** @type {Object.<string, string>} */
-        var data = reactData[type]
+        const data = reactData[type]
         /** @type {string} */
-        var attr
+        let attr
         /** @type {import('./lib/util/schema.js').Schema} */
-        var schema
+        let schema
 
         for (attr in data) {
           if (!reactIgnore.has(attr)) {

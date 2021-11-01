@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import {bail} from 'bail'
 import alphaSort from 'alpha-sort'
 import {normalize} from '../lib/normalize.js'
@@ -11,20 +11,20 @@ import {html} from '../lib/html.js'
 import {svg} from '../lib/svg.js'
 import {reactData} from './react-data.js'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
-var schemas = {html, svg, aria, xlink, xml, xmlns}
+const schemas = {html, svg, aria, xlink, xml, xmlns}
 
 /** @type {Array.<string>} */
-var reactAdditional = []
+const reactAdditional = []
 /** @type {Object.<string, string>} */
-var hastPropToReact = {}
+const hastPropToReact = {}
 /** @type {string} */
-var type
+let type
 /** @type {string} */
-var attr
+let attr
 /** @type {import('../lib/util/info.js').Info} */
-var info
+let info
 
 for (type in reactData) {
   if (own.call(reactData, type)) {
@@ -41,9 +41,9 @@ for (type in reactData) {
 }
 
 /** @type {Object.<string, string>} */
-var toReact = {}
-var sorted = Object.keys(hastPropToReact).sort(alphaSort())
-var index = -1
+const toReact = {}
+const sorted = Object.keys(hastPropToReact).sort(alphaSort())
+let index = -1
 
 while (++index < sorted.length) {
   toReact[sorted[index]] = hastPropToReact[sorted[index]]
@@ -51,6 +51,6 @@ while (++index < sorted.length) {
 
 fs.writeFile(
   path.join('lib', 'hast-to-react.js'),
-  'export var hastToReact = ' + JSON.stringify(toReact, null, 2) + '\n',
+  'export const hastToReact = ' + JSON.stringify(toReact, null, 2) + '\n',
   bail
 )
