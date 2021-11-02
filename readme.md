@@ -5,24 +5,14 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Info for properties and attributes on the web-platform (HTML, SVG, ARIA, XML,
+Info on the properties and attributes of the web platform (HTML, SVG, ARIA, XML,
 XMLNS, XLink).
-
-This package follows a sensible naming scheme as defined by [hast][].
-
-## Install
-
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
-
-```sh
-npm install property-information
-```
 
 ## Contents
 
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`find(schema, name)`](#findschema-name)
@@ -30,9 +20,51 @@ npm install property-information
     *   [`html`](#html)
     *   [`svg`](#svg)
     *   [`hastToReact`](#hasttoreact)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
 *   [Support](#support)
+*   [Security](#security)
 *   [Related](#related)
+*   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package contains lots of info on all the properties and attributes found
+on the web platform.
+It includes data on HTML, SVG, ARIA, XML, XMLNS, and XLink.
+The names of the properties follow [hast][]’s sensible naming scheme.
+It includes info on what data types attributes hold, such as whether they’re
+booleans or contain lists of space separated numbers.
+
+## When should I use this?
+
+You can use this package if you’re working with hast, which is an AST for HTML,
+or have goals related to ASTs, such as figuring out which properties or
+attributes are valid, or what data types they hold.
+
+## Install
+
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+
+```sh
+npm install property-information
+```
+
+In Deno with [Skypack][]:
+
+```js
+import * as propertyInformation from 'https://cdn.skypack.dev/property-information@6?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import * as propertyInformation from 'https://cdn.skypack.dev/property-information@6?min'
+</script>
+```
 
 ## Use
 
@@ -54,17 +86,11 @@ console.log(find(html, 'ariaValueNow'))
 Yields:
 
 ```js
-{ space: 'html',
-  attribute: 'class',
-  property: 'className',
-  spaceSeparated: true }
-{ space: 'svg',
-  attribute: 'horiz-adv-x',
-  property: 'horizAdvX',
-  number: true }
-{ space: 'xlink', attribute: 'xlink:arcrole', property: 'xLinkArcrole' }
-{ space: 'xml', attribute: 'xml:lang', property: 'xmlLang' }
-{ attribute: 'aria-valuenow', property: 'ariaValueNow', number: true }
+{space: 'html', attribute: 'class', property: 'className', spaceSeparated: true}
+{space: 'svg', attribute: 'horiz-adv-x', property: 'horizAdvX', number: true}
+{space: 'xlink', attribute: 'xlink:arcrole', property: 'xLinkArcrole'}
+{space: 'xml', attribute: 'xml:lang', property: 'xmlLang'}
+{attribute: 'aria-valuenow', property: 'ariaValueNow', number: true}
 ```
 
 ## API
@@ -94,9 +120,9 @@ properties.
 #### Parameters
 
 *   `schema` ([`Schema`][schema])
-    — Either `html` or `svg`
+    — either the `html` or `svg` export
 *   `name` (`string`)
-    — An attribute-like or property-like name that is passed through
+    — an attribute-like or property-like name that is passed through
     [`normalize`][normalize] to find the correct info
 
 #### Returns
@@ -111,37 +137,28 @@ and ARIA support, data properties, and attributes are also supported:
 ```js
 console.log(find(html, 'data-date-of-birth'))
 // Or: find(html, 'dataDateOfBirth')
-```
-
-Yields:
-
-```js
-{ attribute: 'data-date-of-birth', property: 'dataDateOfBirth' }
+// => {attribute: 'data-date-of-birth', property: 'dataDateOfBirth'}
 ```
 
 Unknown values are passed through untouched:
 
 ```js
 console.log(find(html, 'un-Known'))
-```
-
-Yields:
-
-```js
-{ attribute: 'un-Known', property: 'un-Known' }
+// => {attribute: 'un-Known', property: 'un-Known'}
 ```
 
 ### `normalize(name)`
 
-Get the cleaned case-insensitive form of an attribute or a property.
+Get the cleaned case insensitive form of an attribute or property.
 
 #### Parameters
 
-*   `name` (`string`) — An attribute-like or property-like name
+*   `name` (`string`)
+    — an attribute-like or property-like name
 
 #### Returns
 
-`string` that can be used to look up the properly cased property in a
+`string` that can be used to look up the properly cased property on a
 [`Schema`][schema].
 
 #### Example
@@ -165,75 +182,89 @@ XLink).
 
 ```js
 console.log(html.property.htmlFor)
+// => {space: 'html', attribute: 'for', property: 'htmlFor' spaceSeparated: true}
 console.log(svg.property.viewBox)
+// => {space: 'svg', attribute: 'viewBox', property: 'viewBox'}
 console.log(html.property.unknown)
-```
-
-Yields:
-
-```js
-{ space: 'html',
-  attribute: 'for',
-  property: 'htmlFor',
-  spaceSeparated: true }
-{ space: 'svg', attribute: 'viewBox', property: 'viewBox' }
-undefined
+// => undefined
 ```
 
 #### `Schema`
 
 A schema for a primary space.
 
-*   `space` (`'html'` or `'svg'`) — Primary space of the schema
-*   `normal` (`Object.<string>`) — Object mapping normalized attributes and
-    properties to properly cased properties
-*   `property` ([`Object.<Info>`][info]) — Object mapping properties to info
+*   `space` (`'html'` or `'svg'`)
+    — primary space of the schema
+*   `normal` (`Record<string, string>`)
+    — object mapping normalized attributes and properties to properly cased
+    properties
+*   `property` ([`Record<string, Info>`][info])
+    — object mapping properties to info
 
 #### `Info`
 
 Info on a property.
 
 *   `space` (`'html'`, `'svg'`, `'xml'`, `'xlink'`, `'xmlns'`, optional)
-    — [Space][namespace] of the property
-*   `attribute` (`string`) — Attribute name for the property that could be used
-    in markup (for example: `'aria-describedby'`, `'allowfullscreen'`,
-    `'xml:lang'`, `'for'`, or `'charoff'`)
-*   `property` (`string`) — JavaScript-style camel-cased name, based on the
-    DOM, but sometimes different (for example: `'ariaDescribedBy'`,
-    `'allowFullScreen'`, `'xmlLang'`, `'htmlFor'`, `'charOff'`)
-*   `boolean` (`boolean`) — The property is `boolean`.
-    The default value of this property is false, so it can be omitted
-*   `booleanish` (`boolean`) — The property is a `boolean`.
-    The default value of this property is something other than false, so
-    `false` must persist.
-    The value can hold a string (as is the case with `ariaChecked` and its
-    `'mixed'` value)
-*   `overloadedBoolean` (`boolean`) — The property is `boolean`.
-    The default value of this property is false, so it can be omitted.
-    The value can hold a string (as is the case with `download` as its value
-    reflects the name to use for the downloaded file)
-*   `number` (`boolean`) — The property is `number`.
-    These values can sometimes hold a string
-*   `spaceSeparated` (`boolean`) — The property is a list separated by spaces
-    (for example, `className`)
-*   `commaSeparated` (`boolean`) — The property is a list separated by commas
-    (for example, `srcSet`)
-*   `commaOrSpaceSeparated` (`boolean`) — The property is a list separated by
-    commas or spaces (for example, `strokeDashArray`)
-*   `mustUseProperty` (`boolean`) — If a DOM is used, setting the property
-    should be used for the change to take effect (this is true only for
-    `'checked'`, `'multiple'`, `'muted'`, and `'selected'`)
-*   `defined` (`boolean`) — The property is [defined by a space](#support).
+    — [space][namespace] of the property
+*   `attribute` (`string`)
+    — attribute name for the property that could be used in markup (for
+    example: `'aria-describedby'`, `'allowfullscreen'`, `'xml:lang'`, `'for'`,
+    or `'charoff'`)
+*   `property` (`string`)
+    — JavaScript-style camel-cased name, based on the DOM, but sometimes
+    different (for example: `'ariaDescribedBy'`, `'allowFullScreen'`,
+    `'xmlLang'`, `'htmlFor'`, `'charOff'`)
+*   `boolean` (`boolean`)
+    — the property is a `boolean` (for example: `hidden`).
+    These properties have an on state when defined and an off state when not
+    defined
+*   `booleanish` (`boolean`)
+    — the property is like a `boolean` (for example: `draggable`)
+    These properties have both an on and off state when defined, and another
+    state when not defined
+*   `overloadedBoolean` (`boolean`)
+    — the property is like a `boolean` (for example: `download`)
+    These properties have an on state plus more states when defined and an off
+    state when not defined
+*   `number` (`boolean`)
+    — the property is a `number` (for example: `height`)
+*   `spaceSeparated` (`boolean`)
+    — the property is a list separated by spaces (for example: `className`)
+*   `commaSeparated` (`boolean`)
+    — the property is a list separated by commas (for example: `srcSet`)
+*   `commaOrSpaceSeparated` (`boolean`)
+    — the property is a list separated by spaces or commas (for example:
+    `strokeDashArray`)
+*   `mustUseProperty` (`boolean`)
+    — useful when working with the DOM, in which case this property has to be
+    changed as a field on the element, rather than through `setAttribute`
+    (this is true only for `'checked'`, `'multiple'`, `'muted'`, and
+    `'selected'`)
+*   `defined` (`boolean`)
+    — the property is [defined by a space](#support).
     This is true for values in HTML (including data and ARIA), SVG, XML,
     XMLNS, and XLink.
-    These values can only be accessed through `find`.
+    Undefined properties can only be found through `find`
 
 ### `hastToReact`
 
 [hast][] is close to [React][], but differs in a couple of cases.
 To get a React property from a hast property, check if it is in `hastToReact`
-(`Object.<string>`), if it is, then use the corresponding value, otherwise, use
-the hast property.
+(`Record<string, string>`), if it is, then use the corresponding value,
+otherwise, use the hast property.
+
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports the types `Info` and `Schema`, reflecting the interfaces of those
+constructs.
+
+## Compatibility
+
+This package is at least compatible with all maintained versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+It also works in Deno and modern browsers.
 
 ## Support
 
@@ -861,28 +892,37 @@ the hast property.
 
 <!--list end-->
 
+## Security
+
+This package is safe.
+
 ## Related
 
-*   [`web-namespaces`][namespace]
-    — List of web namespaces
-*   [`space-separated-tokens`](https://github.com/wooorm/space-separated-tokens)
-    — Parse/stringify space-separated tokens
-*   [`comma-separated-tokens`](https://github.com/wooorm/comma-separated-tokens)
-    — Parse/stringify comma-separated tokens
-*   [`html-tag-names`](https://github.com/wooorm/html-tag-names)
-    — List of HTML tags
-*   [`mathml-tag-names`](https://github.com/wooorm/mathml-tag-names)
-    — List of MathML tags
-*   [`svg-tag-names`](https://github.com/wooorm/svg-tag-names)
-    — List of SVG tags
-*   [`html-void-elements`](https://github.com/wooorm/html-void-elements)
-    — List of void HTML tag-names
-*   [`svg-element-attributes`](https://github.com/wooorm/svg-element-attributes)
-    — Map of SVG elements to allowed attributes
-*   [`html-element-attributes`](https://github.com/wooorm/html-element-attributes)
-    — Map of HTML elements to allowed attributes
-*   [`aria-attributes`](https://github.com/wooorm/aria-attributes)
-    — List of ARIA attributes
+*   [`wooorm/web-namespaces`][namespace]
+    — list of web namespaces
+*   [`wooorm/space-separated-tokens`](https://github.com/wooorm/space-separated-tokens)
+    — parse/stringify space separated tokens
+*   [`wooorm/comma-separated-tokens`](https://github.com/wooorm/comma-separated-tokens)
+    — parse/stringify comma separated tokens
+*   [`wooorm/html-tag-names`](https://github.com/wooorm/html-tag-names)
+    — list of HTML tag names
+*   [`wooorm/mathml-tag-names`](https://github.com/wooorm/mathml-tag-names)
+    — list of MathML tag names
+*   [`wooorm/svg-tag-names`](https://github.com/wooorm/svg-tag-names)
+    — list of SVG tag names
+*   [`wooorm/html-void-elements`](https://github.com/wooorm/html-void-elements)
+    — list of void HTML tag names
+*   [`wooorm/svg-element-attributes`](https://github.com/wooorm/svg-element-attributes)
+    — map of SVG elements to allowed attributes
+*   [`wooorm/html-element-attributes`](https://github.com/wooorm/html-element-attributes)
+    — map of HTML elements to allowed attributes
+*   [`wooorm/aria-attributes`](https://github.com/wooorm/aria-attributes)
+    — list of ARIA attributes
+
+## Contribute
+
+Yes please!
+See [How to Contribute to Open Source][contribute].
 
 ## License
 
@@ -909,9 +949,17 @@ Derivative work based on [React][source] licensed under
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [author]: https://wooorm.com
 
 [license]: license
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[typescript]: https://www.typescriptlang.org
+
+[contribute]: https://opensource.guide/how-to-contribute/
 
 [source]: https://github.com/facebook/react/blob/f445dd9/src/renderers/dom/shared/HTMLDOMPropertyConfig.js
 
