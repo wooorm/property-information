@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('../lib/util/schema').Schema} Schema
+ */
+
 import fs from 'node:fs'
 import path from 'node:path'
 import {bail} from 'bail'
@@ -15,32 +19,33 @@ const own = {}.hasOwnProperty
 
 const schemas = {html, svg, aria, xlink, xml, xmlns}
 
-/** @type {Array.<string>} */
+/** @type {Array<string>} */
 const reactAdditional = []
-/** @type {Object.<string, string>} */
+/** @type {Record<string, string>} */
 const hastPropToReact = {}
 /** @type {string} */
 let type
-/** @type {string} */
-let attr
-/** @type {import('../lib/util/info.js').Info} */
-let info
 
 for (type in reactData) {
   if (own.call(reactData, type)) {
-    info = schemas[type]
+    const map = reactData[type]
+    /** @type {Schema} */
+    // @ts-expect-error: assume `type` matches.
+    const info = schemas[type]
+    /** @type {string} */
+    let attr
 
-    for (attr in reactData[type]) {
+    for (attr in map) {
       if (!info.normal[normalize(attr)]) {
         reactAdditional.push(attr)
-      } else if (reactData[type][attr] !== info.normal[normalize(attr)]) {
-        hastPropToReact[info.normal[normalize(attr)]] = reactData[type][attr]
+      } else if (map[attr] !== info.normal[normalize(attr)]) {
+        hastPropToReact[info.normal[normalize(attr)]] = map[attr]
       }
     }
   }
 }
 
-/** @type {Object.<string, string>} */
+/** @type {Record<string, string>} */
 const toReact = {}
 const sorted = Object.keys(hastPropToReact).sort(alphaSort())
 let index = -1

@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('mdast').TableRow} TableRow
+ * @typedef {import('mdast').RowContent} RowContent
+ * @typedef {import('mdast').PhrasingContent} PhrasingContent
+ */
+
 import {u} from 'unist-builder'
 import {zone} from 'mdast-zone'
 import {xlink} from '../lib/xlink.js'
@@ -11,78 +17,57 @@ import {merge} from '../lib/util/merge.js'
 const schemas = [xml, xlink, xmlns, svg, html, aria]
 const all = merge(schemas)
 
+/**
+ * @type {import('unified').Plugin<void[], import('mdast').Root>}
+ */
 export default function remarkList() {
-  return transform
-}
+  return (tree) => {
+    zone(tree, 'list', (start, _, end) => {
+      const properties = all.property
+      const props = Object.keys(properties).sort()
+      /** @type {TableRow[]} */
+      const rows = [
+        u('tableRow', [
+          u('tableCell', [u('text', 'Property')]),
+          u('tableCell', [u('text', 'Attribute')]),
+          u('tableCell', [u('text', 'Space')])
+        ])
+      ]
 
-/**
- * @param {import('mdast').Root} tree
- */
-function transform(tree) {
-  zone(tree, 'list', visit)
-}
+      let index = -1
 
-/**
- * @param {import('unist').Node?} start
- * @param {unknown} _
- * @param {import('unist').Node?} end
- */
-function visit(start, _, end) {
-  const properties = all.property
-  const props = Object.keys(properties).sort()
-  const rows = [
-    u('tableRow', [
-      u('tableCell', [u('text', 'Property')]),
-      u('tableCell', [u('text', 'Attribute')]),
-      u('tableCell', [u('text', 'Space')])
-    ])
-  ]
+      while (++index < props.length) {
+        const property = props[index]
+        const info = properties[property]
+        /** @type {PhrasingContent[]} */
+        const spaces = []
+        /** @type {RowContent[]} */
+        const fields = [
+          u('tableCell', [u('inlineCode', property)]),
+          u('tableCell', [u('inlineCode', info.attribute)])
+        ]
+        let schemaIndex = -1
 
-  return [
-    start,
-    u(
-      'table',
-      {align: []},
-      rows.concat(
-        props.map(
-          /**
-           * @param {string} property
-           * @returns {import('mdast').TableCell}
-           */
-          function (property) {
-            const info = properties[property]
-            /** @type {import('mdast').PhrasingContent[]} */
-            const spaces = []
-            /** @type {import('mdast').RowContent[]} */
-            const fields = [
-              u('tableCell', [u('inlineCode', property)]),
-              u('tableCell', [u('inlineCode', info.attribute)])
-            ]
-            let index = -1
-            /** @type {import('../lib/util/info').Info} */
-            let propInfo
+        while (++schemaIndex < schemas.length) {
+          const propInfo = schemas[schemaIndex].property[property]
 
-            while (++index < schemas.length) {
-              propInfo = schemas[index].property[property]
-
-              if (propInfo && propInfo.space) {
-                if (spaces.length > 0) {
-                  spaces.push(u('text', ', '))
-                }
-
-                spaces.push(u('inlineCode', propInfo.space))
-              }
-            }
-
+          if (propInfo && propInfo.space) {
             if (spaces.length > 0) {
-              fields.push(u('tableCell', spaces))
+              spaces.push(u('text', ', '))
             }
 
-            return u('tableRow', fields)
+            spaces.push(u('inlineCode', propInfo.space))
           }
-        )
-      )
-    ),
-    end
-  ]
+        }
+
+        if (spaces.length > 0) {
+          fields.push(u('tableCell', spaces))
+        }
+
+        rows.push(u('tableRow', fields))
+      }
+
+      return [start, u('table', {align: []}, rows), end]
+    })
+  }
 }

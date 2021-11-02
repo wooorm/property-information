@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('./lib/util/schema').Schema} Schema
+ */
+
 import assert from 'node:assert'
 import test from 'tape'
 import {htmlElementAttributes} from 'html-element-attributes'
@@ -376,14 +380,12 @@ test('find', function (t) {
       'data-november-1-2': 'dataNovember-1-2'
     }
     let index = -1
-    /** @type {string} */
+    /** @type {keyof mapping} */
     let attribute
-    /** @type {string} */
-    let property
 
     for (attribute in mapping) {
       if (own.call(mapping, attribute)) {
-        property = mapping[attribute]
+        const property = mapping[attribute]
         index++
 
         st.deepLooseEqual(
@@ -532,16 +534,16 @@ test('react', function (t) {
   for (type in reactData) {
     if (own.call(reactData, type)) {
       t.doesNotThrow(function () {
-        /** @type {Object.<string, string>} */
+        /** @type {Record<string, string>} */
         const data = reactData[type]
         /** @type {string} */
         let attr
-        /** @type {import('./lib/util/schema.js').Schema} */
-        let schema
 
         for (attr in data) {
           if (!reactIgnore.has(attr)) {
-            schema = schemas[type]
+            /** @type {Schema} */
+            // @ts-expect-error: hush
+            const schema = schemas[type]
             assert(normalize(attr) in schema.normal, attr)
           }
         }
