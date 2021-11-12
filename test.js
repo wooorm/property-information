@@ -154,8 +154,7 @@ test('schema', function (t) {
   t.deepLooseEqual(information.html.property.srcSet, {
     space: 'html',
     attribute: 'srcset',
-    property: 'srcSet',
-    commaSeparated: true
+    property: 'srcSet'
   })
 
   t.deepLooseEqual(information.html.property.download, {
