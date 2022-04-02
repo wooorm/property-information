@@ -52,17 +52,17 @@ In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 npm install property-information
 ```
 
-In Deno with [Skypack][]:
+In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import * as propertyInformation from 'https://cdn.skypack.dev/property-information@6?dts'
+import * as propertyInformation from 'https://esm.sh/property-information@6'
 ```
 
-In browsers with [Skypack][]:
+In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import * as propertyInformation from 'https://cdn.skypack.dev/property-information@6?min'
+  import * as propertyInformation from 'https://esm.sh/property-information@6?bundle'
 </script>
 ```
 
@@ -949,7 +949,7 @@ Derivative work based on [React][source] licensed under
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[skypack]: https://www.skypack.dev
+[esmsh]: https://esm.sh
 
 [author]: https://wooorm.com
 
