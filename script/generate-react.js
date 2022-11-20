@@ -7,7 +7,7 @@ import concat from 'concat-stream'
 import alphaSort from 'alpha-sort'
 
 https.get(
-  'https://raw.githubusercontent.com/facebook/react/master/packages/react-dom/src/shared/possibleStandardNames.js',
+  'https://raw.githubusercontent.com/facebook/react/main/packages/react-dom-bindings/src/shared/possibleStandardNames.js',
   (response) => {
     response
       .pipe(
