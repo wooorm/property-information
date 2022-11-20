@@ -2,9 +2,7 @@
  * @typedef {import('../lib/util/schema.js').Schema} Schema
  */
 
-import fs from 'node:fs'
-import path from 'node:path'
-import {bail} from 'bail'
+import fs from 'node:fs/promises'
 import alphaSort from 'alpha-sort'
 import {normalize} from '../lib/normalize.js'
 import {xlink} from '../lib/xlink.js'
@@ -54,8 +52,19 @@ while (++index < sorted.length) {
   toReact[sorted[index]] = hastPropToReact[sorted[index]]
 }
 
-fs.writeFile(
-  path.join('lib', 'hast-to-react.js'),
-  'export const hastToReact = ' + JSON.stringify(toReact, null, 2) + '\n',
-  bail
+await fs.writeFile(
+  new URL('../lib/hast-to-react.js', import.meta.url),
+  [
+    '/**',
+    ' * `hast` is close to `React`, but differs in a couple of cases.',
+    ' *',
+    ' * To get a React property from a hast property, check if it is in',
+    ' * `hastToReact`, if it is, then use the corresponding value,',
+    ' * otherwise, use the hast property.',
+    ' *',
+    ' * @type {Record<string, string>}',
+    ' */',
+    'export const hastToReact = ' + JSON.stringify(toReact, null, 2),
+    ''
+  ].join('\n')
 )
