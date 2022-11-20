@@ -595,6 +595,7 @@ It also works in Deno and modern browsers.
 | `onActivate`                 | `onactivate`                   | `svg`         |
 | `onAfterPrint`               | `onafterprint`                 | `svg`, `html` |
 | `onAuxClick`                 | `onauxclick`                   | `html`        |
+| `onBeforeMatch`              | `onbeforematch`                | `html`        |
 | `onBeforePrint`              | `onbeforeprint`                | `svg`, `html` |
 | `onBeforeUnload`             | `onbeforeunload`               | `html`        |
 | `onBegin`                    | `onbegin`                      | `svg`         |
@@ -667,6 +668,7 @@ It also works in Deno and modern browsers.
 | `onReset`                    | `onreset`                      | `svg`, `html` |
 | `onResize`                   | `onresize`                     | `svg`, `html` |
 | `onScroll`                   | `onscroll`                     | `svg`, `html` |
+| `onScrollEnd`                | `onscrollend`                  | `html`        |
 | `onSecurityPolicyViolation`  | `onsecuritypolicyviolation`    | `html`        |
 | `onSeeked`                   | `onseeked`                     | `svg`, `html` |
 | `onSeeking`                  | `onseeking`                    | `svg`, `html` |
