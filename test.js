@@ -1,5 +1,5 @@
 /**
- * @typedef {import('./lib/util/schema').Schema} Schema
+ * @typedef {import('./lib/util/schema.js').Schema} Schema
  */
 
 import assert from 'node:assert'
