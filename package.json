@@ -34,9 +34,9 @@
     "index.js"
   ],
   "devDependencies": {
-    "@types/concat-stream": "^1.0.0",
+    "@types/concat-stream": "^2.0.0",
     "@types/mdast": "^3.0.0",
-    "@types/node": "^16.0.0",
+    "@types/node": "^18.0.0",
     "@types/tape": "^4.0.0",
     "@types/unist": "^2.0.0",
     "alpha-sort": "^5.0.0",
@@ -47,7 +47,7 @@
     "html-event-attributes": "^2.0.0",
     "mdast-zone": "^5.0.0",
     "prettier": "^2.0.0",
-    "remark-cli": "^10.0.0",
+    "remark-cli": "^11.0.0",
     "remark-preset-wooorm": "^9.0.0",
     "rimraf": "^3.0.0",
     "svg-element-attributes": "^2.0.0",
@@ -56,7 +56,7 @@
     "type-coverage": "^2.0.0",
     "typescript": "^4.0.0",
     "unist-builder": "^3.0.0",
-    "xo": "^0.46.0"
+    "xo": "^0.53.0"
   },
   "scripts": {
     "prepublishOnly": "npm run build && npm run format",
