@@ -937,7 +937,7 @@ See [How to Contribute to Open Source][contribute].
 [MIT][license] © [Titus Wormer][author]
 
 Derivative work based on [React][source] licensed under
-[BSD-3-Clause-Clear][source-license], © 2013-2015, Facebook, Inc.
+[MIT][source-license], © Facebook, Inc.
 
 [build-badge]: https://github.com/wooorm/property-information/workflows/main/badge.svg
 
@@ -969,9 +969,9 @@ Derivative work based on [React][source] licensed under
 
 [contribute]: https://opensource.guide/how-to-contribute/
 
-[source]: https://github.com/facebook/react/blob/f445dd9/src/renderers/dom/shared/HTMLDOMPropertyConfig.js
+[source]: https://github.com/facebook/react/blob/8ec2ed4089/packages/react-dom/src/shared/DOMProperty.js
 
-[source-license]: https://github.com/facebook/react/blob/88cdc27/LICENSE
+[source-license]: https://github.com/facebook/react/blob/8ec2ed4089/LICENSE
 
 [data]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
 
