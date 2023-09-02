@@ -363,6 +363,7 @@ It also works in Deno and modern browsers.
 | `begin`                      | `begin`                        | `svg`         |
 | `bgColor`                    | `bgcolor`                      | `html`        |
 | `bias`                       | `bias`                         | `svg`         |
+| `blocking`                   | `blocking`                     | `html`        |
 | `border`                     | `border`                       | `html`        |
 | `borderColor`                | `bordercolor`                  | `html`        |
 | `bottomMargin`               | `bottommargin`                 | `html`        |
@@ -442,6 +443,7 @@ It also works in Deno and modern browsers.
 | `exponent`                   | `exponent`                     | `svg`         |
 | `externalResourcesRequired`  | `externalResourcesRequired`    | `svg`         |
 | `face`                       | `face`                         | `html`        |
+| `fetchPriority`              | `fetchpriority`                | `html`        |
 | `fill`                       | `fill`                         | `svg`         |
 | `fillOpacity`                | `fill-opacity`                 | `svg`         |
 | `fillRule`                   | `fill-rule`                    | `svg`         |
@@ -503,6 +505,7 @@ It also works in Deno and modern browsers.
 | `imageSrcSet`                | `imagesrcset`                  | `html`        |
 | `in`                         | `in`                           | `svg`         |
 | `in2`                        | `in2`                          | `svg`         |
+| `inert`                      | `inert`                        | `html`        |
 | `initialVisibility`          | `initialVisibility`            | `svg`         |
 | `inputMode`                  | `inputmode`                    | `html`        |
 | `integrity`                  | `integrity`                    | `html`        |
@@ -717,6 +720,9 @@ It also works in Deno and modern browsers.
 | `pointsAtX`                  | `pointsAtX`                    | `svg`         |
 | `pointsAtY`                  | `pointsAtY`                    | `svg`         |
 | `pointsAtZ`                  | `pointsAtZ`                    | `svg`         |
+| `popover`                    | `popover`                      | `html`        |
+| `popoverTarget`              | `popovertarget`                | `html`        |
+| `popoverTargetAction`        | `popovertargetaction`          | `html`        |
 | `poster`                     | `poster`                       | `html`        |
 | `prefix`                     | `prefix`                       | `html`        |
 | `preload`                    | `preload`                      | `html`        |
@@ -830,6 +836,7 @@ It also works in Deno and modern browsers.
 | `topMargin`                  | `topmargin`                    | `html`        |
 | `transform`                  | `transform`                    | `svg`         |
 | `transformBehavior`          | `transformBehavior`            | `svg`         |
+| `transformOrigin`            | `transform-origin`             | `svg`         |
 | `translate`                  | `translate`                    | `html`        |
 | `type`                       | `type`                         | `svg`, `html` |
 | `typeMustMatch`              | `typemustmatch`                | `html`        |

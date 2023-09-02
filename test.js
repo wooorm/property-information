@@ -140,7 +140,10 @@ const nonStandardSVGAttributes = new Set([
   // https://github.com/wooorm/svg-element-attributes/commit/dcc7643
   'hatchContentUnits',
   'hatchUnits',
-  'pitch'
+  'pitch',
+
+  // https://github.com/facebook/react/pull/26115.
+  'transform-origin'
 ])
 
 test('schema', function () {
