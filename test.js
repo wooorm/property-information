@@ -140,7 +140,10 @@ const nonStandardSVGAttributes = new Set([
   // https://github.com/wooorm/svg-element-attributes/commit/dcc7643
   'hatchContentUnits',
   'hatchUnits',
-  'pitch'
+  'pitch',
+
+  // https://github.com/facebook/react/pull/26115.
+  'transform-origin'
 ])
 
 test('schema', function () {
@@ -520,21 +523,24 @@ test('react', function () {
 
   for (type in reactData) {
     if (own.call(reactData, type)) {
-      assert.doesNotThrow(function () {
-        /** @type {Record<string, string>} */
-        const data = reactData[type]
-        /** @type {string} */
-        let attr
+      assert.doesNotThrow(
+        function () {
+          /** @type {Record<string, string>} */
+          const data = reactData[type]
+          /** @type {string} */
+          let attr
 
-        for (attr in data) {
-          if (!reactIgnore.has(attr)) {
-            /** @type {Schema} */
-            // @ts-expect-error: hush
-            const schema = schemas[type]
-            assert(normalize(attr) in schema.normal, attr)
+          for (attr in data) {
+            if (!reactIgnore.has(attr)) {
+              /** @type {Schema} */
+              // @ts-expect-error: hush
+              const schema = schemas[type]
+              assert(normalize(attr) in schema.normal, attr)
+            }
           }
-        }
-      }, 'known ' + type + ' properties should be defined')
+        },
+        'known ' + type + ' properties should be defined'
+      )
     }
   }
 })
