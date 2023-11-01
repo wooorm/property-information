@@ -1,7 +1,8 @@
 /**
- * @typedef {import('mdast').TableRow} TableRow
- * @typedef {import('mdast').RowContent} RowContent
  * @typedef {import('mdast').PhrasingContent} PhrasingContent
+ * @typedef {import('mdast').Root} Root
+ * @typedef {import('mdast').RowContent} RowContent
+ * @typedef {import('mdast').TableRow} TableRow
  */
 
 import {u} from 'unist-builder'
@@ -17,10 +18,13 @@ import {merge} from '../lib/util/merge.js'
 const schemas = [xml, xlink, xmlns, svg, html, aria]
 const all = merge(schemas)
 
-/**
- * @type {import('unified').Plugin<void[], import('mdast').Root>}
- */
 export default function remarkList() {
+  /**
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return (tree) => {
     zone(tree, 'list', (start, _, end) => {
       const properties = all.property
