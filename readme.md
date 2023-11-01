@@ -599,6 +599,7 @@ It also works in Deno and modern browsers.
 | `onAuxClick`                 | `onauxclick`                   | `html`        |
 | `onBeforeMatch`              | `onbeforematch`                | `html`        |
 | `onBeforePrint`              | `onbeforeprint`                | `svg`, `html` |
+| `onBeforeToggle`             | `onbeforetoggle`               | `html`        |
 | `onBeforeUnload`             | `onbeforeunload`               | `html`        |
 | `onBegin`                    | `onbegin`                      | `svg`         |
 | `onBlur`                     | `onblur`                       | `html`        |
@@ -772,6 +773,8 @@ It also works in Deno and modern browsers.
 | `security`                   | `security`                     | `html`        |
 | `seed`                       | `seed`                         | `svg`         |
 | `selected`                   | `selected`                     | `html`        |
+| `shadowRootDelegatesFocus`   | `shadowrootdelegatesfocus`     | `html`        |
+| `shadowRootMode`             | `shadowrootmode`               | `html`        |
 | `shape`                      | `shape`                        | `html`        |
 | `shapeRendering`             | `shape-rendering`              | `svg`         |
 | `side`                       | `side`                         | `svg`         |
