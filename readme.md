@@ -10,23 +10,23 @@ XMLNS, XLink).
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`find(schema, name)`](#findschema-name)
-    *   [`normalize(name)`](#normalizename)
-    *   [`html`](#html)
-    *   [`svg`](#svg)
-    *   [`hastToReact`](#hasttoreact)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Support](#support)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`find(schema, name)`](#findschema-name)
+  * [`normalize(name)`](#normalizename)
+  * [`html`](#html)
+  * [`svg`](#svg)
+  * [`hastToReact`](#hasttoreact)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Support](#support)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -119,11 +119,11 @@ properties.
 
 #### Parameters
 
-*   `schema` ([`Schema`][schema])
-    — either the `html` or `svg` export
-*   `name` (`string`)
-    — an attribute-like or property-like name that is passed through
-    [`normalize`][normalize] to find the correct info
+* `schema` ([`Schema`][schema])
+  — either the `html` or `svg` export
+* `name` (`string`)
+  — an attribute-like or property-like name that is passed through
+  [`normalize`][normalize] to find the correct info
 
 #### Returns
 
@@ -153,8 +153,8 @@ Get the cleaned case insensitive form of an attribute or property.
 
 #### Parameters
 
-*   `name` (`string`)
-    — an attribute-like or property-like name
+* `name` (`string`)
+  — an attribute-like or property-like name
 
 #### Returns
 
@@ -193,59 +193,59 @@ console.log(html.property.unknown)
 
 A schema for a primary space.
 
-*   `space` (`'html'` or `'svg'`)
-    — primary space of the schema
-*   `normal` (`Record<string, string>`)
-    — object mapping normalized attributes and properties to properly cased
-    properties
-*   `property` ([`Record<string, Info>`][info])
-    — object mapping properties to info
+* `space` (`'html'` or `'svg'`)
+  — primary space of the schema
+* `normal` (`Record<string, string>`)
+  — object mapping normalized attributes and properties to properly cased
+  properties
+* `property` ([`Record<string, Info>`][info])
+  — object mapping properties to info
 
 #### `Info`
 
 Info on a property.
 
-*   `space` (`'html'`, `'svg'`, `'xml'`, `'xlink'`, `'xmlns'`, optional)
-    — [space][namespace] of the property
-*   `attribute` (`string`)
-    — attribute name for the property that could be used in markup (for
-    example: `'aria-describedby'`, `'allowfullscreen'`, `'xml:lang'`, `'for'`,
-    or `'charoff'`)
-*   `property` (`string`)
-    — JavaScript-style camel-cased name, based on the DOM, but sometimes
-    different (for example: `'ariaDescribedBy'`, `'allowFullScreen'`,
-    `'xmlLang'`, `'htmlFor'`, `'charOff'`)
-*   `boolean` (`boolean`)
-    — the property is a `boolean` (for example: `hidden`).
-    These properties have an on state when defined and an off state when not
-    defined
-*   `booleanish` (`boolean`)
-    — the property is like a `boolean` (for example: `draggable`)
-    These properties have both an on and off state when defined, and another
-    state when not defined
-*   `overloadedBoolean` (`boolean`)
-    — the property is like a `boolean` (for example: `download`)
-    These properties have an on state plus more states when defined and an off
-    state when not defined
-*   `number` (`boolean`)
-    — the property is a `number` (for example: `height`)
-*   `spaceSeparated` (`boolean`)
-    — the property is a list separated by spaces (for example: `className`)
-*   `commaSeparated` (`boolean`)
-    — the property is a list separated by commas (for example: `srcSet`)
-*   `commaOrSpaceSeparated` (`boolean`)
-    — the property is a list separated by spaces or commas (for example:
-    `strokeDashArray`)
-*   `mustUseProperty` (`boolean`)
-    — useful when working with the DOM, in which case this property has to be
-    changed as a field on the element, rather than through `setAttribute`
-    (this is true only for `'checked'`, `'multiple'`, `'muted'`, and
-    `'selected'`)
-*   `defined` (`boolean`)
-    — the property is [defined by a space](#support).
-    This is true for values in HTML (including data and ARIA), SVG, XML,
-    XMLNS, and XLink.
-    Undefined properties can only be found through `find`
+* `space` (`'html'`, `'svg'`, `'xml'`, `'xlink'`, `'xmlns'`, optional)
+  — [space][namespace] of the property
+* `attribute` (`string`)
+  — attribute name for the property that could be used in markup (for
+  example: `'aria-describedby'`, `'allowfullscreen'`, `'xml:lang'`, `'for'`,
+  or `'charoff'`)
+* `property` (`string`)
+  — JavaScript-style camel-cased name, based on the DOM, but sometimes
+  different (for example: `'ariaDescribedBy'`, `'allowFullScreen'`,
+  `'xmlLang'`, `'htmlFor'`, `'charOff'`)
+* `boolean` (`boolean`)
+  — the property is a `boolean` (for example: `hidden`).
+  These properties have an on state when defined and an off state when not
+  defined
+* `booleanish` (`boolean`)
+  — the property is like a `boolean` (for example: `draggable`)
+  These properties have both an on and off state when defined, and another
+  state when not defined
+* `overloadedBoolean` (`boolean`)
+  — the property is like a `boolean` (for example: `download`)
+  These properties have an on state plus more states when defined and an off
+  state when not defined
+* `number` (`boolean`)
+  — the property is a `number` (for example: `height`)
+* `spaceSeparated` (`boolean`)
+  — the property is a list separated by spaces (for example: `className`)
+* `commaSeparated` (`boolean`)
+  — the property is a list separated by commas (for example: `srcSet`)
+* `commaOrSpaceSeparated` (`boolean`)
+  — the property is a list separated by spaces or commas (for example:
+  `strokeDashArray`)
+* `mustUseProperty` (`boolean`)
+  — useful when working with the DOM, in which case this property has to be
+  changed as a field on the element, rather than through `setAttribute`
+  (this is true only for `'checked'`, `'multiple'`, `'muted'`, and
+  `'selected'`)
+* `defined` (`boolean`)
+  — the property is [defined by a space](#support).
+  This is true for values in HTML (including data and ARIA), SVG, XML,
+  XMLNS, and XLink.
+  Undefined properties can only be found through `find`
 
 ### `hastToReact`
 
@@ -911,26 +911,26 @@ This package is safe.
 
 ## Related
 
-*   [`wooorm/web-namespaces`][namespace]
-    — list of web namespaces
-*   [`wooorm/space-separated-tokens`](https://github.com/wooorm/space-separated-tokens)
-    — parse/stringify space separated tokens
-*   [`wooorm/comma-separated-tokens`](https://github.com/wooorm/comma-separated-tokens)
-    — parse/stringify comma separated tokens
-*   [`wooorm/html-tag-names`](https://github.com/wooorm/html-tag-names)
-    — list of HTML tag names
-*   [`wooorm/mathml-tag-names`](https://github.com/wooorm/mathml-tag-names)
-    — list of MathML tag names
-*   [`wooorm/svg-tag-names`](https://github.com/wooorm/svg-tag-names)
-    — list of SVG tag names
-*   [`wooorm/html-void-elements`](https://github.com/wooorm/html-void-elements)
-    — list of void HTML tag names
-*   [`wooorm/svg-element-attributes`](https://github.com/wooorm/svg-element-attributes)
-    — map of SVG elements to allowed attributes
-*   [`wooorm/html-element-attributes`](https://github.com/wooorm/html-element-attributes)
-    — map of HTML elements to allowed attributes
-*   [`wooorm/aria-attributes`](https://github.com/wooorm/aria-attributes)
-    — list of ARIA attributes
+* [`wooorm/web-namespaces`][namespace]
+  — list of web namespaces
+* [`wooorm/space-separated-tokens`](https://github.com/wooorm/space-separated-tokens)
+  — parse/stringify space separated tokens
+* [`wooorm/comma-separated-tokens`](https://github.com/wooorm/comma-separated-tokens)
+  — parse/stringify comma separated tokens
+* [`wooorm/html-tag-names`](https://github.com/wooorm/html-tag-names)
+  — list of HTML tag names
+* [`wooorm/mathml-tag-names`](https://github.com/wooorm/mathml-tag-names)
+  — list of MathML tag names
+* [`wooorm/svg-tag-names`](https://github.com/wooorm/svg-tag-names)
+  — list of SVG tag names
+* [`wooorm/html-void-elements`](https://github.com/wooorm/html-void-elements)
+  — list of void HTML tag names
+* [`wooorm/svg-element-attributes`](https://github.com/wooorm/svg-element-attributes)
+  — map of SVG elements to allowed attributes
+* [`wooorm/html-element-attributes`](https://github.com/wooorm/html-element-attributes)
+  — map of HTML elements to allowed attributes
+* [`wooorm/aria-attributes`](https://github.com/wooorm/aria-attributes)
+  — list of ARIA attributes
 
 ## Contribute
 
