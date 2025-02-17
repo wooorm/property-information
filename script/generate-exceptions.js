@@ -1,5 +1,5 @@
 /**
- * @typedef {import('../lib/util/schema.js').Schema} Schema
+ * @import {Schema} from '../index.js'
  */
 
 import fs from 'node:fs/promises'
@@ -56,10 +56,12 @@ await fs.writeFile(
   new URL('../lib/hast-to-react.js', import.meta.url),
   [
     '/**',
-    ' * `hast` is close to `React`, but differs in a couple of cases.',
+    ' * Special cases for React (`Record<string, string>`).',
     ' *',
-    ' * To get a React property from a hast property, check if it is in',
-    ' * `hastToReact`, if it is, then use the corresponding value,',
+    ' * `hast` is close to `React` but differs in a couple of cases.',
+    ' * To get a React property from a hast property,',
+    ' * check if it is in `hastToReact`.',
+    ' * If it is, use the corresponding value;',
     ' * otherwise, use the hast property.',
     ' *',
     ' * @type {Record<string, string>}',

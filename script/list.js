@@ -1,8 +1,5 @@
 /**
- * @typedef {import('mdast').PhrasingContent} PhrasingContent
- * @typedef {import('mdast').Root} Root
- * @typedef {import('mdast').RowContent} RowContent
- * @typedef {import('mdast').TableRow} TableRow
+ * @import {PhrasingContent, Root, RowContent, TableRow} from 'mdast'
  */
 
 import {u} from 'unist-builder'

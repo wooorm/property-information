@@ -5,8 +5,8 @@
 [![Downloads][badge-downloads-image]][badge-downloads-url]
 [![Size][badge-size-image]][badge-size-url]
 
-Info on the properties and attributes of the web platform (HTML, SVG, ARIA, XML,
-XMLNS, XLink).
+Info on the properties and attributes of the web platform
+(HTML, SVG, ARIA, XML, XMLNS, XLink).
 
 ## Contents
 
@@ -15,12 +15,14 @@ XMLNS, XLink).
 * [Install](#install)
 * [Use](#use)
 * [API](#api)
+  * [`Info`](#info)
+  * [`Schema`](#schema)
+  * [`Space`](#space)
   * [`find(schema, name)`](#findschema-name)
-  * [`normalize(name)`](#normalizename)
-  * [`html`](#html)
-  * [`svg`](#svg)
   * [`hastToReact`](#hasttoreact)
-* [Types](#types)
+  * [`html`](#html)
+  * [`normalize(name)`](#normalizename)
+  * [`svg`](#svg)
 * [Compatibility](#compatibility)
 * [Support](#support)
 * [Security](#security)
@@ -96,41 +98,135 @@ Yields:
 
 ## API
 
-This package exports the identifiers `html`, `svg`, `find`, `normalize`,
-and `hastToReact`.
+This package exports the identifiers
+[`find`][api-find],
+[`hastToReact`][api-hast-to-react],
+[`html`][api-html],
+[`normalize`][api-normalize],
+and
+[`svg`][api-svg].
 There is no default export.
+It exports the [TypeScript][] types
+[`Info`][api-info],
+[`Schema`][api-schema],
+and
+[`Space`][api-space].
+
+### `Info`
+
+Info on a property (TypeScript type).
+
+###### Fields
+
+* `attribute` (`string`)
+  — attribute name for the property that could be used in markup
+  (such as `'aria-describedby'`, `'allowfullscreen'`, `'xml:lang'`, `'for'`,
+  or `'charoff'`)
+* `booleanish` (`boolean`)
+  — the property is *like* a `boolean`
+  (such as `draggable`);
+  these properties have both an on and off state when defined,
+  *and* another state when not defined
+* `boolean` (`boolean`)
+  — the property is a `boolean`
+  (such as `hidden`);
+  these properties have an on state when defined and an off state when not
+  defined
+* `commaOrSpaceSeparated` (`boolean`)
+  — the property is a list separated by spaces or commas
+  (such as `strokeDashArray`)
+* `commaSeparated` (`boolean`)
+  — the property is a list separated by commas
+  (such as `coords`)
+* `defined` (`boolean`)
+  — the property is [defined by a space][section-support];
+  this is the case for values in HTML
+  (including [data][mozilla-dataset] and ARIA),
+  SVG, XML, XMLNS, and XLink;
+  not defined properties can only be found through `find`
+* `mustUseProperty` (`boolean`)
+  — when working with the DOM,
+  this property has to be changed as a field on the element,
+  instead of through `setAttribute`
+  (this is true only for `'checked'`, `'multiple'`, `'muted'`, and
+  `'selected'`)
+* `number` (`boolean`)
+  — the property is a `number` (such as `height`)
+* `overloadedBoolean` (`boolean`)
+  — the property is *like* a `boolean` (such as `download`);
+  these properties have an on state *and* more states when defined and an off
+  state when not defined
+* `property` (`string`)
+  — JavaScript-style camel-cased name;
+  based on the DOM but sometimes different
+  (such as `'ariaDescribedBy'`, `'allowFullScreen'`, `'xmlLang'`, `'htmlFor'`,
+  `'charOff'`)
+* `spaceSeparated` (`boolean`)
+  — the property is a list separated by spaces
+  (such as `className`)
+* `space` ([`Space`][api-space], optional)
+  — [space][github-web-namespaces] of the property
+
+### `Schema`
+
+Schema for a primary space (TypeScript type).
+
+###### Fields
+
+* `normal` (`Record<string, string>`)
+  — object mapping normalized attributes and properties to properly cased
+  properties
+* `property` ([`Record<string, Info>`][api-info])
+  — object mapping properties to info
+* `space` (`'html'` or `'svg'`)
+  — primary space of the schema
+
+### `Space`
+
+Space of a property (TypeScript type).
+
+###### Type
+
+```ts
+type Space = 'html' | 'svg' | 'xlink' | 'xmlns' | 'xml'
+```
 
 ### `find(schema, name)`
 
 Look up info on a property.
 
-In most cases, the given `schema` contains info on the property.
-All standard, most legacy, and some non-standard properties are supported.
-For these cases, the returned [`Info`][api-info] has hints about the value of
-the property.
+In most cases the given `schema` contains info on the property.
+All standard,
+most legacy,
+and some non-standard properties are supported.
+For these cases,
+the returned [`Info`][api-info] has hints about the value of the property.
 
 `name` can also be a [valid data attribute or property][mozilla-dataset],
-in which case an [`Info`][api-info] object with the correctly cased
-`attribute` and `property` is returned.
+in which case an [`Info`][api-info] object with the correctly cased `attribute`
+and `property` is returned.
 
-`name` can be an unknown attribute, in which case an [`Info`][api-info] object
-with `attribute` and `property` set to the given name is returned.
+`name` can be an unknown attribute,
+in which case an [`Info`][api-info] object with `attribute` and `property` set
+to the given name is returned.
 It is not recommended to provide unsupported legacy or recently specced
 properties.
 
-#### Parameters
+###### Parameters
 
 * `schema` ([`Schema`][api-schema])
-  — either the `html` or `svg` export
+  — schema;
+  either the `html` or `svg` export
 * `name` (`string`)
-  — an attribute-like or property-like name that is passed through
-  [`normalize`][api-normalize] to find the correct info
+  — an attribute-like or property-like name;
+  it will be passed through
+  [`normalize`][api-normalize] to hopefully find the correct info
 
-#### Returns
+###### Returns
 
 [`Info`][api-info].
 
-#### Example
+###### Example
 
 Aside from the aforementioned example, which shows known HTML, SVG, XML, XLink,
 and ARIA support, data properties, and attributes are also supported:
@@ -148,21 +244,46 @@ console.log(find(html, 'un-Known'))
 // => {attribute: 'un-Known', property: 'un-Known'}
 ```
 
+### `hastToReact`
+
+Special cases for React (`Record<string, string>`).
+
+[`hast`][github-hast] is close to [`React`][github-react]
+but differs in a couple of cases.
+To get a React property from a hast property,
+check if it is in `hastToReact`.
+If it is, use the corresponding value;
+
+### `html`
+
+[`Schema`][api-schema] for HTML,
+with info on properties from HTML itself and related embedded spaces
+(ARIA, XML, XMLNS, XLink).
+
+###### Example
+
+```js
+console.log(html.property.htmlFor)
+// => {space: 'html', attribute: 'for', property: 'htmlFor' spaceSeparated: true}
+console.log(html.property.unknown)
+// => undefined
+```
+
 ### `normalize(name)`
 
 Get the cleaned case insensitive form of an attribute or property.
 
-#### Parameters
+###### Parameters
 
 * `name` (`string`)
   — an attribute-like or property-like name
 
-#### Returns
+###### Returns
 
-`string` that can be used to look up the properly cased property on a
+Value (`string`) that can be used to look up the properly cased property on a
 [`Schema`][api-schema].
 
-#### Example
+###### Example
 
 ```js
 html.normal[normalize('for')] // => 'htmlFor'
@@ -171,100 +292,25 @@ html.normal[normalize('unknown')] // => undefined
 html.normal[normalize('accept-charset')] // => 'acceptCharset'
 ```
 
-### `html`
-
 ### `svg`
 
-[`Schema`][api-schema] for either HTML or SVG, containing info on properties
-from the primary space (HTML or SVG) and related embedded spaces
+[`Schema`][api-schema] for SVG,
+with info on properties from SVG itself and related embedded spaces
 (ARIA, XML, XMLNS, XLink).
 
-#### Example
+###### Example
 
 ```js
-console.log(html.property.htmlFor)
-// => {space: 'html', attribute: 'for', property: 'htmlFor' spaceSeparated: true}
 console.log(svg.property.viewBox)
 // => {space: 'svg', attribute: 'viewBox', property: 'viewBox'}
-console.log(html.property.unknown)
+console.log(svg.property.unknown)
 // => undefined
 ```
-
-#### `Schema`
-
-A schema for a primary space.
-
-* `space` (`'html'` or `'svg'`)
-  — primary space of the schema
-* `normal` (`Record<string, string>`)
-  — object mapping normalized attributes and properties to properly cased
-  properties
-* `property` ([`Record<string, Info>`][api-info])
-  — object mapping properties to info
-
-#### `Info`
-
-Info on a property.
-
-* `space` (`'html'`, `'svg'`, `'xml'`, `'xlink'`, `'xmlns'`, optional)
-  — [space][github-web-namespaces] of the property
-* `attribute` (`string`)
-  — attribute name for the property that could be used in markup (for
-  example: `'aria-describedby'`, `'allowfullscreen'`, `'xml:lang'`, `'for'`,
-  or `'charoff'`)
-* `property` (`string`)
-  — JavaScript-style camel-cased name, based on the DOM, but sometimes
-  different (for example: `'ariaDescribedBy'`, `'allowFullScreen'`,
-  `'xmlLang'`, `'htmlFor'`, `'charOff'`)
-* `boolean` (`boolean`)
-  — the property is a `boolean` (for example: `hidden`).
-  These properties have an on state when defined and an off state when not
-  defined
-* `booleanish` (`boolean`)
-  — the property is like a `boolean` (for example: `draggable`)
-  These properties have both an on and off state when defined, and another
-  state when not defined
-* `overloadedBoolean` (`boolean`)
-  — the property is like a `boolean` (for example: `download`)
-  These properties have an on state plus more states when defined and an off
-  state when not defined
-* `number` (`boolean`)
-  — the property is a `number` (for example: `height`)
-* `spaceSeparated` (`boolean`)
-  — the property is a list separated by spaces (for example: `className`)
-* `commaSeparated` (`boolean`)
-  — the property is a list separated by commas (for example: `srcSet`)
-* `commaOrSpaceSeparated` (`boolean`)
-  — the property is a list separated by spaces or commas (for example:
-  `strokeDashArray`)
-* `mustUseProperty` (`boolean`)
-  — useful when working with the DOM, in which case this property has to be
-  changed as a field on the element, rather than through `setAttribute`
-  (this is true only for `'checked'`, `'multiple'`, `'muted'`, and
-  `'selected'`)
-* `defined` (`boolean`)
-  — the property is [defined by a space][section-support].
-  This is true for values in HTML (including data and ARIA), SVG, XML,
-  XMLNS, and XLink.
-  Undefined properties can only be found through `find`
-
-### `hastToReact`
-
-[hast][github-hast] is close to [React][github-react],
-but differs in a couple of cases.
-To get a React property from a hast property, check if it is in `hastToReact`
-(`Record<string, string>`), if it is, then use the corresponding value,
-otherwise, use the hast property.
-
-## Types
-
-This package is fully typed with [TypeScript][].
-It exports the additional types `Info` and `Schema`.
 
 ## Compatibility
 
 This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
+As of now, that is Node.js 14.14+.
 It also works in Deno and modern browsers.
 
 ## Support
@@ -946,11 +992,21 @@ See [*How to Contribute to Open Source*][opensource-guide].
 Derivative work based on [React][github-react-source] licensed under
 [MIT][github-react-source-license], © Facebook, Inc.
 
+[api-find]: #findschema-name
+
+[api-hast-to-react]: #hasttoreact
+
+[api-html]: #html
+
 [api-info]: #info
 
 [api-normalize]: #normalizename
 
 [api-schema]: #schema
+
+[api-space]: #space
+
+[api-svg]: #svg
 
 [badge-build-image]: https://github.com/wooorm/property-information/workflows/main/badge.svg
 
