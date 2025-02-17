@@ -1,9 +1,9 @@
 # property-information
 
-[![Build][build-badge]][build]
-[![Coverage][coverage-badge]][coverage]
-[![Downloads][downloads-badge]][downloads]
-[![Size][size-badge]][size]
+[![Build][badge-build-image]][badge-build-url]
+[![Coverage][badge-coverage-image]][badge-coverage-url]
+[![Downloads][badge-downloads-image]][badge-downloads-url]
+[![Size][badge-size-image]][badge-size-url]
 
 Info on the properties and attributes of the web platform (HTML, SVG, ARIA, XML,
 XMLNS, XLink).
@@ -33,7 +33,8 @@ XMLNS, XLink).
 This package contains lots of info on all the properties and attributes found
 on the web platform.
 It includes data on HTML, SVG, ARIA, XML, XMLNS, and XLink.
-The names of the properties follow [hast][]’s sensible naming scheme.
+The names of the properties follow [hast][github-hast-property-name]’s
+sensible naming scheme.
 It includes info on what data types attributes hold, such as whether they’re
 booleans or contain lists of space separated numbers.
 
@@ -45,8 +46,8 @@ attributes are valid, or what data types they hold.
 
 ## Install
 
-This package is [ESM only][esm].
-In Node.js (version 14.14+, 16.0+), install with [npm][]:
+This package is [ESM only][github-gist-esm].
+In Node.js (version 14+), install with [npm][npmjs-install]:
 
 ```sh
 npm install property-information
@@ -105,29 +106,29 @@ Look up info on a property.
 
 In most cases, the given `schema` contains info on the property.
 All standard, most legacy, and some non-standard properties are supported.
-For these cases, the returned [`Info`][info] has hints about the value of the
-property.
+For these cases, the returned [`Info`][api-info] has hints about the value of
+the property.
 
-`name` can also be a [valid data attribute or property][data], in which case an
-[`Info`][info] object with the correctly cased `attribute` and `property` is
-returned.
+`name` can also be a [valid data attribute or property][mozilla-dataset],
+in which case an [`Info`][api-info] object with the correctly cased
+`attribute` and `property` is returned.
 
-`name` can be an unknown attribute, in which case an [`Info`][info] object
+`name` can be an unknown attribute, in which case an [`Info`][api-info] object
 with `attribute` and `property` set to the given name is returned.
 It is not recommended to provide unsupported legacy or recently specced
 properties.
 
 #### Parameters
 
-* `schema` ([`Schema`][schema])
+* `schema` ([`Schema`][api-schema])
   — either the `html` or `svg` export
 * `name` (`string`)
   — an attribute-like or property-like name that is passed through
-  [`normalize`][normalize] to find the correct info
+  [`normalize`][api-normalize] to find the correct info
 
 #### Returns
 
-[`Info`][info].
+[`Info`][api-info].
 
 #### Example
 
@@ -159,7 +160,7 @@ Get the cleaned case insensitive form of an attribute or property.
 #### Returns
 
 `string` that can be used to look up the properly cased property on a
-[`Schema`][schema].
+[`Schema`][api-schema].
 
 #### Example
 
@@ -174,9 +175,9 @@ html.normal[normalize('accept-charset')] // => 'acceptCharset'
 
 ### `svg`
 
-[`Schema`][schema] for either HTML or SVG, containing info on properties from
-the primary space (HTML or SVG) and related embedded spaces (ARIA, XML, XMLNS,
-XLink).
+[`Schema`][api-schema] for either HTML or SVG, containing info on properties
+from the primary space (HTML or SVG) and related embedded spaces
+(ARIA, XML, XMLNS, XLink).
 
 #### Example
 
@@ -198,7 +199,7 @@ A schema for a primary space.
 * `normal` (`Record<string, string>`)
   — object mapping normalized attributes and properties to properly cased
   properties
-* `property` ([`Record<string, Info>`][info])
+* `property` ([`Record<string, Info>`][api-info])
   — object mapping properties to info
 
 #### `Info`
@@ -206,7 +207,7 @@ A schema for a primary space.
 Info on a property.
 
 * `space` (`'html'`, `'svg'`, `'xml'`, `'xlink'`, `'xmlns'`, optional)
-  — [space][namespace] of the property
+  — [space][github-web-namespaces] of the property
 * `attribute` (`string`)
   — attribute name for the property that could be used in markup (for
   example: `'aria-describedby'`, `'allowfullscreen'`, `'xml:lang'`, `'for'`,
@@ -242,14 +243,15 @@ Info on a property.
   (this is true only for `'checked'`, `'multiple'`, `'muted'`, and
   `'selected'`)
 * `defined` (`boolean`)
-  — the property is [defined by a space](#support).
+  — the property is [defined by a space][section-support].
   This is true for values in HTML (including data and ARIA), SVG, XML,
   XMLNS, and XLink.
   Undefined properties can only be found through `find`
 
 ### `hastToReact`
 
-[hast][] is close to [React][], but differs in a couple of cases.
+[hast][github-hast] is close to [React][github-react],
+but differs in a couple of cases.
 To get a React property from a hast property, check if it is in `hastToReact`
 (`Record<string, string>`), if it is, then use the corresponding value,
 otherwise, use the hast property.
@@ -911,7 +913,7 @@ This package is safe.
 
 ## Related
 
-* [`wooorm/web-namespaces`][namespace]
+* [`wooorm/web-namespaces`][github-web-namespaces]
   — list of web namespaces
 * [`wooorm/space-separated-tokens`](https://github.com/wooorm/space-separated-tokens)
   — parse/stringify space separated tokens
@@ -935,59 +937,63 @@ This package is safe.
 ## Contribute
 
 Yes please!
-See [How to Contribute to Open Source][contribute].
+See [*How to Contribute to Open Source*][opensource-guide].
 
 ## License
 
-[MIT][license] © [Titus Wormer][author]
+[MIT][file-license] © [Titus Wormer][wooorm]
 
-Derivative work based on [React][source] licensed under
-[MIT][source-license], © Facebook, Inc.
+Derivative work based on [React][github-react-source] licensed under
+[MIT][github-react-source-license], © Facebook, Inc.
 
-[build-badge]: https://github.com/wooorm/property-information/workflows/main/badge.svg
+[api-info]: #info
 
-[build]: https://github.com/wooorm/property-information/actions
+[api-normalize]: #normalizename
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/property-information.svg
+[api-schema]: #schema
 
-[coverage]: https://codecov.io/github/wooorm/property-information
+[badge-build-image]: https://github.com/wooorm/property-information/workflows/main/badge.svg
 
-[downloads-badge]: https://img.shields.io/npm/dm/property-information.svg
+[badge-build-url]: https://github.com/wooorm/property-information/actions
 
-[downloads]: https://www.npmjs.com/package/property-information
+[badge-coverage-image]: https://img.shields.io/codecov/c/github/wooorm/property-information.svg
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/property-information.svg
+[badge-coverage-url]: https://codecov.io/github/wooorm/property-information
 
-[size]: https://bundlephobia.com/result?p=property-information
+[badge-downloads-image]: https://img.shields.io/npm/dm/property-information.svg
 
-[npm]: https://docs.npmjs.com/cli/install
+[badge-downloads-url]: https://www.npmjs.com/package/property-information
+
+[badge-size-image]: https://img.shields.io/bundlejs/size/property-information
+
+[badge-size-url]: https://bundlejs.com/?q=property-information
 
 [esmsh]: https://esm.sh
 
-[author]: https://wooorm.com
+[file-license]: license
 
-[license]: license
+[github-gist-esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+[github-hast]: https://github.com/syntax-tree/hast
+
+[github-hast-property-name]: https://github.com/syntax-tree/hast#propertyname
+
+[github-react]: https://github.com/facebook/react
+
+[github-react-source]: https://github.com/facebook/react/blob/4632e36/packages/react-dom-bindings/src/shared/possibleStandardNames.js
+
+[github-react-source-license]: https://github.com/facebook/react/blob/4632e36/LICENSE
+
+[github-web-namespaces]: https://github.com/wooorm/web-namespaces
+
+[mozilla-dataset]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
+
+[npmjs-install]: https://docs.npmjs.com/cli/install
+
+[opensource-guide]: https://opensource.guide/how-to-contribute/
+
+[section-support]: #support
 
 [typescript]: https://www.typescriptlang.org
 
-[contribute]: https://opensource.guide/how-to-contribute/
-
-[source]: https://github.com/facebook/react/blob/8ec2ed4089/packages/react-dom/src/shared/DOMProperty.js
-
-[source-license]: https://github.com/facebook/react/blob/8ec2ed4089/LICENSE
-
-[data]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
-
-[namespace]: https://github.com/wooorm/web-namespaces
-
-[info]: #info
-
-[schema]: #schema
-
-[normalize]: #normalizename
-
-[react]: https://github.com/facebook/react
-
-[hast]: https://github.com/syntax-tree/hast#propertyname
+[wooorm]: https://wooorm.com

@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
-import {fetch} from 'undici'
 import alphaSort from 'alpha-sort'
 
 const response = await fetch(
