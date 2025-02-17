@@ -22,6 +22,14 @@ data.svg = process(
   text.slice(svg.index + svg[0].length, text.indexOf('}', svg.index))
 )
 
+// Was added to the wrong section.
+data.html.popover = data.svg.popover
+data.html.popovertarget = data.svg.popovertarget
+data.html.popovertargetaction = data.svg.popovertargetaction
+delete data.svg.popover
+delete data.svg.popovertarget
+delete data.svg.popovertargetaction
+
 await fs.writeFile(
   new URL('react-data.js', import.meta.url),
   [
