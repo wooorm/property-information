@@ -24,7 +24,7 @@ export default function remarkList() {
   return function (tree) {
     zone(tree, 'list', function (start, _, end) {
       const properties = all.property
-      const props = Object.keys(properties).sort()
+      const keys = Object.keys(properties).sort()
       /** @type {Array<TableRow>} */
       const rows = [
         {
@@ -37,10 +37,7 @@ export default function remarkList() {
         }
       ]
 
-      let index = -1
-
-      while (++index < props.length) {
-        const property = props[index]
+      for (const property of keys) {
         const info = properties[property]
         /** @type {Array<PhrasingContent>} */
         const spaces = []
@@ -58,14 +55,14 @@ export default function remarkList() {
         let schemaIndex = -1
 
         while (++schemaIndex < schemas.length) {
-          const propInfo = schemas[schemaIndex].property[property]
+          const info = schemas[schemaIndex].property[property]
 
-          if (propInfo && propInfo.space) {
+          if (info && info.space) {
             if (spaces.length > 0) {
               spaces.push({type: 'text', value: ', '})
             }
 
-            spaces.push({type: 'inlineCode', value: propInfo.space})
+            spaces.push({type: 'inlineCode', value: info.space})
           }
         }
 

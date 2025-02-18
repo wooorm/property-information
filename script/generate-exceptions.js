@@ -18,7 +18,7 @@ const schemas = {aria, html, svg, xlink, xmlns, xml}
 /** @type {Array<string>} */
 const reactAdditional = []
 /** @type {Record<string, string>} */
-const hastPropToReact = {}
+const hastPropertyToReact = {}
 
 for (const [type, map] of Object.entries(reactData)) {
   const info = schemas[type]
@@ -27,17 +27,17 @@ for (const [type, map] of Object.entries(reactData)) {
     if (!info.normal[normal]) {
       reactAdditional.push(normal)
     } else if (map[normal] !== info.normal[normal]) {
-      hastPropToReact[info.normal[normal]] = map[normal]
+      hastPropertyToReact[info.normal[normal]] = map[normal]
     }
   }
 }
 
 /** @type {Record<string, string>} */
 const toReact = {}
-const sorted = Object.keys(hastPropToReact).sort(alphaSort())
+const sorted = Object.keys(hastPropertyToReact).sort(alphaSort())
 
 for (const key of sorted) {
-  toReact[key] = hastPropToReact[key]
+  toReact[key] = hastPropertyToReact[key]
 }
 
 await fs.writeFile(

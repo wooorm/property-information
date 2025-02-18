@@ -50,8 +50,8 @@ await fs.writeFile(
   ].join('\n')
 )
 
-/** @param {string} doc */
-function process(doc) {
+/** @param {string} document */
+function process(document) {
   const re = /\s+(?:'([^']+)'|(\w+)): '([^']+)',/g
   /** @type {Record<string, string>} */
   const map = {}
@@ -60,7 +60,7 @@ function process(doc) {
   /** @type {RegExpMatchArray | null} */
   let match
 
-  while ((match = re.exec(doc))) {
+  while ((match = re.exec(document))) {
     map[match[1] || match[2]] = match[3]
   }
 

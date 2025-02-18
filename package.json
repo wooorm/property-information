@@ -116,8 +116,7 @@
     "rules": {
       "logical-assignment-operators": "off",
       "no-bitwise": "off",
-      "unicorn/prefer-string-replace-all": "off",
-      "unicorn/prevent-abbreviations": "off"
+      "unicorn/prefer-string-replace-all": "off"
     }
   }
 }
