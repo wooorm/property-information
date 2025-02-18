@@ -34,22 +34,26 @@ Info on the properties and attributes of the web platform
 
 This package contains lots of info on all the properties and attributes found
 on the web platform.
-It includes data on HTML, SVG, ARIA, XML, XMLNS, and XLink.
+It includes data on
+HTML, SVG, ARIA, XML, XMLNS, and XLink.
 The names of the properties follow [hast][github-hast-property-name]’s
 sensible naming scheme.
-It includes info on what data types attributes hold, such as whether they’re
-booleans or contain lists of space separated numbers.
+It includes info on what data types attributes hold,
+such as whether they’re booleans or contain lists of space separated numbers.
 
 ## When should I use this?
 
-You can use this package if you’re working with hast, which is an AST for HTML,
-or have goals related to ASTs, such as figuring out which properties or
-attributes are valid, or what data types they hold.
+You can use this package if you’re working with hast,
+which is an AST for HTML,
+or have goals related to ASTs,
+such as figuring out which properties or attributes are valid,
+or what data types they hold.
 
 ## Install
 
 This package is [ESM only][github-gist-esm].
-In Node.js (version 14+), install with [npm][npmjs-install]:
+In Node.js (version 14+),
+install with [npm][npmjs-install]:
 
 ```sh
 npm install property-information
@@ -164,7 +168,7 @@ Info on a property (TypeScript type).
 * `spaceSeparated` (`boolean`)
   — the property is a list separated by spaces
   (such as `className`)
-* `space` ([`Space`][api-space], optional)
+* `space` ([`Space`][api-space] or `undefined`)
   — [space][github-web-namespaces] of the property
 
 ### `Schema`
@@ -228,8 +232,9 @@ properties.
 
 ###### Example
 
-Aside from the aforementioned example, which shows known HTML, SVG, XML, XLink,
-and ARIA support, data properties, and attributes are also supported:
+Aside from the aforementioned example,
+which shows known HTML, SVG, XML, XLink, and ARIA support,
+data properties and attributes are also supported:
 
 ```js
 console.log(find(html, 'data-date-of-birth'))
@@ -252,7 +257,8 @@ Special cases for React (`Record<string, string>`).
 but differs in a couple of cases.
 To get a React property from a hast property,
 check if it is in `hastToReact`.
-If it is, use the corresponding value;
+If it is,
+use the corresponding value.
 
 ### `html`
 
@@ -310,7 +316,8 @@ console.log(svg.property.unknown)
 ## Compatibility
 
 This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 14.14+.
+As of now,
+that is Node.js 14+.
 It also works in Deno and modern browsers.
 
 ## Support
@@ -990,7 +997,7 @@ See [*How to Contribute to Open Source*][opensource-guide].
 [MIT][file-license] © [Titus Wormer][wooorm]
 
 Derivative work based on [React][github-react-source] licensed under
-[MIT][github-react-source-license], © Facebook, Inc.
+[MIT][github-react-source-license] © Facebook, Inc.
 
 [api-find]: #findschema-name
 
