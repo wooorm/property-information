@@ -62,14 +62,14 @@ npm install property-information
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import * as propertyInformation from 'https://esm.sh/property-information@6'
+import * as propertyInformation from 'https://esm.sh/property-information@7'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import * as propertyInformation from 'https://esm.sh/property-information@6?bundle'
+  import * as propertyInformation from 'https://esm.sh/property-information@7?bundle'
 </script>
 ```
 
