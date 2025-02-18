@@ -73,7 +73,7 @@ export interface Info {
   /**
    * Space of the property.
    */
-  space: Space | null
+  space: Space | undefined
 }
 
 /**
@@ -89,7 +89,7 @@ export interface Schema {
    * Object mapping properties to info.
    */
   property: Record<string, Info>
-  space: Space | null
+  space: Space | undefined
 }
 
 /**

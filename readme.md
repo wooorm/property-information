@@ -72,7 +72,7 @@ In browsers with [`esm.sh`][esmsh]:
 ## Use
 
 ```js
-import {html, svg, find, normalize} from 'property-information'
+import {find, html, svg} from './index.js'
 
 console.log(find(html, 'className'))
 // Or: find(html, 'class')
@@ -89,11 +89,11 @@ console.log(find(html, 'ariaValueNow'))
 Yields:
 
 ```js
-{space: 'html', attribute: 'class', property: 'className', spaceSeparated: true}
-{space: 'svg', attribute: 'horiz-adv-x', property: 'horizAdvX', number: true}
-{space: 'xlink', attribute: 'xlink:arcrole', property: 'xLinkArcrole'}
-{space: 'xml', attribute: 'xml:lang', property: 'xmlLang'}
-{attribute: 'aria-valuenow', property: 'ariaValueNow', number: true}
+{attribute: 'class', property: 'className', spaceSeparated: true, space: 'html'}
+{attribute: 'horiz-adv-x', number: true, property: 'horizAdvX', space: 'svg'}
+{attribute: 'xlink:arcrole', property: 'xLinkArcRole', space: 'xlink'}
+{attribute: 'xml:lang', property: 'xmlLang', space: 'xml'}
+{attribute: 'aria-valuenow', number: true, property: 'ariaValueNow'}
 ```
 
 ## API
@@ -264,7 +264,7 @@ with info on properties from HTML itself and related embedded spaces
 
 ```js
 console.log(html.property.htmlFor)
-// => {space: 'html', attribute: 'for', property: 'htmlFor' spaceSeparated: true}
+// => {attribute: 'for', property: 'htmlFor', spaceSeparated: true, space: 'html'}
 console.log(html.property.unknown)
 // => undefined
 ```
@@ -302,7 +302,7 @@ with info on properties from SVG itself and related embedded spaces
 
 ```js
 console.log(svg.property.viewBox)
-// => {space: 'svg', attribute: 'viewBox', property: 'viewBox'}
+// => {attribute: 'viewBox', property: 'viewBox', space: 'svg'}
 console.log(svg.property.unknown)
 // => undefined
 ```

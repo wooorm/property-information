@@ -2,7 +2,6 @@
  * @import {PhrasingContent, Root, RowContent, TableRow} from 'mdast'
  */
 
-import {u} from 'unist-builder'
 import {zone} from 'mdast-zone'
 import {xlink} from '../lib/xlink.js'
 import {xml} from '../lib/xml.js'
@@ -22,17 +21,20 @@ export default function remarkList() {
    * @returns {undefined}
    *   Nothing.
    */
-  return (tree) => {
-    zone(tree, 'list', (start, _, end) => {
+  return function (tree) {
+    zone(tree, 'list', function (start, _, end) {
       const properties = all.property
       const props = Object.keys(properties).sort()
-      /** @type {TableRow[]} */
+      /** @type {Array<TableRow>} */
       const rows = [
-        u('tableRow', [
-          u('tableCell', [u('text', 'Property')]),
-          u('tableCell', [u('text', 'Attribute')]),
-          u('tableCell', [u('text', 'Space')])
-        ])
+        {
+          type: 'tableRow',
+          children: [
+            {type: 'tableCell', children: [{type: 'text', value: 'Property'}]},
+            {type: 'tableCell', children: [{type: 'text', value: 'Attribute'}]},
+            {type: 'tableCell', children: [{type: 'text', value: 'Space'}]}
+          ]
+        }
       ]
 
       let index = -1
@@ -40,12 +42,18 @@ export default function remarkList() {
       while (++index < props.length) {
         const property = props[index]
         const info = properties[property]
-        /** @type {PhrasingContent[]} */
+        /** @type {Array<PhrasingContent>} */
         const spaces = []
-        /** @type {RowContent[]} */
+        /** @type {Array<RowContent>} */
         const fields = [
-          u('tableCell', [u('inlineCode', property)]),
-          u('tableCell', [u('inlineCode', info.attribute)])
+          {
+            type: 'tableCell',
+            children: [{type: 'inlineCode', value: property}]
+          },
+          {
+            type: 'tableCell',
+            children: [{type: 'inlineCode', value: info.attribute}]
+          }
         ]
         let schemaIndex = -1
 
@@ -54,21 +62,21 @@ export default function remarkList() {
 
           if (propInfo && propInfo.space) {
             if (spaces.length > 0) {
-              spaces.push(u('text', ', '))
+              spaces.push({type: 'text', value: ', '})
             }
 
-            spaces.push(u('inlineCode', propInfo.space))
+            spaces.push({type: 'inlineCode', value: propInfo.space})
           }
         }
 
         if (spaces.length > 0) {
-          fields.push(u('tableCell', spaces))
+          fields.push({type: 'tableCell', children: spaces})
         }
 
-        rows.push(u('tableRow', fields))
+        rows.push({type: 'tableRow', children: fields})
       }
 
-      return [start, u('table', {align: []}, rows), end]
+      return [start, {type: 'table', align: [], children: rows}, end]
     })
   }
 }

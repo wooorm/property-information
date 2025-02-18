@@ -81,6 +81,15 @@
     "overrides": [
       {
         "files": [
+          "script/**/*.js",
+          "test.js"
+        ],
+        "rules": {
+          "no-await-in-loop": "off"
+        }
+      },
+      {
+        "files": [
           "**/*.d.ts"
         ],
         "rules": {

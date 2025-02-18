@@ -4,41 +4,30 @@
 
 import fs from 'node:fs/promises'
 import alphaSort from 'alpha-sort'
-import {normalize} from '../lib/normalize.js'
-import {xlink} from '../lib/xlink.js'
-import {xml} from '../lib/xml.js'
-import {xmlns} from '../lib/xmlns.js'
 import {aria} from '../lib/aria.js'
 import {html} from '../lib/html.js'
 import {svg} from '../lib/svg.js'
+import {xlink} from '../lib/xlink.js'
+import {xmlns} from '../lib/xmlns.js'
+import {xml} from '../lib/xml.js'
 import {reactData} from './react-data.js'
 
-const own = {}.hasOwnProperty
-
-const schemas = {html, svg, aria, xlink, xml, xmlns}
+/** @type {Record<string, Schema>} */
+const schemas = {aria, html, svg, xlink, xmlns, xml}
 
 /** @type {Array<string>} */
 const reactAdditional = []
 /** @type {Record<string, string>} */
 const hastPropToReact = {}
-/** @type {string} */
-let type
 
-for (type in reactData) {
-  if (own.call(reactData, type)) {
-    const map = reactData[type]
-    /** @type {Schema} */
-    // @ts-expect-error: assume `type` matches.
-    const info = schemas[type]
-    /** @type {string} */
-    let attr
+for (const [type, map] of Object.entries(reactData)) {
+  const info = schemas[type]
 
-    for (attr in map) {
-      if (!info.normal[normalize(attr)]) {
-        reactAdditional.push(attr)
-      } else if (map[attr] !== info.normal[normalize(attr)]) {
-        hastPropToReact[info.normal[normalize(attr)]] = map[attr]
-      }
+  for (const normal of Object.keys(map)) {
+    if (!info.normal[normal]) {
+      reactAdditional.push(normal)
+    } else if (map[normal] !== info.normal[normal]) {
+      hastPropToReact[info.normal[normal]] = map[normal]
     }
   }
 }
@@ -46,10 +35,9 @@ for (type in reactData) {
 /** @type {Record<string, string>} */
 const toReact = {}
 const sorted = Object.keys(hastPropToReact).sort(alphaSort())
-let index = -1
 
-while (++index < sorted.length) {
-  toReact[sorted[index]] = hastPropToReact[sorted[index]]
+for (const key of sorted) {
+  toReact[key] = hastPropToReact[key]
 }
 
 await fs.writeFile(
@@ -66,7 +54,7 @@ await fs.writeFile(
     ' *',
     ' * @type {Record<string, string>}',
     ' */',
-    'export const hastToReact = ' + JSON.stringify(toReact, null, 2),
+    'export const hastToReact = ' + JSON.stringify(toReact, undefined, 2),
     ''
   ].join('\n')
 )

@@ -5,31 +5,32 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {htmlElementAttributes} from 'html-element-attributes'
-import {svgElementAttributes} from 'svg-element-attributes'
 import {htmlEventAttributes} from 'html-event-attributes'
+import {svgElementAttributes} from 'svg-element-attributes'
 import {svgEventAttributes} from 'svg-event-attributes'
-import {reactData} from './script/react-data.js'
-import {normalize} from './lib/normalize.js'
-import {find} from './lib/find.js'
-import {xlink} from './lib/xlink.js'
-import {xml} from './lib/xml.js'
-import {xmlns} from './lib/xmlns.js'
 import {aria} from './lib/aria.js'
-import {html} from './lib/html.js'
-import {svg} from './lib/svg.js'
-import * as information from './index.js'
+import {xlink} from './lib/xlink.js'
+import {xmlns} from './lib/xmlns.js'
+import {xml} from './lib/xml.js'
+import {reactData} from './script/react-data.js'
+import {find, html, normalize, svg} from './index.js'
 
-const own = {}.hasOwnProperty
+/** @type {Record<string, Schema>} */
+const schemas = {aria, html, svg, xlink, xmlns, xml}
 
-const schemas = {html, svg, aria, xlink, xml, xmlns}
+const htmlAttributes = [
+  ...htmlEventAttributes,
+  ...Object.values(htmlElementAttributes).flat()
+].sort()
 
-const htmlAttributes = htmlEventAttributes
-  .concat(...Object.values(htmlElementAttributes))
-  .sort()
-const svgAttributes = svgEventAttributes
-  .concat(...Object.values(svgElementAttributes))
-  .sort()
+const svgAttributes = [
+  ...svgEventAttributes,
+  ...Object.values(svgElementAttributes).flat()
+].sort()
 
+// Note: there are also values misclassified in the react data,
+// between HTML and SVG.
+// Those can be patched in `script/generate-react.js`.
 const reactIgnore = new Set([
   // React specific:
   'children',
@@ -65,13 +66,7 @@ const reactIgnore = new Set([
 
   // RDFa
   'inlist',
-  'vocab',
-
-  // These are supported, but grouped by React as SVG, even though they aren’t.
-  'prefix',
-  'results',
-  'security',
-  'unselectable'
+  'vocab'
 ])
 
 const legacy = [
@@ -128,12 +123,12 @@ const next = [
   'controlslist'
 ]
 
-// These are supported by `property-information`, but no longer or not yet in
-// the core HTML specs.
+// These are supported by `property-information`,
+// but no longer or not yet in the core HTML specs.
 const nonStandardAttributes = new Set([...legacy, ...custom, ...next])
 
 // Some SVG properties:
-const nonStandardSVGAttributes = new Set([
+const nonStandardSvgAttributes = new Set([
   'paint-order',
   'vector-effect',
 
@@ -146,401 +141,458 @@ const nonStandardSVGAttributes = new Set([
   'transform-origin'
 ])
 
-test('schema', function () {
-  assert.deepEqual(structuredClone(information.html.property.className), {
-    space: 'html',
-    attribute: 'class',
-    property: 'className',
-    spaceSeparated: true
-  })
-
-  assert.deepEqual(structuredClone(information.html.property.srcSet), {
-    space: 'html',
-    attribute: 'srcset',
-    property: 'srcSet'
-  })
-
-  assert.deepEqual(structuredClone(information.html.property.download), {
-    space: 'html',
-    attribute: 'download',
-    property: 'download',
-    overloadedBoolean: true
-  })
-
-  assert.deepEqual(structuredClone(information.html.property.xmlLang), {
-    space: 'xml',
-    attribute: 'xml:lang',
-    property: 'xmlLang'
-  })
-
-  assert.deepEqual(structuredClone(information.html.property.span), {
-    space: 'html',
-    attribute: 'span',
-    property: 'span',
-    number: true
-  })
-
-  assert.deepEqual(structuredClone(information.html.property.value), {
-    space: 'html',
-    attribute: 'value',
-    property: 'value',
-    booleanish: true
-  })
-
-  assert.deepEqual(structuredClone(information.html.property.itemScope), {
-    space: 'html',
-    attribute: 'itemscope',
-    property: 'itemScope',
-    boolean: true
+test('property-information', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+      'find',
+      'hastToReact',
+      'html',
+      'normalize',
+      'svg'
+    ])
   })
 })
 
-test('normalize', function () {
-  assert.equal(
-    information.html.normal[normalize('className')],
-    information.html.normal[normalize('class')],
-    'properties should match normalized (#1)'
+test('schema', async function (t) {
+  await t.test('should support `className`', async function () {
+    assert.deepEqual(structuredClone(html.property.className), {
+      attribute: 'class',
+      property: 'className',
+      spaceSeparated: true,
+      space: 'html'
+    })
+  })
+
+  await t.test('should support `srcSet`', async function () {
+    assert.deepEqual(structuredClone(html.property.srcSet), {
+      attribute: 'srcset',
+      property: 'srcSet',
+      space: 'html'
+    })
+  })
+
+  await t.test('should support `download`', async function () {
+    assert.deepEqual(structuredClone(html.property.download), {
+      attribute: 'download',
+      overloadedBoolean: true,
+      property: 'download',
+      space: 'html'
+    })
+  })
+
+  await t.test('should support `xmlLang`', async function () {
+    assert.deepEqual(structuredClone(html.property.xmlLang), {
+      attribute: 'xml:lang',
+      property: 'xmlLang',
+      space: 'xml'
+    })
+  })
+
+  await t.test('should support `span`', async function () {
+    assert.deepEqual(structuredClone(html.property.span), {
+      attribute: 'span',
+      number: true,
+      property: 'span',
+      space: 'html'
+    })
+  })
+
+  await t.test('should support `value`', async function () {
+    assert.deepEqual(structuredClone(html.property.value), {
+      attribute: 'value',
+      booleanish: true,
+      property: 'value',
+      space: 'html'
+    })
+  })
+
+  await t.test('should support `itemScope`', async function () {
+    assert.deepEqual(structuredClone(html.property.itemScope), {
+      attribute: 'itemscope',
+      boolean: true,
+      property: 'itemScope',
+      space: 'html'
+    })
+  })
+})
+
+test('normalize', async function (t) {
+  await t.test('should normalize properties (#1)', async function () {
+    assert.equal(
+      html.normal[normalize('className')],
+      html.normal[normalize('class')]
+    )
+  })
+
+  await t.test('should normalize properties (#2)', async function () {
+    assert.equal(
+      svg.normal[normalize('xmlLang')],
+      svg.normal[normalize('xml:lang')]
+    )
+  })
+
+  await t.test('should normalize properties (#3)', async function () {
+    assert.equal(
+      svg.normal[normalize('xLinkArcRole')],
+      svg.normal[normalize('xlink:arcrole')]
+    )
+  })
+
+  await t.test('should normalize properties (#4)', async function () {
+    assert.equal(
+      html.normal[normalize('httpEquiv')],
+      html.normal[normalize('http-equiv')]
+    )
+  })
+
+  await t.test('should normalize properties (#5)', async function () {
+    assert.equal(
+      html.normal[normalize('ariaValueNow')],
+      html.normal[normalize('aria-valuenow')]
+    )
+  })
+
+  await t.test('should normalize properties (#6)', async function () {
+    assert.equal(
+      svg.normal[normalize('glyphOrientationVertical')],
+      svg.normal[normalize('glyph-orientation-vertical')]
+    )
+  })
+
+  await t.test('should normalize properties (#7)', async function () {
+    assert.equal(
+      svg.normal[normalize('panose1')],
+      svg.normal[normalize('panose-1')]
+    )
+  })
+
+  await t.test(
+    'should keep attribute delimiters if not following a word boundary (GH-7)',
+    async function () {
+      assert.equal(normalize(':class'), ':class')
+    }
   )
 
-  assert.equal(
-    information.svg.normal[normalize('xmlLang')],
-    information.svg.normal[normalize('xml:lang')],
-    'properties should match attributes (#2)'
+  await t.test(
+    'should keep attribute delimiters if not preceding a word boundary (GH-7)',
+    async function () {
+      assert.equal(normalize('class-'), 'class-')
+    }
   )
 
-  assert.equal(
-    information.svg.normal[normalize('xLinkArcRole')],
-    information.svg.normal[normalize('xlink:arcrole')],
-    'properties should match attributes (#3)'
-  )
+  await t.test('should kep non-attribute characters (GH-7)', async function () {
+    assert.equal(normalize('[cl]a[ss]'), '[cl]a[ss]')
+  })
 
-  assert.equal(
-    information.html.normal[normalize('httpEquiv')],
-    information.html.normal[normalize('http-equiv')],
-    'properties should match attributes (#4)'
-  )
-
-  assert.equal(
-    information.html.normal[normalize('ariaValueNow')],
-    information.html.normal[normalize('aria-valuenow')],
-    'properties should match attributes (#5)'
-  )
-
-  assert.equal(
-    information.svg.normal[normalize('glyphOrientationVertical')],
-    information.svg.normal[normalize('glyph-orientation-vertical')],
-    'properties should match attributes (#6)'
-  )
-
-  assert.equal(
-    information.svg.normal[normalize('panose1')],
-    information.svg.normal[normalize('panose-1')],
-    'properties should match attributes (#7)'
-  )
-
-  assert.equal(
-    normalize(':class'),
-    ':class',
-    'attribute delimiters should remain if not following a word boundary (GH-7)'
-  )
-
-  assert.equal(
-    normalize('class-'),
-    'class-',
-    'attribute delimiters should remain if not preceding a word boundary (GH-7)'
-  )
-
-  assert.equal(
-    normalize('class-name'),
-    'class-name',
-    'attribute delimiters should remain otherwise it will be handled as a different known property called className (GH-12)'
-  )
-
-  assert.equal(
-    normalize('[cl]a[ss]'),
-    '[cl]a[ss]',
-    'non-attribute characters should not be removed (GH-7)'
-  )
+  await t.test('should keep attribute delimiters (GH-12)', async function () {
+    assert.equal(normalize('class-name'), 'class-name')
+  })
 })
 
 test('find', async function (t) {
-  assert.deepEqual(
-    structuredClone(find(information.html, 'for')),
-    {
-      space: 'html',
+  await t.test('should find known info by attribute', async function () {
+    assert.deepEqual(structuredClone(find(html, 'for')), {
       attribute: 'for',
       property: 'htmlFor',
-      spaceSeparated: true
-    },
-    'should find knowns by attribute'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'htmlFor')),
-    {
-      space: 'html',
-      attribute: 'for',
-      property: 'htmlFor',
-      spaceSeparated: true
-    },
-    'should find knowns by property'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'FoR')),
-    {
-      space: 'html',
-      attribute: 'for',
-      property: 'htmlFor',
-      spaceSeparated: true
-    },
-    'should find knowns by weirdly cased attribute'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'hTMLfOR')),
-    {
-      space: 'html',
-      attribute: 'for',
-      property: 'htmlFor',
-      spaceSeparated: true
-    },
-    'should find knowns by weirdly cased property'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'xml:lang')),
-    {space: 'xml', attribute: 'xml:lang', property: 'xmlLang'},
-    'should find XML knowns by attribute'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'xmlLang')),
-    {space: 'xml', attribute: 'xml:lang', property: 'xmlLang'},
-    'should find knowns by property'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'xlink:arcrole')),
-    {space: 'xlink', attribute: 'xlink:arcrole', property: 'xLinkArcRole'},
-    'should find XLink knowns by attribute'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'xLinkArcRole')),
-    {space: 'xlink', attribute: 'xlink:arcrole', property: 'xLinkArcRole'},
-    'should find XLink knowns by property'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'xmlns:xlink')),
-    {space: 'xmlns', attribute: 'xmlns:xlink', property: 'xmlnsXLink'},
-    'should find XMLNS knowns by attribute'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'xmlnsXLink')),
-    {space: 'xmlns', attribute: 'xmlns:xlink', property: 'xmlnsXLink'},
-    'should find XMLNS knowns by property'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'aria-valuenow')),
-    {attribute: 'aria-valuenow', property: 'ariaValueNow', number: true},
-    'should find aria attributes'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'ariaValueNow')),
-    {attribute: 'aria-valuenow', property: 'ariaValueNow', number: true},
-    'should find aria properties'
-  )
-
-  assert.deepEqual(
-    structuredClone(find(information.html, 'class-name')),
-    {attribute: 'class-name', property: 'class-name'},
-    'should not handle class-name as class property (GH-12)'
-  )
-
-  await t.test('data', function () {
-    const mapping = {
-      'data-alpha': 'dataAlpha',
-      'data-bravo-charlie': 'dataBravoCharlie',
-      'data-delta:echo': 'dataDelta:echo',
-      'data-foxtrot.golf': 'dataFoxtrot.golf',
-      'data-hotel_india': 'dataHotel_india',
-      'data-1-juliett': 'data1Juliett',
-      'data-2.kilo': 'data2.kilo',
-      'data-3-lima': 'data3Lima',
-      'data-4:5': 'data4:5',
-      'data-6-7': 'data6-7',
-      'data-mike-1': 'dataMike-1',
-      'data-november-1-2': 'dataNovember-1-2'
-    }
-    let index = -1
-    /** @type {keyof mapping} */
-    let attribute
-
-    for (attribute in mapping) {
-      if (own.call(mapping, attribute)) {
-        const property = mapping[attribute]
-        index++
-
-        assert.deepEqual(
-          structuredClone(find(information.html, attribute)),
-          {attribute, property},
-          'should find data (#' + index + ', attribute)'
-        )
-
-        assert.deepEqual(
-          structuredClone(find(information.html, property)),
-          {attribute, property},
-          'should find data (#' + index + ', property)'
-        )
-      }
-    }
-
-    assert.deepEqual(
-      structuredClone(find(information.html, 'dataFoo-bar')),
-      {attribute: 'dataFoo-bar', property: 'dataFoo-bar'},
-      'should ignore invalid properties'
-    )
-
-    assert.deepEqual(
-      structuredClone(find(information.html, 'data!Foo-bar')),
-      {attribute: 'data!Foo-bar', property: 'data!Foo-bar'},
-      'should ignore invalid attributes'
-    )
+      spaceSeparated: true,
+      space: 'html'
+    })
   })
 
-  assert.deepEqual(
-    structuredClone(find(information.html, 'foo')),
-    {attribute: 'foo', property: 'foo'},
-    'should find unknown values (#1)'
+  await t.test('should find known info by property', async function () {
+    assert.deepEqual(structuredClone(find(html, 'htmlFor')), {
+      attribute: 'for',
+      property: 'htmlFor',
+      spaceSeparated: true,
+      space: 'html'
+    })
+  })
+
+  await t.test(
+    'should find known info by weirdly cased attribute',
+    async function () {
+      assert.deepEqual(structuredClone(find(html, 'FoR')), {
+        attribute: 'for',
+        property: 'htmlFor',
+        spaceSeparated: true,
+        space: 'html'
+      })
+    }
   )
 
-  assert.deepEqual(
-    structuredClone(find(information.html, 'Bar')),
-    {attribute: 'Bar', property: 'Bar'},
-    'should find unknown values (#2)'
+  await t.test(
+    'should find known info by weirdly cased property',
+    async function () {
+      assert.deepEqual(structuredClone(find(html, 'hTMLfOR')), {
+        attribute: 'for',
+        property: 'htmlFor',
+        spaceSeparated: true,
+        space: 'html'
+      })
+    }
   )
 
-  assert.deepEqual(
-    structuredClone(find(information.html, 'BAZ')),
-    {attribute: 'BAZ', property: 'BAZ'},
-    'should find unknown values (#3)'
-  )
+  await t.test('should find known XML info by attribute', async function () {
+    assert.deepEqual(structuredClone(find(html, 'xml:lang')), {
+      attribute: 'xml:lang',
+      property: 'xmlLang',
+      space: 'xml'
+    })
+  })
 
-  assert.deepEqual(
-    structuredClone(find(information.html, 'QuX')),
-    {attribute: 'QuX', property: 'QuX'},
-    'should find unknown values (#4)'
-  )
+  await t.test('should find known XML info by property', async function () {
+    assert.deepEqual(structuredClone(find(html, 'xmlLang')), {
+      attribute: 'xml:lang',
+      property: 'xmlLang',
+      space: 'xml'
+    })
+  })
 
-  assert.equal(
-    find(information.html, 'id').defined,
-    true,
-    'should mark known properties as defined'
-  )
+  await t.test('should find known XLink info by attribute', async function () {
+    assert.deepEqual(structuredClone(find(html, 'xlink:arcrole')), {
+      attribute: 'xlink:arcrole',
+      property: 'xLinkArcRole',
+      space: 'xlink'
+    })
+  })
 
-  assert.equal(
-    find(information.html, 'data-x').defined,
-    true,
-    'should mark data properties as defined'
-  )
+  await t.test('should find known XLink info by property', async function () {
+    assert.deepEqual(structuredClone(find(html, 'xLinkArcRole')), {
+      attribute: 'xlink:arcrole',
+      property: 'xLinkArcRole',
+      space: 'xlink'
+    })
+  })
 
-  assert.equal(
-    find(information.html, 'foo').defined,
-    false,
-    'should mark undefined properties'
+  await t.test('should find known XMLNS info by attribute', async function () {
+    assert.deepEqual(structuredClone(find(html, 'xmlns:xlink')), {
+      attribute: 'xmlns:xlink',
+      property: 'xmlnsXLink',
+      space: 'xmlns'
+    })
+  })
+
+  await t.test('should find known XMLNS info by property', async function () {
+    assert.deepEqual(structuredClone(find(html, 'xmlnsXLink')), {
+      attribute: 'xmlns:xlink',
+      property: 'xmlnsXLink',
+      space: 'xmlns'
+    })
+  })
+
+  await t.test('should find known aria info by attribute', async function () {
+    assert.deepEqual(structuredClone(find(html, 'aria-valuenow')), {
+      attribute: 'aria-valuenow',
+      number: true,
+      property: 'ariaValueNow'
+    })
+  })
+
+  await t.test('should find known aria info by property', async function () {
+    assert.deepEqual(structuredClone(find(html, 'ariaValueNow')), {
+      attribute: 'aria-valuenow',
+      number: true,
+      property: 'ariaValueNow'
+    })
+  })
+
+  /** @type {Record<string, string>} */
+  const mapping = {
+    'data-alpha': 'dataAlpha',
+    'data-bravo-charlie': 'dataBravoCharlie',
+    'data-delta:echo': 'dataDelta:echo',
+    'data-foxtrot.golf': 'dataFoxtrot.golf',
+    'data-hotel_india': 'dataHotel_india',
+    'data-1-juliett': 'data1Juliett',
+    'data-2.kilo': 'data2.kilo',
+    'data-3-lima': 'data3Lima',
+    'data-4:5': 'data4:5',
+    'data-6-7': 'data6-7',
+    'data-mike-1': 'dataMike-1',
+    'data-november-1-2': 'dataNovember-1-2'
+  }
+
+  for (const [attribute, property] of Object.entries(mapping)) {
+    await t.test(
+      'should find data info by attribute (`' + attribute + '`)',
+      async function () {
+        assert.deepEqual(structuredClone(find(html, attribute)), {
+          attribute,
+          property
+        })
+      }
+    )
+
+    await t.test(
+      'should find data info by property (`' + property + '`)',
+      async function () {
+        assert.deepEqual(structuredClone(find(html, property)), {
+          attribute,
+          property
+        })
+      }
+    )
+  }
+
+  await t.test('should find unknown data values (#1)', async function () {
+    assert.deepEqual(structuredClone(find(html, 'dataFoo-bar')), {
+      attribute: 'dataFoo-bar',
+      property: 'dataFoo-bar'
+    })
+  })
+
+  await t.test('should find unknown data values (#2)', async function () {
+    assert.deepEqual(structuredClone(find(html, 'data!Foo-bar')), {
+      attribute: 'data!Foo-bar',
+      property: 'data!Foo-bar'
+    })
+  })
+
+  await t.test('should find unknown values (#3)', async function () {
+    assert.deepEqual(structuredClone(find(html, 'foo')), {
+      attribute: 'foo',
+      property: 'foo'
+    })
+  })
+
+  await t.test('should find unknown values (#4)', async function () {
+    assert.deepEqual(structuredClone(find(html, 'Bar')), {
+      attribute: 'Bar',
+      property: 'Bar'
+    })
+  })
+
+  await t.test('should find unknown values (#5)', async function () {
+    assert.deepEqual(structuredClone(find(html, 'BAZ')), {
+      attribute: 'BAZ',
+      property: 'BAZ'
+    })
+  })
+
+  await t.test('should find unknown values (#6)', async function () {
+    assert.deepEqual(structuredClone(find(html, 'QuX')), {
+      attribute: 'QuX',
+      property: 'QuX'
+    })
+  })
+
+  await t.test('should mark known properties as defined', async function () {
+    assert.equal(find(html, 'id').defined, true)
+  })
+
+  await t.test('should mark data properties as defined', async function () {
+    assert.equal(find(html, 'data-x').defined, true)
+  })
+
+  await t.test(
+    'should mark undefined properties as not defined',
+    async function () {
+      assert.equal(find(html, 'foo').defined, false)
+    }
   )
 })
 
-test('html', function () {
-  // Does this throw an error?
-  // Then an attribute was likely recently added to HTML.
-  // The solution is probably to define it in `lib/html.js`.
-  assert.doesNotThrow(function () {
-    let index = -1
-    while (++index < htmlAttributes.length) {
-      assert(
-        normalize(htmlAttributes[index]) in information.html.normal,
-        htmlAttributes[index]
-      )
+test('html', async function (t) {
+  await t.test('should know standard HTML attributes', async function () {
+    // Does this throw an error?
+    // Then an attribute was likely recently added to HTML:
+    // either through `html-element-attributes` or `html-event-attributes`.
+    // The solution is probably to define it in `lib/html.js`.
+    for (const attribute of htmlAttributes) {
+      assert(attribute in html.normal, attribute)
     }
-  }, 'known HTML attributes should be defined')
+  })
 
-  assert.doesNotThrow(function () {
-    const info = Object.keys(information.html.property)
-      .map((prop) => information.html.property[prop])
-      .filter((info) => info.space === 'html')
-    let index = -1
-
-    while (++index < info.length) {
-      assert(
-        htmlAttributes.includes(info[index].attribute) ||
-          nonStandardAttributes.has(info[index].attribute),
-        info[index].attribute + ' should be known or marked as non-standard'
-      )
-    }
-  }, 'Defined HTML attributes should be known')
-})
-
-test('svg', function () {
-  assert.doesNotThrow(function () {
-    // Ignore these. In tiny they’re cased. In SVG2 they’re lowercase.
-    const ignore = new Set(['playbackOrder', 'timelineBegin'])
-    let index = -1
-
-    while (++index < svgAttributes.length) {
-      if (!ignore.has(svgAttributes[index])) {
-        assert(
-          normalize(svgAttributes[index]) in information.svg.normal,
-          svgAttributes[index]
-        )
+  await t.test(
+    'should not know standard attributes as nonstandard',
+    async function () {
+      // Does this throw an error?
+      // Then a previously nonstandard attribute is now in HTML.
+      // It can be removed from `nonStandardAttributes`.
+      for (const attribute of nonStandardAttributes) {
+        assert(!htmlAttributes.includes(attribute), attribute)
       }
     }
-  }, 'known SVG attributes should be defined')
+  )
 
-  assert.doesNotThrow(function () {
-    const info = Object.keys(information.svg.property)
-      .map((prop) => information.svg.property[prop])
-      .filter((info) => info.space === 'svg')
-    let index = -1
+  await t.test('should not know undefined attributes', async function () {
+    // Does this throw an error?
+    // Then an attribute in this project is *not* in HTML.
+    // If it is supposed to be here,
+    // add it to `nonStandardAttributes`.
+    for (const info of Object.values(html.property)) {
+      if (info.space === 'html') {
+        if (nonStandardAttributes.has(info.attribute)) continue
 
-    while (++index < info.length) {
-      const defined =
-        svgAttributes.includes(info[index].attribute) ||
-        nonStandardSVGAttributes.has(info[index].attribute)
-      assert(defined, info[index].attribute + ' is not known')
+        assert(htmlAttributes.includes(info.attribute), info.attribute)
+      }
     }
-  }, 'Defined SVG attributes should be known')
+  })
 })
 
-test('react', function () {
-  /** @type {string} */
-  let type
-
-  for (type in reactData) {
-    if (own.call(reactData, type)) {
-      assert.doesNotThrow(
-        function () {
-          /** @type {Record<string, string>} */
-          const data = reactData[type]
-          /** @type {string} */
-          let attr
-
-          for (attr in data) {
-            if (!reactIgnore.has(attr)) {
-              /** @type {Schema} */
-              // @ts-expect-error: hush
-              const schema = schemas[type]
-              assert(normalize(attr) in schema.normal, attr)
-            }
-          }
-        },
-        'known ' + type + ' properties should be defined'
-      )
+test('svg', async function (t) {
+  await t.test('should know standard SVG attributes', async function () {
+    // Does this throw an error?
+    // Then an attribute was likely recently added to SVG:
+    // either through `svg-element-attributes` or `vg-event-attributes`.
+    // The solution is probably to define it in `lib/svg.js`.
+    for (const attribute of svgAttributes) {
+      assert(normalize(attribute) in svg.normal, attribute)
     }
-  }
+  })
+
+  await t.test(
+    'should not know standard attributes as nonstandard',
+    async function () {
+      // Does this throw an error?
+      // Then a previously nonstandard attribute is now in SVG.
+      // It can be removed from `nonStandardSvgAttributes`.
+      for (const attribute of nonStandardSvgAttributes) {
+        assert(!svgAttributes.includes(attribute), attribute)
+      }
+    }
+  )
+
+  await t.test('should not know undefined attributes', async function () {
+    // Does this throw an error?
+    // Then an attribute in this project is *not* in SVG.
+    // If it is supposed to be here,
+    // add it to `nonStandardSvgAttributes`.
+    for (const info of Object.values(svg.property)) {
+      if (info.space === 'svg') {
+        if (nonStandardSvgAttributes.has(info.attribute)) continue
+        assert(svgAttributes.includes(info.attribute), info.attribute)
+      }
+    }
+  })
+})
+
+test('react', async function (t) {
+  await t.test('should know react props', async function () {
+    for (const [type, data] of Object.entries(reactData)) {
+      const schema = schemas[type]
+      assert(schema, type)
+
+      for (const normal of Object.keys(data)) {
+        if (reactIgnore.has(normal)) continue
+        assert(normal in schema.normal, normal)
+      }
+    }
+  })
+
+  await t.test(
+    'should not know standard attributes as nonstandard',
+    async function () {
+      /** @type {Record<string, string>} */
+      const normals = {}
+
+      for (const schema of Object.values(schemas)) {
+        Object.assign(normals, schema.normal)
+      }
+
+      for (const normal of reactIgnore) {
+        assert(!(normal in normals), normal)
+      }
+    }
+  )
 })
