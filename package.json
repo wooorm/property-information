@@ -25,6 +25,7 @@
     "unist-builder": "^4.0.0",
     "xo": "^0.60.0"
   },
+  "exports": "./index.js",
   "files": [
     "index.d.ts",
     "index.js",
@@ -44,7 +45,6 @@
     "svg"
   ],
   "license": "MIT",
-  "main": "index.js",
   "name": "property-information",
   "prettier": {
     "bracketSpacing": false,
@@ -74,7 +74,6 @@
     "atLeast": 100,
     "ignoreCatch": true
   },
-  "types": "index.d.ts",
   "type": "module",
   "version": "6.5.0",
   "xo": {

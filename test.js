@@ -1,11 +1,12 @@
 /**
- * @import {Schema} from './index.js'
+ * @import {Schema} from 'property-information'
  */
 
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {htmlElementAttributes} from 'html-element-attributes'
 import {htmlEventAttributes} from 'html-event-attributes'
+import {find, html, normalize, svg} from 'property-information'
 import {svgElementAttributes} from 'svg-element-attributes'
 import {svgEventAttributes} from 'svg-event-attributes'
 import {aria} from './lib/aria.js'
@@ -13,7 +14,6 @@ import {xlink} from './lib/xlink.js'
 import {xmlns} from './lib/xmlns.js'
 import {xml} from './lib/xml.js'
 import {reactData} from './script/react-data.js'
-import {find, html, normalize, svg} from './index.js'
 
 /** @type {Record<string, Schema>} */
 const schemas = {aria, html, svg, xlink, xmlns, xml}
@@ -143,7 +143,7 @@ const nonStandardSvgAttributes = new Set([
 
 test('property-information', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+    assert.deepEqual(Object.keys(await import('property-information')).sort(), [
       'find',
       'hastToReact',
       'html',

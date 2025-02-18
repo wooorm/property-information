@@ -1,5 +1,5 @@
 /**
- * @import {Schema} from '../index.js'
+ * @import {Schema} from 'property-information'
  */
 
 import fs from 'node:fs/promises'

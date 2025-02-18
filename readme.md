@@ -76,7 +76,7 @@ In browsers with [`esm.sh`][esmsh]:
 ## Use
 
 ```js
-import {find, html, svg} from './index.js'
+import {find, html, svg} from 'property-information'
 
 console.log(find(html, 'className'))
 // Or: find(html, 'class')
