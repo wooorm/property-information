@@ -499,7 +499,7 @@ test('html', async function (t) {
     // either through `html-element-attributes` or `html-event-attributes`.
     // The solution is probably to define it in `lib/html.js`.
     for (const attribute of htmlAttributes) {
-      assert(attribute in html.normal, attribute)
+      assert.ok(attribute in html.normal, attribute)
     }
   })
 
@@ -510,7 +510,7 @@ test('html', async function (t) {
       // Then a previously nonstandard attribute is now in HTML.
       // It can be removed from `nonStandardAttributes`.
       for (const attribute of nonStandardAttributes) {
-        assert(!htmlAttributes.includes(attribute), attribute)
+        assert.ok(!htmlAttributes.includes(attribute), attribute)
       }
     }
   )
@@ -524,7 +524,7 @@ test('html', async function (t) {
       if (info.space === 'html') {
         if (nonStandardAttributes.has(info.attribute)) continue
 
-        assert(htmlAttributes.includes(info.attribute), info.attribute)
+        assert.ok(htmlAttributes.includes(info.attribute), info.attribute)
       }
     }
   })
@@ -537,7 +537,7 @@ test('svg', async function (t) {
     // either through `svg-element-attributes` or `vg-event-attributes`.
     // The solution is probably to define it in `lib/svg.js`.
     for (const attribute of svgAttributes) {
-      assert(normalize(attribute) in svg.normal, attribute)
+      assert.ok(normalize(attribute) in svg.normal, attribute)
     }
   })
 
@@ -548,7 +548,7 @@ test('svg', async function (t) {
       // Then a previously nonstandard attribute is now in SVG.
       // It can be removed from `nonStandardSvgAttributes`.
       for (const attribute of nonStandardSvgAttributes) {
-        assert(!svgAttributes.includes(attribute), attribute)
+        assert.ok(!svgAttributes.includes(attribute), attribute)
       }
     }
   )
@@ -561,7 +561,7 @@ test('svg', async function (t) {
     for (const info of Object.values(svg.property)) {
       if (info.space === 'svg') {
         if (nonStandardSvgAttributes.has(info.attribute)) continue
-        assert(svgAttributes.includes(info.attribute), info.attribute)
+        assert.ok(svgAttributes.includes(info.attribute), info.attribute)
       }
     }
   })
@@ -571,11 +571,11 @@ test('react', async function (t) {
   await t.test('should know react props', async function () {
     for (const [type, data] of Object.entries(reactData)) {
       const schema = schemas[type]
-      assert(schema, type)
+      assert.ok(schema, type)
 
       for (const normal of Object.keys(data)) {
         if (reactIgnore.has(normal)) continue
-        assert(normal in schema.normal, normal)
+        assert.ok(normal in schema.normal, normal)
       }
     }
   })
@@ -591,7 +591,7 @@ test('react', async function (t) {
       }
 
       for (const normal of reactIgnore) {
-        assert(!(normal in normals), normal)
+        assert.ok(!(normal in normals), normal)
       }
     }
   )
