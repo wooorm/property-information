@@ -88,9 +88,6 @@ const legacy = [
 const custom = [
   // Iframes, supported everywhere
   'allowtransparency',
-  // `autoCorrect` is supported in Mobile Safari for keyboard hints.
-  // https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/Attributes.html#//apple_ref/doc/uid/TP40008058-autocorrect
-  'autocorrect',
   // `autoSave` allows WebKit/Blink to persist values of input fields on page reloads.
   // https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/Attributes.html#//apple_ref/doc/uid/TP40008058-autosave
   'autosave',
@@ -120,7 +117,10 @@ const next = [
   'capture',
   // Show or hide control buttons on audio/video elements:
   // https://developers.google.com/web/updates/2017/03/chrome-58-media-updates#controlslist
-  'controlslist'
+  'controlslist',
+  // Iframe credentialless:
+  // https://wicg.github.io/anonymous-iframe/
+  'credentialless'
 ]
 
 // These are supported by `property-information`,
@@ -138,7 +138,10 @@ const nonStandardSvgAttributes = new Set([
   'pitch',
 
   // https://github.com/facebook/react/pull/26115.
-  'transform-origin'
+  'transform-origin',
+
+  // https://github.com/facebook/react/pull/35921.
+  'mask-type'
 ])
 
 test('property-information', async function (t) {
@@ -575,7 +578,7 @@ test('react', async function (t) {
 
       for (const normal of Object.keys(data)) {
         if (reactIgnore.has(normal)) continue
-        assert.ok(normal in schema.normal, normal)
+        assert.ok(normal in schema.normal, type + ': ' + normal)
       }
     }
   })
