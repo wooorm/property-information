@@ -13,10 +13,10 @@ const svg = text.match(/\/\/ SVG\s*?\n/)
 /** @type {Record<string, Record<string, string>>}  */
 const data = {}
 
-assert(html)
-assert(html.index)
-assert(svg)
-assert(svg.index)
+assert.ok(html)
+assert.ok(html.index)
+assert.ok(svg)
+assert.ok(svg.index)
 
 data.html = process(text.slice(html.index + html[0].length, svg.index))
 data.svg = process(

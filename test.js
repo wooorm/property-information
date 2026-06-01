@@ -88,9 +88,6 @@ const legacy = [
 const custom = [
   // Iframes, supported everywhere
   'allowtransparency',
-  // `autoCorrect` is supported in Mobile Safari for keyboard hints.
-  // https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/Attributes.html#//apple_ref/doc/uid/TP40008058-autocorrect
-  'autocorrect',
   // `autoSave` allows WebKit/Blink to persist values of input fields on page reloads.
   // https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/Attributes.html#//apple_ref/doc/uid/TP40008058-autosave
   'autosave',
@@ -120,7 +117,10 @@ const next = [
   'capture',
   // Show or hide control buttons on audio/video elements:
   // https://developers.google.com/web/updates/2017/03/chrome-58-media-updates#controlslist
-  'controlslist'
+  'controlslist',
+  // Iframe credentialless:
+  // https://wicg.github.io/anonymous-iframe/
+  'credentialless'
 ]
 
 // These are supported by `property-information`,
@@ -138,7 +138,10 @@ const nonStandardSvgAttributes = new Set([
   'pitch',
 
   // https://github.com/facebook/react/pull/26115.
-  'transform-origin'
+  'transform-origin',
+
+  // https://github.com/facebook/react/pull/35921.
+  'mask-type'
 ])
 
 test('property-information', async function (t) {
@@ -499,7 +502,7 @@ test('html', async function (t) {
     // either through `html-element-attributes` or `html-event-attributes`.
     // The solution is probably to define it in `lib/html.js`.
     for (const attribute of htmlAttributes) {
-      assert(attribute in html.normal, attribute)
+      assert.ok(attribute in html.normal, attribute)
     }
   })
 
@@ -510,7 +513,7 @@ test('html', async function (t) {
       // Then a previously nonstandard attribute is now in HTML.
       // It can be removed from `nonStandardAttributes`.
       for (const attribute of nonStandardAttributes) {
-        assert(!htmlAttributes.includes(attribute), attribute)
+        assert.ok(!htmlAttributes.includes(attribute), attribute)
       }
     }
   )
@@ -524,7 +527,7 @@ test('html', async function (t) {
       if (info.space === 'html') {
         if (nonStandardAttributes.has(info.attribute)) continue
 
-        assert(htmlAttributes.includes(info.attribute), info.attribute)
+        assert.ok(htmlAttributes.includes(info.attribute), info.attribute)
       }
     }
   })
@@ -537,7 +540,7 @@ test('svg', async function (t) {
     // either through `svg-element-attributes` or `vg-event-attributes`.
     // The solution is probably to define it in `lib/svg.js`.
     for (const attribute of svgAttributes) {
-      assert(normalize(attribute) in svg.normal, attribute)
+      assert.ok(normalize(attribute) in svg.normal, attribute)
     }
   })
 
@@ -548,7 +551,7 @@ test('svg', async function (t) {
       // Then a previously nonstandard attribute is now in SVG.
       // It can be removed from `nonStandardSvgAttributes`.
       for (const attribute of nonStandardSvgAttributes) {
-        assert(!svgAttributes.includes(attribute), attribute)
+        assert.ok(!svgAttributes.includes(attribute), attribute)
       }
     }
   )
@@ -561,7 +564,7 @@ test('svg', async function (t) {
     for (const info of Object.values(svg.property)) {
       if (info.space === 'svg') {
         if (nonStandardSvgAttributes.has(info.attribute)) continue
-        assert(svgAttributes.includes(info.attribute), info.attribute)
+        assert.ok(svgAttributes.includes(info.attribute), info.attribute)
       }
     }
   })
@@ -571,11 +574,11 @@ test('react', async function (t) {
   await t.test('should know react props', async function () {
     for (const [type, data] of Object.entries(reactData)) {
       const schema = schemas[type]
-      assert(schema, type)
+      assert.ok(schema, type)
 
       for (const normal of Object.keys(data)) {
         if (reactIgnore.has(normal)) continue
-        assert(normal in schema.normal, normal)
+        assert.ok(normal in schema.normal, type + ': ' + normal)
       }
     }
   })
@@ -591,7 +594,7 @@ test('react', async function (t) {
       }
 
       for (const normal of reactIgnore) {
-        assert(!(normal in normals), normal)
+        assert.ok(!(normal in normals), normal)
       }
     }
   )
